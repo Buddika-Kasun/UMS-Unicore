@@ -1,5 +1,9 @@
+import WelcomePage from "./welcome-page/page";
+
 const Home = () => {
-  return <div>Hello World!</div>;
+  return (
+    <WelcomePage />
+  );
 };
 
 export default Home;
