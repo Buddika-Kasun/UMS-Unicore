@@ -3,5 +3,23 @@
 }
 
 body{
-    background-color: var(--bgColor);
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Laptops (900px to 1200px) */
+@media (max-width: 1200px) {
+    
+}
+
+/* Tablets (600px to 900px) */
+@media (max-width: 900px) {
+    
+}
+
+/* Smartphones (up to 600px) */
+@media (max-width: 600px) {
+    
 }

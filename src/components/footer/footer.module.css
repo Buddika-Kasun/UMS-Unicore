@@ -1,0 +1,26 @@
+.container{
+    font-size: 12px;
+    color: gray;
+    background-color: rgba(17, 101, 212, 10%);
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 0 -10px 10px -5px rgba(17, 101, 212, 10%); */
+}
+
+/* Laptops (900px to 1200px) */
+@media (max-width: 1200px) {
+    
+}
+
+/* Tablets (600px to 900px) */
+@media (max-width: 900px) {
+    
+}
+
+/* Smartphones (up to 600px) */
+@media (max-width: 600px) {
+    
+}

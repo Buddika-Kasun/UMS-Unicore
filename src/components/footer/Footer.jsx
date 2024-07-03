@@ -1,6 +1,8 @@
+import style from "./footer.module.css";
+
 const Footer = () => {
     return (
-        <div>Footer Bar</div>
+        <div className={style.container}>All Right Reserved</div>
     )
 }
 
