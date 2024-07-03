@@ -1,5 +1,5 @@
 import Link from "next/link";
-import style from "./welcome2.module.css";
+import style from "./welcome.module.css";
 
 const WelcomePage = () => {
     return (
