@@ -1,15 +1,7 @@
-:root{
-    --bgColor: gray;
-}
-
-body{
-    background-color: white;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
 /* XX-Small Devices (small phones, <380px) */
+.container{
+    
+}
  
 /* X-Small Devices (phones, ≥380px) */
 @media (min-width: 380px) {
@@ -30,3 +22,9 @@ body{
 @media (min-width: 992px) {
     
 }
+
+/* X-Large Devices (desktops, ≥1400px) */
+@media (min-width: 1400px) {
+    
+}
+  
