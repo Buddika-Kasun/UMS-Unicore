@@ -1,8 +1,12 @@
+"use client"
+
 import Link from "next/link";
 import style from "./welcome.module.css";
+import Footer from "@/components/footer/Footer";
 
 const WelcomePage = () => {
     return (
+        <>
         <div className={style.container}>
             <div className={style.imageContainer}>
                 <img src="/logo.png" alt="" />
@@ -20,6 +24,8 @@ const WelcomePage = () => {
                 <Link href={'/register'} className={style.button}>Register</Link>
             </div>
         </div>
+        <Footer />
+        </>
     )
 }
 

@@ -17,7 +17,6 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         {children}
-        {/* <Footer /> */}
       </body>
     </html>
   )
