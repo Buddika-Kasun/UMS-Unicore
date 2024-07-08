@@ -31,10 +31,23 @@ const AuthPage = () => {
                 </div>
 
                 <div className={`${style.childContainer} ${isLogin? style.deactiveLoginContainer : style.activeLoginContainer}`}>
-                    <div className={style.h}>Log In</div>
+                    <div className={style.h}>Welcome to UniCore</div>
                     <form action="#" className={style.form}>
-                        aaaa
-                        <Link href={"/auth?mode=register"}>Create</Link>
+                        <div className={style.field}>
+                            <label>User Name</label>
+                            <input type="text" name="uName" placeholder="Enter your user name" required />   
+                        </div>
+                        <div className={style.field}>
+                            <label>Password</label>
+                            <input type="password" name="pw" placeholder="Enter your password" required /> 
+                        </div>
+                        <div className={style.btns}>
+                            <button type="submit" className={style.loginBtn}>Log in</button>
+                            <span>
+                                Don’t have an account? &nbsp;
+                                <Link href={"/auth?mode=register"} className={style.registerBtn}>Sign up</Link>
+                            </span>
+                        </div>
                     </form>
                     <div className={style.footer}>All Right Reserved</div>
                 </div>
