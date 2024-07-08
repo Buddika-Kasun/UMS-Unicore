@@ -1,0 +1,45 @@
+.container {
+    width: 100%;
+    height: cal(100vh-30px);
+    display: flex;
+    background-color: rgb(229, 239, 248);
+}
+
+.overlay {
+    height: 100vh;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    border: 1px solid black;
+    z-index: 2;
+}
+
+.overlay img {
+    width: 90%;
+}
+
+.login {
+    height: 100vh;
+    width: 63%;
+    background-color: white;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    right: 0;
+}
+
+.h {
+    border: 1px solid black;
+}
+
+.form {
+    
+}
+
+.create {
+    display: none;
+}
