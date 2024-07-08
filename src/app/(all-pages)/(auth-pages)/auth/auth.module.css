@@ -1,93 +1,117 @@
 .container {
-    width: 100%;
-    /* height: 100vh; */
     height: calc(100vh - 30px);
+    width: 100%;
+    overflow: hidden;
     display: flex;
     background-color: rgb(229, 239, 248);
+    position: relative;
 }
 
-.overlay {
-    height: 100vh;
-    width: 40%;
+.overlayLeft {
+    height: 100%;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 3;
+    /* border: 1px solid black; */
+    z-index: 10;
     position: absolute;
     transition: all 0.7s ease-in-out;
-    border: 1px solid black;
-    left: 2.5%;
 }
 
 .overlayRight {
-    transform: translateX(135%);
+    transform: translateX(100%);
 }
 
-.overlay img {
+.overlayLeft img {
     max-height: 90%;
-    width: 80%;
+    max-width: 80%;
+    /* border: 1px solid black; */
 }
 
-.login {
+.boxRight {
+    /* border: 1px solid black; */
     height: 98%;
-    width: 63%;
+    width: 67%;
     margin: 0.3% 0 0.5% 0;
     background-color: white;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    flex-direction: column;
+    border-radius: 50px;
     position: absolute;
-    left: -15%;
-    /* right: 0; */
-    transition: all 0.7s ease-in-out;
+    right: -4%;
     display: flex;
-    z-index: 2;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.7s ease-in-out;
 }
 
-.activeLogin {
-    transform: translateX(82%);
-    z-index: 0;
+.boxLeft {
+    transform: translateX(-60%);
+}
+
+.h, .form, .footer {
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .h {
-    width: 100%;
     height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .form {
-    width: 100%;
-    height: calc(80% - 30px);
+    height: calc(78% - 30px);
 }
 
 .footer {
-    width: 100%;
     height: 30px;
+}
+
+.containerBottom {
+    width: 100%;
+    z-index: 20;
     display: flex;
-    align-items: center;
     justify-content: center;
-    position: absolute;
-    bottom: 0;
+    /* background-color: white; */
+    /* border: 1px solid black; */
 }
 
-.create {
-    height: 98%;
-    width: 63%;
-    margin: 0.3% 0 0.5% 0;
-    background-color: white;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: -15%;
-    transition: all 0.7s ease-in-out;
-    z-index: 2;
+.childContainer {
+    width: 40%;
+    /* transition: all 0.7s ease-in;
+    transition: all 1s ease-out; */
+    /* transition: opacity 2s, transform 1s; */
+    opacity: 1;
+    transform: scale(1);
+    position: relative;
 }
 
-.activeCreate {
-    transform: translateX(-82%);
-    z-index: 0;
+.activeCreateContainer {
+    /* left: -50%; */
+    transform: translateX(-125%);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+}
+
+.deactiveCreateContainer {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in, transform 0.8s ease-in;
+}
+
+.activeLoginContainer {
+    /* right: -50%; */
+    transform: translateX(125%);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+}
+
+.deactiveLoginContainer {
+    transform: translateX(125%);
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in, transform 0.8s ease-in;
 }
