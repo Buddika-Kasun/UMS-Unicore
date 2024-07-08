@@ -1,6 +1,7 @@
 .container {
     width: 100%;
-    height: cal(100vh-30px);
+    /* height: 100vh; */
+    height: calc(100vh - 30px);
     display: flex;
     background-color: rgb(229, 239, 248);
 }
@@ -10,36 +11,83 @@
     width: 40%;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
+    z-index: 3;
+    position: absolute;
+    transition: all 0.7s ease-in-out;
     border: 1px solid black;
-    z-index: 2;
+    left: 2.5%;
+}
+
+.overlayRight {
+    transform: translateX(135%);
 }
 
 .overlay img {
-    width: 90%;
+    max-height: 90%;
+    width: 80%;
 }
 
 .login {
-    height: 100vh;
+    height: 98%;
     width: 63%;
+    margin: 0.3% 0 0.5% 0;
     background-color: white;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
-    display: flex;
     flex-direction: column;
-    align-items: center;
     position: absolute;
-    right: 0;
+    left: -15%;
+    /* right: 0; */
+    transition: all 0.7s ease-in-out;
+    display: flex;
+    z-index: 2;
+}
+
+.activeLogin {
+    transform: translateX(82%);
+    z-index: 0;
 }
 
 .h {
-    border: 1px solid black;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .form {
-    
+    width: 100%;
+    height: calc(80% - 30px);
+}
+
+.footer {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
 }
 
 .create {
-    display: none;
+    height: 98%;
+    width: 63%;
+    margin: 0.3% 0 0.5% 0;
+    background-color: white;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: -15%;
+    transition: all 0.7s ease-in-out;
+    z-index: 2;
+}
+
+.activeCreate {
+    transform: translateX(-82%);
+    z-index: 0;
 }
