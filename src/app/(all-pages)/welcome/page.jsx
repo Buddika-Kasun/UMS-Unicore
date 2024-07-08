@@ -20,8 +20,8 @@ const WelcomePage = () => {
                     </div>
                 </div>
                 <div className={style.buttonField}>
-                    <Link href={'/login'} className={style.button}>Log in</Link>
-                    <Link href={'/register'} className={style.button}>Register</Link>
+                    <Link href={"/auth?mode=login"} className={style.button}>Log in</Link>
+                    <Link href={"/auth?mode=register"} className={style.button}>Register</Link>
                 </div>
             </div>
             <Footer />
