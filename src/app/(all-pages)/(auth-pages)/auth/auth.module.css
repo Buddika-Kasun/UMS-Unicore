@@ -1,5 +1,5 @@
 .container {
-    height: calc(100vh - 30px);
+    height: 100vh;
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -57,15 +57,85 @@
 }
 
 .h {
+    align-items: end;
     height: 20%;
+    text-align: center;
+    font-size: clamp(1.5rem, 2vw + 1rem, 2rem); 
+    font-weight: 600;
 }
 
 .form {
     height: calc(78% - 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    /* border: 1px solid black; */
+}
+
+.field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    /* border: 1px solid black; */
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 80%);
+}
+
+.field input {
+    border: none;
+    /* outline: none; */
+    border-radius: 10px;
+    background-color: rgb(229, 239, 248);
+    height: 40%;
+    padding-left: 15px;
+    color: rgba(0, 0, 0, 80%);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.field input:focus {
+    outline-color: rgb(18, 102, 211);
+}
+
+.btns {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid black; */
+    margin-top: 30px;
+}
+
+.loginBtn {
+    width: 30%;
+    height: 55%;
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    font-weight: 600;
+}
+
+.btns span {
+    font-size: 13px;
+}
+
+.registerBtn {
+    text-decoration: none;
+    font-weight: 800;
 }
 
 .footer {
     height: 30px;
+    font-size: 10px;
 }
 
 .containerBottom {
