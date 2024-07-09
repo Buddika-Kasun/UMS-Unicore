@@ -143,7 +143,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow on active */
     transform: translateY(2px); /* Move the button down */
 }
-/*  */
 
 .btns span {
     font-size: 13px;
