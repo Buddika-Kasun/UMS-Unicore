@@ -24,8 +24,21 @@ const AuthPage = () => {
                 <div className={`${style.childContainer} ${isLogin? style.activeCreateContainer : style.deactiveCreateContainer}`}>    
                     <div className={style.h}>Create an Account</div>
                     <form action="#" className={style.form}>
-                        aaaa
-                        <Link href={"/auth?mode=login"}>Login</Link>
+                    <div className={style.field}>
+                            <label>User Name</label>
+                            <input type="text" name="uName" placeholder="Enter your user name" required />   
+                        </div>
+                        <div className={style.field}>
+                            <label>Password</label>
+                            <input type="password" name="pw" placeholder="Enter your password" required /> 
+                        </div>
+                        <div className={style.btns}>
+                            <button type="submit" className={style.submitBtn}>Create</button>
+                            <span>
+                                Already have an account? &nbsp;
+                                <Link href={"/auth?mode=login"} className={style.visitBtn}>Log in</Link>
+                            </span>
+                        </div>
                     </form>
                     <div className={style.footer}>All Right Reserved</div>
                 </div>
@@ -42,10 +55,10 @@ const AuthPage = () => {
                             <input type="password" name="pw" placeholder="Enter your password" required /> 
                         </div>
                         <div className={style.btns}>
-                            <button type="submit" className={style.loginBtn}>Log in</button>
+                            <button type="submit" className={style.submitBtn}>Log in</button>
                             <span>
                                 Don’t have an account? &nbsp;
-                                <Link href={"/auth?mode=register"} className={style.registerBtn}>Sign up</Link>
+                                <Link href={"/auth?mode=register"} className={style.visitBtn}>Sign up</Link>
                             </span>
                         </div>
                     </form>
