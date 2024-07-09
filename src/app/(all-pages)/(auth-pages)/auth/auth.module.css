@@ -112,7 +112,7 @@
     margin-top: 30px;
 }
 
-.loginBtn {
+.submitBtn {
     width: 30%;
     height: 55%;
     margin: 0 0 8px 0;
@@ -128,7 +128,7 @@
     font-size: 13px;
 }
 
-.registerBtn {
+.visitBtn {
     text-decoration: none;
     font-weight: 800;
 }
@@ -162,13 +162,13 @@
     transform: translateX(-125%);
     opacity: 0;
     transform: scale(0);
-    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+    transition: opacity 0.5s ease-in, transform 0.6s ease-in;
 }
 
 .deactiveCreateContainer {
     opacity: 1;
     transform: scale(1);
-    transition: opacity 1s ease-in, transform 0.8s ease-in;
+    transition: opacity 1s ease-in, transform 0.6s ease-in;
 }
 
 .activeLoginContainer {
@@ -176,12 +176,11 @@
     transform: translateX(125%);
     opacity: 0;
     transform: scale(0);
-    transition: opacity 0.5s ease-in, transform 0.5s ease-in;
+    transition: opacity 0.5s ease-in, transform 0.6s ease-in;
 }
 
 .deactiveLoginContainer {
-    transform: translateX(125%);
     opacity: 1;
     transform: scale(1);
-    transition: opacity 1s ease-in, transform 0.8s ease-in;
+    transition: opacity 1s ease-in, transform 0.6s ease-in;
 }
