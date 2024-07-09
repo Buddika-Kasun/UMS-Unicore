@@ -102,6 +102,12 @@
     outline-color: rgb(18, 102, 211);
 }
 
+.field input::placeholder {
+    color: rgba(0, 0, 0, 30%);
+    font-style: italic;
+    font-size: 12px;
+}
+
 .btns {
     width: 100%;
     height: 15%;
@@ -122,7 +128,22 @@
     background-color: black;
     color: white;
     font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 10%); /* Initial shadow */
 }
+
+.submitBtn:hover {
+    background-color: rgb(18, 102, 211); /* Darker shade on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
+
+.submitBtn:active {
+    background-color: #004494; /* Even darker shade on active */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow on active */
+    transform: translateY(2px); /* Move the button down */
+}
+/*  */
 
 .btns span {
     font-size: 13px;
@@ -131,6 +152,14 @@
 .visitBtn {
     text-decoration: none;
     font-weight: 800;
+}
+
+.visitBtn:hover {
+    color: rgb(18, 102, 211);
+}
+
+.visitBtn:active {
+    color: rgba(18, 102, 211, 40%)
 }
 
 .footer {
