@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import style from "./welcome.module.css";
+import style from "./welcomePage.module.css";
 import Footer from "@/components/footer/Footer";
 
 const WelcomePage = () => {
