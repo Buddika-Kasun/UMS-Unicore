@@ -4,7 +4,7 @@ import Spinner from "@/components/spinner/Spinner";
 import style from "./loadingPage.module.css";
 import { useEffect, useState } from "react";
 
-const Loading = () => {
+const LoadingComp = () => {
 
     const [spinnerSize, setSpinnerSize] = useState(100); // Default size
 
@@ -16,7 +16,7 @@ const Loading = () => {
             const height = window.innerHeight;
             
             // Calculate spinner size as a percentage of viewport width or height
-            const size = Math.min(width, height) * 0.2; // 20% of the smaller dimension (width or height)
+            const size = Math.min(width, height) * 0.17; // 17% of the smaller dimension (width or height)
             
             // Set size
             setSpinnerSize(size);
@@ -35,4 +35,4 @@ const Loading = () => {
     );
 }
 
-export default Loading;
+export default LoadingComp;
