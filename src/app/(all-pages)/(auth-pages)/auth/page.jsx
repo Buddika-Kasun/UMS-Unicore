@@ -14,7 +14,7 @@ const AuthPage = () => {
             <div className={`${style.overlayLeft} ${isLogin? '' : style.overlayRight}`}>
                 <img src="/logo.png" alt="" />
             </div>
-            
+
             <div className={`${style.boxRight} ${isLogin? '' : style.boxLeft}`}>
                 {/* white box */}
             </div>
@@ -25,12 +25,12 @@ const AuthPage = () => {
                     <div className={style.h}>Create an Account</div>
                     <form action="#" className={style.form}>
                     <div className={style.field}>
-                            <label>User Name</label>
-                            <input type="text" name="uName" placeholder="Enter your user name" required />   
+                            <label htmlFor="uNameS">User Name</label>
+                            <input type="text" id="uNameS" name="uName" placeholder="Enter your user name" required />   
                         </div>
                         <div className={style.field}>
-                            <label>Password</label>
-                            <input type="password" name="pw" placeholder="Enter your password" required /> 
+                            <label htmlFor="pwS">Password</label>
+                            <input type="password" id="pwS" name="pw" placeholder="Enter your password" required /> 
                         </div>
                         <div className={style.btns}>
                             <button type="submit" className={style.submitBtn}>Create</button>
@@ -45,14 +45,14 @@ const AuthPage = () => {
 
                 <div className={`${style.childContainer} ${isLogin? style.deactiveLoginContainer : style.activeLoginContainer}`}>
                     <div className={style.h}>Welcome to UniCore</div>
-                    <form action="#" className={style.form}>
+                    <form action="/intro" className={style.form}>
                         <div className={style.field}>
-                            <label>User Name</label>
-                            <input type="text" name="uName" placeholder="Enter your user name" required />   
+                            <label htmlFor="uNameL">User Name</label>
+                            <input type="text" id="uNameL" name="uName" placeholder="Enter your user name" required />
                         </div>
                         <div className={style.field}>
-                            <label>Password</label>
-                            <input type="password" name="pw" placeholder="Enter your password" required /> 
+                            <label htmlFor="pwL">Password</label>
+                            <input type="password" id="pwL" name="pw" placeholder="Enter your password" required /> 
                         </div>
                         <div className={style.btns}>
                             <button type="submit" className={style.submitBtn}>Log in</button>
@@ -70,5 +70,5 @@ const AuthPage = () => {
         </div>
     );
 };
-  
+
 export default AuthPage;
