@@ -60,7 +60,7 @@
     align-items: end;
     height: 20%;
     text-align: center;
-    font-size: clamp(1.5rem, 2vw + 1rem, 2rem); 
+    font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
     font-weight: 600;
 }
 
@@ -68,7 +68,7 @@
     height: calc(78% - 30px);
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     /* border: 1px solid black; */
 }
 
