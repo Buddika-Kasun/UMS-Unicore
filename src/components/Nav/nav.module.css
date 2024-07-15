@@ -1,28 +1,64 @@
-.container {
-    width: auto;
-    height: calc(100vh - 40px);
-    background-color: black;
-    overflow: scroll;
-}
-
-.nav {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
 .inactiveLink {
     display: flex;
     align-items: center;
-    gap: 1;
-    padding: 5px 20px;
+    padding: 5px 20px 5px 40px;
     text-decoration: none;
     color: white;
     border-bottom: 1px solid white;
+    height: 20px;
+    margin-right: 10px;
+    text-wrap: nowrap;
 }
 
 .inactiveIcon {
     width: 20px;
     height: 20px;
     padding-right: 10px;
+    color: white;
+    padding: 5px 0;
+    border-bottom: 1px solid white;
+    margin: 0 5px 0 10px;
+}
+
+.nav {
+    display: flex;
+    gap: 2px;
+}
+
+.inactiveIconContainer {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.activeIconContainer {
+    z-index: 100;
+}
+
+.inactivePathContainer {
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.activePathContainer {
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+}
+
+.container {
+    position: relative;
+    height: calc(100vh - 40px);
+    background-color: black;
+    overflow-y: auto;
+    transition: width 1s ease-in-out;
+}
+
+.activeContainer {
+    width: 170px; /* Adjust the width as needed */
+}
+
+.inactiveContainer {
+    width: 45px; /* Adjust the width as needed */
 }
