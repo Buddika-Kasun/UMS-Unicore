@@ -1,13 +1,30 @@
+"use client"
+
+import { useState } from "react";
 import style from "./header.module.css"
 
-const Header = () => {
+const Header = ({hamClick, setHamClick}) => {
+
+    const handleHamburger = () => {
+        setHamClick(prevClick => !prevClick);
+    }
+
     return (
         <div className={style.container}>
             <div className={style.innerContainer}>
-            <div className={style.hamburger}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
+            <div className={style.hamburger} onClick={handleHamburger}>
+                {
+                    !hamClick?
+                    (
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    )
+                }
             </div>
             <div className={style.name}>Unicore - <span className={style.uni}>University of Sri Jayawardenapura</span></div>
             </div>

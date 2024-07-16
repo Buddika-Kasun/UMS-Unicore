@@ -10,24 +10,24 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* XX-Small Devices (small phones, <380px) */
- 
-/* X-Small Devices (phones, ≥380px) */
-@media (min-width: 380px) {
-    
+/*... (rest of the code remains the same) */
+
+/* Extra Large Screen (1200px and above) */
+@media (min-width: 1200px) {
+
 }
 
-/* Small Devices (landscape phone, ≥576px) */
-@media (min-width: 576px) {
-    
-} 
+/* Large Screen (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
 
-/* Medium Devices (tablets, ≥768px) */
-@media (min-width: 768px) {
-    
-} 
-  
-/* Large Devices (laptops, ≥992px) */
-@media (min-width: 992px) {
-    
+}
+
+/* Medium Screen (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Small Screen (767px and below) */
+@media (max-width: 767px) {
+
 }

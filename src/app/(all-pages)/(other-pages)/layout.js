@@ -6,12 +6,12 @@ import Nav from "@/components/Nav/Nav";
 import { useState } from "react";
 
 const CommonLayout = ({children}) => {
-    const [showNav, setShowNav] = useState(true);
+    const [hamClick, setHamClick] = useState(false);
     return (
         <div>
-            <Header />
+            <Header hamClick={hamClick} setHamClick={setHamClick}/>
             <div className= {style.innerContainer}>
-                <Nav />
+                <Nav hamClick={hamClick}/>
                 <div className={style.child}>
                     {children}
                 </div>
