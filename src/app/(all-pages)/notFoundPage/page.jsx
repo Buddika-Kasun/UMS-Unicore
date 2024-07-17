@@ -5,23 +5,26 @@ import style from "./notFoundPage.module.css";
 
 const NotFoundComp = () => {
   return (
-    <div className={style.container}>
-
-        <div className={style.top}>
-            <h2>404 Not Found</h2>
-            <p>Could not find requested resource</p>
+    <div classNameName={style.page_404}>
+      <div className={style.container}>
+        <div className={style.row}>
+          <div>
+            <div>
+              <div className={style.four_zero_four_bg}>
+                  <h1>404</h1>
+              </div>
+              <div className={style.content_box_404}>
+                  <h3 className={style.h2}>Looks Like You are Lost</h3>
+                  <p>The page you are looking for not available</p>
+                  <div className={style.rtnButton}>
+                    <Link href="/" >Return Home</Link>
+                  </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div>
-            මට කියොලා මරොගන්න එපා,
-            හො ම ත ග යු !
-        </div>
-
-        <div>
-            <Link href="/">Return Home</Link>
-        </div>
-
-    </div>
+      </div>
+   </div>
   )
 }
 
