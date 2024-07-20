@@ -2,127 +2,127 @@ import { HiOutlineCog, HiOutlineFolder } from "react-icons/hi";
 
 const menu = [
     {
-      section: "Gen Administration- Gestor",
+      section: "Gestor",
       menu: [
         {
           name: "Masters",
-          path: "/gen-admin/masters",
+          path: "/gestor/master",
           icon: HiOutlineCog,
           haveSubmenu: false
         },
         {
-          name: "Infrastructure Management - InfraGestor",
+          name: "InfraGestor",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Reservations", path: "/gen-admin/infra-gestor/reservations" },
-            { name: "Cancel Reservation", path: "/gen-admin/infra-gestor/cancel-reservation" },
-            { name: "View Resource Utilization", path: "/gen-admin/infra-gestor/view-resource-utilization" }
+            { name: "Reservations", path: "/gestor/InfraGestor/reservations" },
+            { name: "Cancel Reservation", path: "/gestor/InfraGestor/cancel-reservation" },
+            { name: "View Resource Utilization", path: "/gestor/InfraGestor/view-resource-utilization" }
           ]
         },
         {
-          name: "Library Management - LibraryPro",
+          name: "LibraryPro",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Register New Users", path: "/gen-admin/library-pro/register-new-users" },
-            { name: "Create Items", path: "/gen-admin/library-pro/create-items" },
-            { name: "Catalogs", path: "/gen-admin/library-pro/catalogs" },
-            { name: "View Catalogs", path: "/gen-admin/library-pro/view-catalogs" },
-            { name: "Reserve Items", path: "/gen-admin/library-pro/reserve-items" },
-            { name: "Remove Reservation", path: "/gen-admin/library-pro/remove-reservation" },
-            { name: "View Reservations", path: "/gen-admin/library-pro/view-reservations" },
-            { name: "CheckOut Items", path: "/gen-admin/library-pro/checkout-items" },
-            { name: "Renew Items", path: "/gen-admin/library-pro/renew-items" },
-            { name: "CheckIn Items", path: "/gen-admin/library-pro/checkin-items" },
-            { name: "View Overdue Items", path: "/gen-admin/library-pro/view-overdue-items" },
-            { name: "View Stock Count", path: "/gen-admin/library-pro/view-stock-count" },
-            { name: "View User Engagement", path: "/gen-admin/library-pro/view-user-engagement" }
+            { name: "Register New Users", path: "/gestor/LibraryPro/register-new-users" },
+            { name: "Create Items", path: "/gestor/LibraryPro/create-items" },
+            { name: "Catalogs", path: "/gestor/LibraryPro/catalogs" },
+            { name: "View Catalogs", path: "/gestor/LibraryPro/view-catalogs" },
+            { name: "Reserve Items", path: "/gestor/LibraryPro/reserve-items" },
+            { name: "Remove Reservation", path: "/gestor/LibraryPro/remove-reservation" },
+            { name: "View Reservations", path: "/gestor/LibraryPro/view-reservations" },
+            { name: "CheckOut Items", path: "/gestor/LibraryPro/checkout-items" },
+            { name: "Renew Items", path: "/gestor/LibraryPro/renew-items" },
+            { name: "CheckIn Items", path: "/gestor/LibraryPro/checkin-items" },
+            { name: "View Overdue Items", path: "/gestor/LibraryPro/view-overdue-items" },
+            { name: "View Stock Count", path: "/gestor/LibraryPro/view-stock-count" },
+            { name: "View User Engagement", path: "/gestor/LibraryPro/view-user-engagement" }
           ]
         }
       ]
     },
     {
-      section: "Student Collaboration - Nexus",
+      section: "Nexus",
       menu: [
         {
           name: "Masters",
-          path: "/student-collaboration/masters",
+          path: "/Nexus/masters",
           icon: HiOutlineCog,
           haveSubmenu: false
         },
         {
-          name: "Project Collaboration - UniCore Opus",
+          name: "UniCore Opus",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Create Group", path: "/student-collaboration/unicore-opus/create-group" },
-            { name: "View Group", path: "/student-collaboration/unicore-opus/view-group" }
+            { name: "Create Group", path: "/Nexus/unicoreOpus/create-group" },
+            { name: "View Group", path: "/Nexus/unicoreOpus/view-group" }
           ]
         },
         {
-          name: "Collaborative Virtual Spaces - UniCore Space",
+          name: "UniCore Space",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Create Post", path: "/student-collaboration/unicore-space/create-post" },
-            { name: "Create Clubs/Groups", path: "/student-collaboration/unicore-space/create-clubs-groups" }
+            { name: "Create Post", path: "/Nexus/unicoreSpace/create-post" },
+            { name: "Create Clubs/Groups", path: "/Nexus/unicoreSpace/create-clubs-groups" }
           ]
         },
         {
-          name: "Shared Academic Resources - UniCore Academia",
+          name: "UniCore Academia",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Academia Folder", path: "/student-collaboration/unicore-academia/academia-folder" },
-            { name: "Academia", path: "/student-collaboration/unicore-academia/academia" }
+            { name: "Academia Folder", path: "/Nexus/unicoreAcademia/academia-folder" },
+            { name: "Academia", path: "/Nexus/unicoreAcademia/academia" }
           ]
         },
         {
-          name: "Discussion Forums - UniCore Forums",
+          name: "UniCore Forums",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Create and Participate", path: "/student-collaboration/unicore-forums/create-and-participate" }
+            { name: "Create and Participate", path: "/Nexus/unicoreForums/create-and-participate" }
           ]
         }
       ]
     },
     {
-      section: "KPI Management - Performance Insight",
+      section: "Performance Insight",
       menu: [
         {
           name: "Masters",
-          path: "/kpi-management/masters",
+          path: "/performanceInsight/masters",
           icon: HiOutlineCog,
           haveSubmenu: false
         },
         {
-          name: "Performance Appraisal - UniCore Goals",
+          name: "UniCore Goals",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Set Goals", path: "/kpi-management/unicore-goals/set-goals" },
-            { name: "Monitor Goals", path: "/kpi-management/unicore-goals/monitor-goals" },
-            { name: "Update Achievements", path: "/kpi-management/unicore-goals/update-achievements" }
+            { name: "Set Goals", path: "/performanceInsight/unicore-goals/set-goals" },
+            { name: "Monitor Goals", path: "/performanceInsight/unicore-goals/monitor-goals" },
+            { name: "Update Achievements", path: "/performanceInsight/unicore-goals/update-achievements" }
           ]
         },
         {
-          name: "Professional Development Planning - UniCore Career Path",
+          name: "UniCore Career Path",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Schedule Trainings", path: "/kpi-management/unicore-career-path/schedule-trainings" },
-            { name: "View High Performance Members", path: "/kpi-management/unicore-career-path/view-high-performance-members" }
+            { name: "Schedule Trainings", path: "/performanceInsight/unicore-career-path/schedule-trainings" },
+            { name: "View High Performance Members", path: "/performanceInsight/unicore-career-path/view-high-performance-members" }
           ]
         },
         {
-          name: "Student Satisfaction - UniCore Delight",
+          name: "UniCore Delight",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
-            { name: "Send Feedback Forms", path: "/kpi-management/unicore-delight/send-feedback-forms" },
-            { name: "Analyze Student Feedbacks", path: "/kpi-management/unicore-delight/analyze-student-feedbacks" }
+            { name: "Send Feedback Forms", path: "/performanceInsight/unicore-delight/send-feedback-forms" },
+            { name: "Analyze Student Feedbacks", path: "/performanceInsight/unicore-delight/analyze-student-feedbacks" }
           ]
         }
       ]
