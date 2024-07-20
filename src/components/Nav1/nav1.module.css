@@ -77,8 +77,8 @@
 }
 
 .item:hover {
-    color: white;
-    b
+    color: black;
+    background-color: white;
 }
 
 .icon {
