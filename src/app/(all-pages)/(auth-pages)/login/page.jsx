@@ -10,7 +10,7 @@ const LoginPage = () => {
             </div>
             <div className={style.body}>
                 <div className={style.register}>
-                    Do not have an account?&nbsp;
+                    Don't have an account?&nbsp;
                     <Link href={'/register'}>Register</Link>
                 </div>
                 <div className={style.providers}>
