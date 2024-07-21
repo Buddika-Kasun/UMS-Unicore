@@ -1,8 +1,11 @@
 import { HiOutlineCog, HiOutlineFolder } from "react-icons/hi";
+import { FaG,FaN,FaP } from "react-icons/fa6";
 
 const menu = [
     {
       section: "Gestor",
+      section: "Gestor - Gen Administration",
+      secIcon: FaG,
       menu: [
         {
           name: "Masters",
@@ -12,6 +15,8 @@ const menu = [
         },
         {
           name: "InfraGestor",
+          name: "Infrastructure Management - InfraGestor",
+          path: "/gen-admin/infra-gestor",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -22,6 +27,8 @@ const menu = [
         },
         {
           name: "LibraryPro",
+          name: "Library Management - LibraryPro",
+          path: "/gen-admin/library-pro",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -44,6 +51,8 @@ const menu = [
     },
     {
       section: "Nexus",
+      section: "Nexus - Student Collaboration",
+      secIcon: FaN,
       menu: [
         {
           name: "Masters",
@@ -53,6 +62,8 @@ const menu = [
         },
         {
           name: "UniCore Opus",
+          name: "Project Collaboration - UniCore Opus",
+          path: "/student-collaboration/unicore-opus",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -62,6 +73,8 @@ const menu = [
         },
         {
           name: "UniCore Space",
+          name: "Collaborative Virtual Spaces - UniCore Space",
+          path: "/student-collaboration/unicore-space",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -71,6 +84,8 @@ const menu = [
         },
         {
           name: "UniCore Academia",
+          name: "Shared Academic Resources - UniCore Academia",
+          path: "/student-collaboration/unicore-academia",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -80,6 +95,8 @@ const menu = [
         },
         {
           name: "UniCore Forums",
+          name: "Discussion Forums - UniCore Forums",
+          path: "/student-collaboration/unicore-forums",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -90,6 +107,8 @@ const menu = [
     },
     {
       section: "Performance Insight",
+      section: "Performance Insight - KPI Management",
+      secIcon: FaP,
       menu: [
         {
           name: "Masters",
@@ -99,6 +118,8 @@ const menu = [
         },
         {
           name: "UniCore Goals",
+          name: "Performance Appraisal - UniCore Goals",
+          path: "/kpi-management/unicore-goals",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -109,6 +130,8 @@ const menu = [
         },
         {
           name: "UniCore Career Path",
+          name: "Professional Development Planning - UniCore Career Path",
+          path: "/kpi-management/unicore-career-path",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -118,6 +141,8 @@ const menu = [
         },
         {
           name: "UniCore Delight",
+          name: "Student Satisfaction - UniCore Delight",
+          path: "/kpi-management/unicore-delight",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
