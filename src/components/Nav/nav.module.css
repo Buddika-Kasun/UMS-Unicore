@@ -33,7 +33,7 @@
 
 /* Custom scrollbar styles */
 .nav::-webkit-scrollbar {
-    width:11px; /* Width of the scrollbar */
+    width: 9px; /* Width of the scrollbar */
 }
 
 .nav::-webkit-scrollbar-track {
@@ -43,9 +43,13 @@
 
 .nav::-webkit-scrollbar-thumb {
     /* background-color: #888; Color of the scrollbar thumb */
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: transparent;
     border-radius: 5px;
-    border: 3px solid black; /* Padding around the thumb */
+    border: 2px solid black; /* Padding around the thumb */
+}
+
+.nav:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .nav::-webkit-scrollbar-thumb:hover {
