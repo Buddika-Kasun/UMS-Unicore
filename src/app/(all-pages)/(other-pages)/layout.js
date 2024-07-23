@@ -13,7 +13,7 @@ const CommonLayout = ({children}) => {
     const currentPath = usePathname();
 
     const [hamClick, setHamClick] = useState(false);
-    const [clickedPath, setClickedPath] = useState('/');
+    const [clickedPath, setClickedPath] = useState(currentPath);
     const [loading, setLoading] = useState(false);
 
     const handleClickedPath = (value) => {

@@ -45,7 +45,7 @@ const AuthPage = () => {
 
                 <div className={`${style.childContainer} ${isLogin? style.deactiveLoginContainer : style.activeLoginContainer}`}>
                     <div className={style.h}>Welcome to UniCore</div>
-                    <form action="/intro" className={style.form}>
+                    <form action="/gestor/master" className={style.form}>
                         <div className={style.field}>
                             <label htmlFor="uNameL">User Name</label>
                             <input type="text" id="uNameL" name="uName" placeholder="Enter your user name" required />
