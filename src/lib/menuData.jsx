@@ -4,7 +4,7 @@ import { FaG,FaN,FaP } from "react-icons/fa6";
 const menu = [
     {
       section: "Gestor",
-      section: "Gestor - Gen Administration",
+      sectionBIKZ: "Gestor - Gen Administration",
       secIcon: FaG,
       menu: [
         {
@@ -15,8 +15,8 @@ const menu = [
         },
         {
           name: "InfraGestor",
-          name: "Infrastructure Management - InfraGestor",
-          path: "/gen-admin/infra-gestor",
+          nameBIKZ: "Infrastructure Management - InfraGestor",
+          path: "/gestor/InfraGestor",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -27,8 +27,8 @@ const menu = [
         },
         {
           name: "LibraryPro",
-          name: "Library Management - LibraryPro",
-          path: "/gen-admin/library-pro",
+          nameBIKZ: "Library Management - LibraryPro",
+          path: "/gestor/LibraryPro",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -51,7 +51,7 @@ const menu = [
     },
     {
       section: "Nexus",
-      section: "Nexus - Student Collaboration",
+      sectionBIKZ: "Nexus - Student Collaboration",
       secIcon: FaN,
       menu: [
         {
@@ -62,8 +62,8 @@ const menu = [
         },
         {
           name: "UniCore Opus",
-          name: "Project Collaboration - UniCore Opus",
-          path: "/student-collaboration/unicore-opus",
+          nameBIKZ: "Project Collaboration - UniCore Opus",
+          path: "/Nexus/unicoreOpus",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -73,8 +73,8 @@ const menu = [
         },
         {
           name: "UniCore Space",
-          name: "Collaborative Virtual Spaces - UniCore Space",
-          path: "/student-collaboration/unicore-space",
+          nameBIKZ: "Collaborative Virtual Spaces - UniCore Space",
+          path: "/Nexus/unicoreSpace",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -84,8 +84,8 @@ const menu = [
         },
         {
           name: "UniCore Academia",
-          name: "Shared Academic Resources - UniCore Academia",
-          path: "/student-collaboration/unicore-academia",
+          nameBIKZ: "Shared Academic Resources - UniCore Academia",
+          path: "/Nexus/unicoreAcademia",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -95,8 +95,8 @@ const menu = [
         },
         {
           name: "UniCore Forums",
-          name: "Discussion Forums - UniCore Forums",
-          path: "/student-collaboration/unicore-forums",
+          nameBIKZ: "Discussion Forums - UniCore Forums",
+          path: "/Nexus/unicoreForums",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -107,7 +107,7 @@ const menu = [
     },
     {
       section: "Performance Insight",
-      section: "Performance Insight - KPI Management",
+      sectionBIKZ: "Performance Insight - KPI Management",
       secIcon: FaP,
       menu: [
         {
@@ -118,8 +118,8 @@ const menu = [
         },
         {
           name: "UniCore Goals",
-          name: "Performance Appraisal - UniCore Goals",
-          path: "/kpi-management/unicore-goals",
+          nameBIKZ: "Performance Appraisal - UniCore Goals",
+          path: "/performanceInsight/unicore-goals",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -130,8 +130,8 @@ const menu = [
         },
         {
           name: "UniCore Career Path",
-          name: "Professional Development Planning - UniCore Career Path",
-          path: "/kpi-management/unicore-career-path",
+          nameBIKZ: "Professional Development Planning - UniCore Career Path",
+          path: "/performanceInsight/unicore-career-path",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
@@ -141,8 +141,8 @@ const menu = [
         },
         {
           name: "UniCore Delight",
-          name: "Student Satisfaction - UniCore Delight",
-          path: "/kpi-management/unicore-delight",
+          nameBIKZ: "Student Satisfaction - UniCore Delight",
+          path: "/performanceInsight/unicore-delight",
           icon: HiOutlineFolder,
           haveSubmenu: true,
           submenu: [
