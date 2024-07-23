@@ -1,64 +1,224 @@
-.inactiveLink {
-    display: flex;
-    align-items: center;
-    padding: 5px 20px 5px 40px;
-    text-decoration: none;
-    color: white;
-    border-bottom: 1px solid white;
-    height: 20px;
-    margin-right: 10px;
-    text-wrap: nowrap;
-}
-
-.inactiveIcon {
-    width: 20px;
-    height: 20px;
-    padding-right: 10px;
-    color: white;
-    padding: 5px 0;
-    border-bottom: 1px solid white;
-    margin: 0 5px 0 10px;
-}
-
-.nav {
-    display: flex;
-    gap: 2px;
-}
-
-.inactiveIconContainer {
-    width: auto;
+.container {
+    height: calc(100vh - 40px);
     display: flex;
     flex-direction: column;
-}
-
-.activeIconContainer {
-    z-index: 100;
-}
-
-.inactivePathContainer {
-    position: absolute;
-    right: 0;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.activePathContainer {
-    opacity: 1;
-    transition: opacity 2s ease-in-out;
-}
-
-.container {
-    position: relative;
-    height: calc(100vh - 40px);
     background-color: black;
-    overflow-y: auto;
     transition: width 1s ease-in-out;
+    /* border: 1px solid red; */
+}
+
+.container *{
+    user-select: none;
 }
 
 .activeContainer {
-    width: 170px; /* Adjust the width as needed */
+    width: 250px; /* Adjust the width as needed */
 }
 
 .inactiveContainer {
-    width: 45px; /* Adjust the width as needed */
+    width: 60px; /* Adjust the width as needed */
+}
+
+.nav {
+    height: 100%;
+    color: white;
+    /* border: 1px solid red; */
+    overflow-y: auto; /* Enable vertical scrolling */
+    direction: rtl;
+}
+
+.nav * {
+    direction: ltr;
+}
+
+/* Custom scrollbar styles */
+.nav::-webkit-scrollbar {
+    width:11px; /* Width of the scrollbar */
+}
+
+.nav::-webkit-scrollbar-track {
+    /* background: #f1f1f1; Background of the scrollbar track */
+    /* border-radius: 10px; */
+}
+
+.nav::-webkit-scrollbar-thumb {
+    /* background-color: #888; Color of the scrollbar thumb */
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    border: 3px solid black; /* Padding around the thumb */
+}
+
+.nav::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.7); /* Hover color for the scrollbar thumb */
+}
+
+.section {
+    width: calc(100% - 4px);
+    padding: 0 0 30px 0;
+    text-wrap: nowrap;
+    position: relative;
+    /* border: 1px solid red; */
+}
+
+.sectionIcon {
+    /* border: 1px solid red; */
+    position: absolute;
+    padding: 10px 6px 0 6px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius:0 0 15px;
+}
+
+.title {
+    font-size: 12px;
+    padding: 15px 0 5px 0;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    margin-right: 8px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius:0 0 15px;
+    /* border: 1px solid red; */
+}
+
+.title::before, .sectionIcon::before {
+    position: absolute;
+    content: ' ';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.itemContainer {
+    padding: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* border: 1px solid red; */
+}
+
+.item {
+    width: calc(100% - 15px);
+    height: auto;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 4px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    /* border: 1px solid red; */
+}
+
+
+
+.item:hover, .submenuItem:hover {
+    /* color: black; */
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: background-color 0.3s ease, color 0.5s ease;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    /* border: 1px solid red; */
+    font-size: 20px;
+}
+
+.iconSub {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    /* border: 1px solid red; */
+}
+
+.name {
+    width: inherit;
+    font-size: 13px;
+    overflow: hidden;
+    /* border: 1px solid red; */
+}
+
+.arrowUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+    /* border: 1px solid red; */
+}
+
+.arrowDown {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0 15px 10px;
+    overflow: hidden;
+    /* border: 1px solid red; */
+}
+
+.submenuItem {
+    width: calc(100% - 15px);
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+    padding: 0 4px;
+    border-radius: 5px;
+    display: flex;
+    gap: 4px;
+    overflow: hidden;
+    /* border: 1px solid red; */
+}
+
+.nameSub {
+    font-size: 11px;
+    margin: 4px 0;
+}
+
+.subItemSelected, .subItemSelected:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+}
+
+.itemClicked {
+    overflow: visible;
+    pointer-events: none;
+}
+
+.itemClicked, .subItemClicked, .itemClicked:hover, .subItemClicked:hover  {
+    background-color: white;
+    color: black;
+    position: relative;
+}
+
+.itemClicked:hover {
+    background-color: white;
+}
+
+
+.itemClicked::after {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    content: ' ';
+    background-color: white;
+    width: 15px;
+    height: 100%;
+    /* border-radius: 5px; */
+}
+
+.activeName {
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.inactiveName {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
