@@ -4,18 +4,19 @@ import { FaG,FaN,FaP } from "react-icons/fa6";
 const menu = [
     {
       section: "Gestor",
-      sectionBIKZ: "Gestor - Gen Administration",
+      secDescription: "General Administration",
       secIcon: FaG,
       menu: [
         {
           name: "Masters",
+          description: "General Administration Masters",
           path: "/gestor/master",
           icon: HiOutlineCog,
           haveSubmenu: false
         },
         {
           name: "InfraGestor",
-          nameBIKZ: "Infrastructure Management - InfraGestor",
+          description: "Infrastructure Management",
           path: "/gestor/InfraGestor",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -27,7 +28,7 @@ const menu = [
         },
         {
           name: "LibraryPro",
-          nameBIKZ: "Library Management - LibraryPro",
+          description: "Library Management",
           path: "/gestor/LibraryPro",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -51,18 +52,19 @@ const menu = [
     },
     {
       section: "Nexus",
-      sectionBIKZ: "Nexus - Student Collaboration",
+      secDescription: "Student Collaboration",
       secIcon: FaN,
       menu: [
         {
           name: "Masters",
+          description: "Student Collaboration Masters",
           path: "/Nexus/masters",
           icon: HiOutlineCog,
           haveSubmenu: false
         },
         {
           name: "UniCore Opus",
-          nameBIKZ: "Project Collaboration - UniCore Opus",
+          description: "Project Collaboration",
           path: "/Nexus/unicoreOpus",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -73,7 +75,7 @@ const menu = [
         },
         {
           name: "UniCore Space",
-          nameBIKZ: "Collaborative Virtual Spaces - UniCore Space",
+          description: "Collaborative Virtual Spaces",
           path: "/Nexus/unicoreSpace",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -84,7 +86,7 @@ const menu = [
         },
         {
           name: "UniCore Academia",
-          nameBIKZ: "Shared Academic Resources - UniCore Academia",
+          description: "Shared Academic Resources",
           path: "/Nexus/unicoreAcademia",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -95,7 +97,7 @@ const menu = [
         },
         {
           name: "UniCore Forums",
-          nameBIKZ: "Discussion Forums - UniCore Forums",
+          description: "Discussion Forums",
           path: "/Nexus/unicoreForums",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -107,18 +109,19 @@ const menu = [
     },
     {
       section: "Performance Insight",
-      sectionBIKZ: "Performance Insight - KPI Management",
+      secDescription: "KPI Management",
       secIcon: FaP,
       menu: [
         {
           name: "Masters",
+          description: "KPI Management Masters",
           path: "/performanceInsight/masters",
           icon: HiOutlineCog,
           haveSubmenu: false
         },
         {
           name: "UniCore Goals",
-          nameBIKZ: "Performance Appraisal - UniCore Goals",
+          description: "Performance Appraisal",
           path: "/performanceInsight/unicore-goals",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -130,7 +133,7 @@ const menu = [
         },
         {
           name: "UniCore Career Path",
-          nameBIKZ: "Professional Development Planning - UniCore Career Path",
+          description: "Professional Development Planning",
           path: "/performanceInsight/unicore-career-path",
           icon: HiOutlineFolder,
           haveSubmenu: true,
@@ -141,7 +144,7 @@ const menu = [
         },
         {
           name: "UniCore Delight",
-          nameBIKZ: "Student Satisfaction - UniCore Delight",
+          description: "Student Satisfaction",
           path: "/performanceInsight/unicore-delight",
           icon: HiOutlineFolder,
           haveSubmenu: true,
