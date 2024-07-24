@@ -4,11 +4,15 @@
     flex-direction: column;
     background-color: black;
     transition: width 1s ease-in-out;
-    /* border: 1px solid red; */
+    overflow-y: scroll;
+    direction: rtl;
 }
 
 .container *{
+    font-weight: 600;
     user-select: none;
+    /* direction: ltr; */
+    /* border: 1px solid red; */
 }
 
 .activeContainer {
@@ -22,9 +26,8 @@
 .nav {
     height: 100%;
     color: white;
-    /* border: 1px solid red; */
-    overflow-y: auto; /* Enable vertical scrolling */
-    direction: rtl;
+    /* overflow-y: auto; */
+    /* direction: rtl; */
 }
 
 .nav * {
@@ -32,27 +35,27 @@
 }
 
 /* Custom scrollbar styles */
-.nav::-webkit-scrollbar {
+.container::-webkit-scrollbar {
     width: 9px; /* Width of the scrollbar */
 }
 
-.nav::-webkit-scrollbar-track {
+.container::-webkit-scrollbar-track {
     /* background: #f1f1f1; Background of the scrollbar track */
     /* border-radius: 10px; */
 }
 
-.nav::-webkit-scrollbar-thumb {
+.container::-webkit-scrollbar-thumb {
     /* background-color: #888; Color of the scrollbar thumb */
     background-color: transparent;
     border-radius: 5px;
     border: 2px solid black; /* Padding around the thumb */
 }
 
-.nav:hover::-webkit-scrollbar-thumb {
+.container:hover::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-.nav::-webkit-scrollbar-thumb:hover {
+.container::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.7); /* Hover color for the scrollbar thumb */
 }
 
@@ -61,11 +64,9 @@
     padding: 0 0 30px 0;
     text-wrap: nowrap;
     position: relative;
-    /* border: 1px solid red; */
 }
 
 .sectionIcon {
-    /* border: 1px solid red; */
     position: absolute;
     padding: 10px 6px 0 6px;
     font-size: 20px;
@@ -74,15 +75,14 @@
 }
 
 .title {
-    font-size: 12px;
-    padding: 15px 0 5px 0;
+    font-size: 15px;
+    padding: 12px 0 4px 2px;
     cursor: default;
     position: relative;
     overflow: hidden;
     margin-right: 8px;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius:0 0 15px;
-    /* border: 1px solid red; */
 }
 
 .title::before, .sectionIcon::before {
@@ -101,7 +101,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    /* border: 1px solid red; */
 }
 
 .item {
@@ -114,7 +113,6 @@
     color: white;
     cursor: pointer;
     border-radius: 5px;
-    /* border: 1px solid red; */
 }
 
 
@@ -128,7 +126,6 @@
 .icon {
     display: flex;
     align-items: center;
-    /* border: 1px solid red; */
     font-size: 20px;
 }
 
@@ -136,14 +133,12 @@
     display: flex;
     align-items: center;
     font-size: 16px;
-    /* border: 1px solid red; */
 }
 
 .name {
     width: inherit;
     font-size: 13px;
     overflow: hidden;
-    /* border: 1px solid red; */
 }
 
 .arrowUp {
@@ -151,7 +146,6 @@
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease-in-out;
-    /* border: 1px solid red; */
 }
 
 .arrowDown {
@@ -164,7 +158,6 @@
     gap: 10px;
     padding: 10px 0 15px 10px;
     overflow: hidden;
-    /* border: 1px solid red; */
 }
 
 .submenuItem {
@@ -177,7 +170,6 @@
     display: flex;
     gap: 4px;
     overflow: hidden;
-    /* border: 1px solid red; */
 }
 
 .nameSub {
@@ -225,4 +217,110 @@
 .inactiveName {
     opacity: 0;
     transition: opacity 1s ease-in-out;
+}
+
+
+
+.secondContainer {
+    position: relative;
+}
+
+.secondContainer * {
+    color: rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+    /* border: 1px solid red; */
+}
+
+.innerContainer {
+    position: absolute;
+    left: 5px;
+    height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    transition: width 1s ease-in-out;
+    overflow-y: scroll;
+    pointer-events: none;
+}
+
+.innerContainer::-webkit-scrollbar {
+    width: 0; /* Width of the scrollbar */
+    background-color: transparent;
+}
+
+.title1 {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 5px 9px;
+    display: flex;
+}
+
+.item1 {
+    height: 20.5px;
+    width: fit-content;
+    padding-left: 9px;
+}
+
+.submenu1 {
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+.submenuItem1 {
+    width: fit-content;
+    margin: 0;
+    padding: 0 0 0 5px;
+}
+
+.hintName {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 1.8px 6px;
+    position: relative;
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    background-color: white;
+    opacity: 0;
+    width: 0px;
+    overflow: hidden;
+    transition: width 0.4s ease-out, opacity 0.3s ease-out;
+}
+
+.hintHover {
+    opacity: 1;
+    width: 100%;
+    transition: width 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.trangle1, .trangle2, .trangle3 {
+    position: relative;
+}
+
+.trangle1::before, .trangle2::before, .trangle3::before {
+    content: '';
+    position: absolute;
+    top: -5px; /* Adjust based on the hint box position */
+    left: -5px; /* Adjust to align with hint box */
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 5px solid rgba(0, 0, 0, 0.8);
+    border-bottom: 5px solid transparent; /* Same color as the hint box */
+    opacity: 0;
+    transition: opacity 0.2s ease-out, transform 0.5s ease-out;
+}
+
+.trangle2::before {
+    top: 5.5px;
+}
+
+.trangle3::before {
+    top: 5.5px;
+    left: -1px;
+}
+
+.trangleHover::before {
+    opacity: 1;
+    transition: opacity 0.4s ease-out, transform 0.5s ease-out;
+    transform: translateX(-4px);
 }
