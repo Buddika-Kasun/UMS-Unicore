@@ -24,10 +24,6 @@ const CommonLayout = ({children}) => {
         setLoading(currentPath !== clickedPath);
     },[currentPath, clickedPath]);
 
-    console.log("Current path = ", currentPath);
-    console.log("Clicked path = ", clickedPath);
-    console.log(loading);
-
     return (
         <div>
             <Header hamClick={hamClick} setHamClick={setHamClick}/>
