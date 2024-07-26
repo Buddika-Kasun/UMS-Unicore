@@ -1,12 +1,54 @@
+.container {
+    height: 100vh;
+}
+
+.header {
+    height: 40px;
+}
+
 .innerContainer {
+    height: calc(100vh - 40px);
+    position: relative;
     display: flex;
 }
 
 .child {
     flex-grow: 1;
+    height: 100%;
 }
 
 .loadingComp{
-    height: calc(100vh - 40px);
+    height: 100%;
     overflow: hidden;
+}
+
+
+/* Extra Large Screen (1200px and above) */
+@media (min-width: 1200px) {
+
+}
+
+/* Large Screen (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Medium Screen (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Small Screen (767px and below) */
+@media (max-width: 767px) {
+    .innerContainer:first-child {
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .child {
+        position: absolute;
+        width: 100%;
+        z-index: -1;
+    }
 }
