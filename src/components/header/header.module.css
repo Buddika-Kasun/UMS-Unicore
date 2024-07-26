@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    height: 40px;
+    height: 100%;
     background-color: black;
     color: white;
     display: flex;
@@ -14,13 +14,24 @@
 }
 
 .hamburger {
+    background-color: rgb(255, 255, 255, 0.4);
+    border-radius: 5px;
     width: 20px;
+    padding: 4px;
+    display: flex;
     margin: 0 10px;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.hamburger:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .name {
     /* font-size: 15px; */
+    cursor: default;
+    user-select: none;
 }
 
 .name .uni {
