@@ -89,11 +89,11 @@ const Nav = ({ hamClick, clickedPath }) => {
                                         onMouseEnter={() => handleMouseEnter(item.description)}
                                         onMouseLeave={() => handleMouseLeave()}
                                         >
-                                            <div className={style.icon}><item.icon /></div>
+                                            <div className={`${style.icon} ${hamClick && style.iconActive}`}><item.icon /></div>
                                             <div className={`${style.name} ${hamClick ? style.activeName : style.inactiveName}`}>&nbsp;{item.name}</div>
                                             <div
                                             className={
-                                                `${style.arrowUp}
+                                                `${style.arrowUp} ${hamClick && style.iconActive}
                                                 ${openMenu !== '' && openMenu.includes(item.path) && style.arrowDown}`
                                                 }
                                             >
@@ -116,7 +116,7 @@ const Nav = ({ hamClick, clickedPath }) => {
                                                 onMouseEnter={() => handleMouseEnter(subItem.name)}
                                                 onMouseLeave={() => handleMouseLeave()}
                                                 >
-                                                    <div className={style.iconSub}><HiOutlineDocumentText /></div>
+                                                    <div className={`${style.icon} ${hamClick && style.iconActive}`}><HiOutlineDocumentText /></div>
                                                     <div className={`${style.nameSub} ${hamClick ? style.activeName : style.inactiveName}`}>{subItem.name}</div>
                                                 </Link>
                                             ))}
@@ -135,7 +135,7 @@ const Nav = ({ hamClick, clickedPath }) => {
                                         onMouseEnter={() => handleMouseEnter(item.description)}
                                         onMouseLeave={() => handleMouseLeave()}
                                     >
-                                        <div className={style.icon}><item.icon /></div>
+                                        <div className={`${style.icon} ${hamClick && style.iconActive}`}><item.icon /></div>
                                         <div className={`${style.name} ${hamClick ? style.activeName : style.inactiveName}`}>&nbsp;{item.name}</div>
                                     </Link>
                                 )}
