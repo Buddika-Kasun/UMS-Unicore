@@ -32,7 +32,7 @@ const CommonLayout = ({children}) => {
                 <div className={style.child}>
                     {children}
                     <div className={`${style.loadingComp} ${loading && style.loadingCompHide}`}>
-                        <LoadingComp />
+                        <LoadingComp color={"rgba(0, 0, 0, 0.8)"}/>
                     </div>
                 </div>
             </div>
