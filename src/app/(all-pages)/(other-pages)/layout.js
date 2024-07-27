@@ -30,15 +30,10 @@ const CommonLayout = ({children}) => {
             <div className= {style.innerContainer}>
                 <Nav hamClick={hamClick} clickedPath={handleClickedPath}/>
                 <div className={style.child}>
-                    {loading ?
-                    <div className={style.loadingComp}>
+                    {children}
+                    <div className={`${style.loadingComp} ${loading && style.loadingCompHide}`}>
                         <LoadingComp />
                     </div>
-                     :
-                    children
-                    }
-                    {/* {loading && <LoadingComp />} */}
-                    {/* {children} */}
                 </div>
             </div>
             {/* <Footer /> */}
