@@ -1,0 +1,189 @@
+.childContainer {
+    width: 40%;
+    /* transition: all 0.7s ease-in;
+    transition: all 1s ease-out; */
+    /* transition: opacity 2s, transform 1s; */
+    opacity: 1;
+    transform: scale(1);
+    position: relative;
+}
+
+.activeCreateContainer {
+    /* left: -50%; */
+    transform: translateX(-125%);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.5s ease-in, transform 0.6s ease-in;
+}
+
+.deactiveCreateContainer {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in, transform 0.6s ease-in;
+}
+
+.activeLoginContainer {
+    /* right: -50%; */
+    transform: translateX(125%);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.5s ease-in, transform 0.6s ease-in;
+}
+
+.deactiveLoginContainer {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in, transform 0.6s ease-in;
+}
+
+.hL, .hR, .formL, .formR, .footer {
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hL, .hR {
+    align-items: end;
+    height: 20%;
+    text-align: center;
+    font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
+    font-weight: 600;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 30%);
+}
+
+.hR {
+    height: 15%;
+    margin-bottom: 10px;
+}
+
+.formL, .formR {
+    height: calc(78% - 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* border: 1px solid black; */
+}
+
+.formR {
+    height: calc(83% - 30px);
+}
+
+.field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    /* border: 1px solid black; */
+}
+
+.fieldPW {
+    /* border: 1px solid black; */
+    display: flex;
+    height: 14%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pw {
+    width: 47%;
+}
+
+.fieldR {
+    height: 14%;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 80%);
+}
+
+.field input {
+    border: none;
+    /* outline: none; */
+    border-radius: 10px;
+    background-color: rgb(229, 239, 248);
+    height: 40%;
+    width: calc(100% - 20px);
+    padding-left: 15px;
+    color: rgba(0, 0, 0, 80%);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.field input:focus {
+    outline-color: rgb(18, 102, 211);
+}
+
+.field input::placeholder {
+    color: rgba(0, 0, 0, 30%);
+    font-style: italic;
+    font-size: 12px;
+}
+
+.btnsL, .btnsR {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid black;- */
+    margin-top: 30px;
+}
+
+.btnsR {
+    margin-top: 20px;
+
+}
+
+.submitBtn {
+    width: 30%;
+    height: 55%;
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: black;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
+}
+
+.submitBtn:hover {
+    background-color: rgb(18, 102, 211); /* Darker shade on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.25); /* Larger shadow on hover */
+}
+
+.submitBtn:active {
+    background-color: #004494; /* Even darker shade on active */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Smaller shadow on active */
+    transform: translateY(2px); /* Move the button down */
+}
+
+.btns span {
+    font-size: 13px;
+}
+
+.visitBtn {
+    text-decoration: none;
+    font-weight: 800;
+    text-shadow: 0.5px 0.5px 1px rgba(17, 101, 212, 60%);
+}
+
+.visitBtn:hover {
+    color: rgb(18, 102, 211);
+}
+
+.visitBtn:active {
+    color: rgba(18, 102, 211, 40%)
+}
+
+.footer {
+    height: 30px;
+    font-size: 10px;
+    /* border: 1px solid black; */
+}
