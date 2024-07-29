@@ -1,0 +1,72 @@
+.container {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    background-color: rgb(229, 239, 248);
+    position: relative;
+}
+
+.container * {
+    /* border: 1px solid red; */
+    user-select: none;
+}
+
+.overlayLeft {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
+    z-index: 2;
+    position: absolute;
+    transition: all 0.7s ease-in-out;
+}
+
+.overlayRight {
+    transform: translateX(100%);
+}
+
+.overlayLeft img {
+    max-height: 90%;
+    max-width: 80%;
+    filter: drop-shadow(-10px 5px 10px rgba(17, 101, 212, 25%))
+            drop-shadow(12px -8px 10px rgba(0, 0, 0, 20%));
+    transition: filter 0.5s ease-in-out;
+    /* border: 1px solid black; */
+}
+
+.overlayLeft img:hover {
+    filter: drop-shadow(-10px 5px 15px rgba(17, 101, 212, 40%))
+            drop-shadow(12px -8px 15px rgba(0, 0, 0, 30%));
+}
+
+.boxRight {
+    /* border: 1px solid black; */
+    height: 98%;
+    width: 67%;
+    margin: 0.3% 0 0.5% 0;
+    background-color: white;
+    border-radius: 50px;
+    position: absolute;
+    z-index: 0;
+    right: -4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.7s ease-in-out;
+}
+
+.boxLeft {
+    transform: translateX(-60%);
+}
+
+.containerBottom {
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    /* background-color: white; */
+    /* border: 1px solid black; */
+}
