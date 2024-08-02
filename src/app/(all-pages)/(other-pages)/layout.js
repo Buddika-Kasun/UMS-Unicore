@@ -1,44 +1,18 @@
-"use client"
+import { auth } from "@/app/api/auth/auth";
+import CommonLayout from "@/components/layout/commonLayout";
+import { redirect } from "next/navigation";
 
-import Footer from "@/components/footer/Footer";
-import Header from "@/components/header/Header";
-import style from "./layout.module.css";
-import { useEffect, useState } from "react";
-import Nav from "@/components/Nav/Nav";
-import { usePathname } from "next/navigation";
-import LoadingComp from "../loadingPage/page";
+const Layout = async({children}) => {
 
-const CommonLayout = ({children}) => {
+    const session = await auth();
 
-    const currentPath = usePathname();
-
-    const [hamClick, setHamClick] = useState(false);
-    const [clickedPath, setClickedPath] = useState(currentPath);
-    const [loading, setLoading] = useState(false);
-
-    const handleClickedPath = (value) => {
-        setClickedPath(value);
+    if(!session?.user) {
+        redirect("/authPages?mode=login");
     }
 
-    useEffect(() => {
-        setLoading(currentPath !== clickedPath);
-    },[currentPath, clickedPath]);
-
     return (
-        <div className={style.container}>
-            <div className={style.header}><Header hamClick={hamClick} setHamClick={setHamClick}/></div>
-            <div className= {style.innerContainer}>
-                <Nav hamClick={hamClick} clickedPath={handleClickedPath}/>
-                <div className={style.child}>
-                    {children}
-                    <div className={`${style.loadingComp} ${loading && style.loadingCompHide}`}>
-                        <LoadingComp color={"rgba(0, 0, 0, 0.8)"}/>
-                    </div>
-                </div>
-            </div>
-            {/* <Footer /> */}
-        </div>
+        <CommonLayout children={children} sessionData={session?.user?.name} />
     )
 }
 
-export default CommonLayout;
+export default Layout;
