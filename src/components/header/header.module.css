@@ -93,3 +93,17 @@
     margin-right: 10px;
     cursor: pointer;
 }
+
+.bottomContainer {
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logOut {
+    background-color: yellow;
+    color: black;
+    padding: 0 5px;
+    cursor: pointer;
+}

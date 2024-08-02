@@ -2,11 +2,17 @@
 
 import { useState } from "react";
 import style from "./header.module.css"
+import { doLogOut } from "@/app/api/action";
 
-const Header = ({hamClick, setHamClick}) => {
+const Header = ({hamClick, setHamClick, sessionData}) => {
 
     const handleHamburger = () => {
         setHamClick(prevClick => !prevClick);
+    }
+
+    const handleLogOut = () => {
+        console.log("hi");
+        doLogOut();
     }
 
     return (
@@ -38,7 +44,12 @@ const Header = ({hamClick, setHamClick}) => {
                     </button>
                 </form>
             </div>
-            <div className={style.profile}></div>
+            <div className={style.bottomContainer}>
+                <div>{sessionData}</div>
+                <div className={style.logOut} onClick={handleLogOut}>LogOut</div>
+                <div className={style.profile}></div>
+            </div>
+
         </div>
     )
 }
