@@ -1,7 +1,7 @@
 const CryptoJS = require('crypto-js');
 
 // Encrypt function
-export function encrypt(value, secretKey) {
+export function encrypt(value, secretKey = 'test') {
     try {
         const ciphertext = CryptoJS.AES.encrypt(value, secretKey).toString();
         return ciphertext;
@@ -12,7 +12,7 @@ export function encrypt(value, secretKey) {
 }
 
 // Decrypt function
-export function decrypt(encryptedvalue, secretKey) {
+export function decrypt(encryptedvalue, secretKey = 'test') {
     try {
         // Check if encryptedvalue is defined
         if (!encryptedvalue) {
