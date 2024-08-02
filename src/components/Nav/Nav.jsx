@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import menu from '@/lib/menuData';
+import menu from '@/data/menuData';
 import style from './nav.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { HiChevronDown, HiOutlineDocumentText } from "react-icons/hi";
