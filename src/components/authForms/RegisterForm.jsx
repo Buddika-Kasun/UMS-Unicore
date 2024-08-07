@@ -21,6 +21,14 @@ const RegisterForm = ({isRegister}) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        const nameRegex = /^[.a-zA-Z\s]+$/;
+
+        if(name === 'fName' && !nameRegex.test(value)) {
+            alert("Name should only contain letters and spaces.");
+            return;
+        }
+
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
@@ -142,6 +150,7 @@ const RegisterForm = ({isRegister}) => {
                             type="password"
                             name="pwR"
                             id="pwR"
+                            className={style.pswd}
                             value={formData.pwR}
                             minLength={8}
                             maxLength={15}
@@ -156,6 +165,7 @@ const RegisterForm = ({isRegister}) => {
                             type="password"
                             name="confirmPw"
                             id="confirmPw"
+                            className={style.pswd}
                             value={formData.confirmPw}
                             minLength={8}
                             maxLength={15}
