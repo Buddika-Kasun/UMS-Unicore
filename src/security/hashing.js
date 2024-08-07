@@ -1,6 +1,10 @@
+import "server-only";
+
 import bcrypt from "bcryptjs";
 
-export function hash (value, salt = 5) {
+const salt = parseInt(process.env.HASH_SALT);
+
+export function hash (value) {
     const hashedValue = bcrypt.hash(value, salt);
     return hashedValue;
 }
