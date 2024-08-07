@@ -1,9 +1,13 @@
+import "server-only";
+
 const CryptoJS = require('crypto-js');
 
+const secretKey = process.env.ENCRYPTION_KEY;
+
 // Encrypt function
-export function encrypt(value, secretKey = 'test') {
+export async function encrypt(value) {
     try {
-        const ciphertext = CryptoJS.AES.encrypt(value, secretKey).toString();
+        const ciphertext = await CryptoJS.AES.encrypt(value, secretKey).toString();
         return ciphertext;
     } catch (error) {
         console.error('Error encrypting value:', error);
@@ -12,15 +16,15 @@ export function encrypt(value, secretKey = 'test') {
 }
 
 // Decrypt function
-export function decrypt(encryptedvalue, secretKey = 'test') {
+export async function decrypt(encryptedvalue) {
     try {
         // Check if encryptedvalue is defined
         if (!encryptedvalue) {
             throw new Error('Encrypted value is undefined');
         }
 
-        const bytes = CryptoJS.AES.decrypt(encryptedvalue, secretKey);
-        const originalvalue = bytes.toString(CryptoJS.enc.Utf8);
+        const bytes = await CryptoJS.AES.decrypt(encryptedvalue, secretKey);
+        const originalvalue = await bytes.toString(CryptoJS.enc.Utf8);
 
         // Ensure the decryption resulted in a valid string
         if (!originalvalue) {
