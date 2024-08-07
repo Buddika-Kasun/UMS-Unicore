@@ -154,6 +154,12 @@
     /* border: 1px solid red; */
 }
 
+/* Disables the default Edge eye icon */
+.field input[type="password"]::-ms-reveal,
+.field input[type="password"]::-ms-clear {
+    display: none;
+}
+
 .btnsL, .btnsR {
     width: 100%;
     height: 15%;
