@@ -28,6 +28,7 @@ const userSchema = new Schema({
     role: {
         // required: true,
         type: String,
+        default: "guest", // Assign default value
     },
 });
 
