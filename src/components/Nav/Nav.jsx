@@ -67,13 +67,16 @@ const Nav = ({ hamClick, clickedPath }) => {
             <nav className={style.nav}>
                 {menu.map((section, sectionIndex) => (
                     <div className={style.section} key={sectionIndex}>
-                        <div onMouseEnter={() => handleMouseEnter(section.secDescription)}
-                            onMouseLeave={() => handleMouseLeave()}>
-                        <div className={`${style.sectionIcon} ${hamClick ? style.inactiveName : style.activeName}`}><section.secIcon /></div>
-                        <div className={`${style.title} ${hamClick ? style.activeName : style.inactiveName}`}>
-                            {section.section}
-                        </div>
-                        </div>
+                        {!(section.section === null) && (
+                            <div onMouseEnter={() => handleMouseEnter(section.secDescription)}
+                                onMouseLeave={() => handleMouseLeave()}
+                            >
+                                <div className={`${style.sectionIcon} ${hamClick ? style.inactiveName : style.activeName}`}><section.secIcon /></div>
+                                <div className={`${style.title} ${hamClick ? style.activeName : style.inactiveName}`}>
+                                    {section.section}
+                                </div>
+                            </div>
+                        )}
                         <div className={style.itemContainer}>
                         {section.menu.map((item, itemIndex) => (
                             <div key={itemIndex}>
@@ -157,10 +160,12 @@ const Nav = ({ hamClick, clickedPath }) => {
                 <nav className={style.aaaa}>
                     {menu.map((section, sectionIndex) => (
                         <div className={style.section} key={sectionIndex}>
-                            <div className={`${style.title} ${style.title1}`}>
-                                <div className={`${style.trangle2} ${hoverItem === section.secDescription && style.trangleHover}`}></div>
-                                <div className={`${style.hintName} ${hoverItem === section.secDescription && style.hintHover}`}>{section.secDescription}</div>
-                            </div>
+                            {!(section.section === null) && (
+                                <div className={`${style.title} ${style.title1}`}>
+                                    <div className={`${style.trangle2} ${hoverItem === section.secDescription && style.trangleHover}`}></div>
+                                    <div className={`${style.hintName} ${hoverItem === section.secDescription && style.hintHover}`}>{section.secDescription}</div>
+                                </div>
+                            )}
                             <div className={style.itemContainer}>
                             {section.menu.map((item, itemIndex) => (
                                 <div key={itemIndex}>
