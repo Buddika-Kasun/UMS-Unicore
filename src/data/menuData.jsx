@@ -1,7 +1,18 @@
-import { HiOutlineCog, HiOutlineFolder } from "react-icons/hi";
+import { HiOutlineCog, HiOutlineFolder, HiOutlinePresentationChartBar } from "react-icons/hi";
 import { FaG,FaN,FaP } from "react-icons/fa6";
 
 const menu = [
+    {
+      section: null,
+      menu: [
+        {
+          name: "Dashboard",
+          description: "Dashboard",
+          path: "/dashboard",
+          icon: HiOutlinePresentationChartBar,
+          haveSubmenu: false
+        }]
+    },
     {
       section: "Gestor",
       secDescription: "General Administration",
