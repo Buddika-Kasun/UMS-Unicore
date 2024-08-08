@@ -71,7 +71,7 @@ function LoginForm({isLogin}) {
             else if(res.status === 200){
                 formReset();
                 setAttempts(0);
-                router.push('/gestor/master');
+                router.push('/dashboard');
             }
 
         }
