@@ -26,7 +26,7 @@ const CommonLayout = ({children,sessionData}) => {
 
     return (
         <div className={style.container}>
-            <div className={style.header}><Header hamClick={hamClick} setHamClick={setHamClick} sessionData={sessionData}/></div>
+            <div className={style.header}><Header hamClick={hamClick} setHamClick={setHamClick} sessionData={sessionData} clickedPath={handleClickedPath}/></div>
             <div className= {style.innerContainer}>
                 <Nav hamClick={hamClick} clickedPath={handleClickedPath}/>
                 <div className={style.child}>
