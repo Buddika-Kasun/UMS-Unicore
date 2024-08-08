@@ -1,10 +1,13 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./header.module.css"
 import { doLogOut } from "@/app/api/action";
+import { FaRegUserCircle } from "react-icons/fa";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const Header = ({hamClick, setHamClick, sessionData}) => {
+const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
 
     const handleHamburger = () => {
         setHamClick(prevClick => !prevClick);
@@ -45,9 +48,9 @@ const Header = ({hamClick, setHamClick, sessionData}) => {
                 </form>
             </div>
             <div className={style.bottomContainer}>
-                <div>{sessionData}</div>
+                <div>{sessionData.name}</div>
                 <div className={style.logOut} onClick={handleLogOut}>LogOut</div>
-                <div className={style.profile}></div>
+                <Link onClick={() => clickedPath('/profile')} href={'/profile'} className={style.profile}><FaRegUserCircle className={style.profileIcon}/></Link>
             </div>
 
         </div>
