@@ -11,7 +11,7 @@ const Layout = async({children}) => {
     }
 
     return (
-        <CommonLayout children={children} sessionData={session?.user?.name} />
+        <CommonLayout children={children} sessionData={session?.user} />
     )
 }
 
