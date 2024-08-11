@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import style from "./authForms.module.css";
-import { IoMdEye } from "react-icons/io";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
