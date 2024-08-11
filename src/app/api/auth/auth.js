@@ -44,4 +44,10 @@ export const {
         // ...add more providers here
     ],
     secret: process.env.NEXTAUTH_SECRET, // Ensure this is set
+    session: {
+        // Configure session expiry
+        maxAge: 24 * 60 * 60, // Session will expire in 24 hours (in seconds)
+        //maxAge: 30,
+        updateAge: 60 * 60, // Session will be updated every hour (in seconds)
+    },
 });
