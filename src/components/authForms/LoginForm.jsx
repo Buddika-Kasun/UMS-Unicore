@@ -9,10 +9,10 @@ import axios from "axios";
 import EyeBtn from "../eyeBtn/eyeBtn";
 const CryptoJS = require('crypto-js');
 
-function LoginForm({isLogin}) {
+function LoginForm({isLogin, setIsLoading, setError}) {
 
     const router = useRouter();
-    const [error, setError] = useState('');
+    //const [error, setError] = useState('');
     const [formData, setFormData] = useState({
         emailL: '',
         pwL: '',
@@ -54,6 +54,8 @@ function LoginForm({isLogin}) {
         }
 
         try {
+            setIsLoading(true);
+
             const {emailL, pwL} = formData;
 
             const encryptedPw = CryptoJS.AES.encrypt(pwL, "tEsT123#").toString();
@@ -62,11 +64,14 @@ function LoginForm({isLogin}) {
 
             const res = await axios.post('/api/login', data);
 
+            //setIsLoading(false);
+
             if(res.status === 203) {
+                setIsLoading(false);
                 setAttempts(prevAttempts => prevAttempts + 1);
                 console.error('Error = ', res.data.message);//
                 setError(res.data.message);
-                alert(res.data.message);
+                //alert(res.data.message);
             }
             else if(res.status === 200){
                 formReset();
@@ -76,6 +81,7 @@ function LoginForm({isLogin}) {
 
         }
         catch(err) {
+            setIsLoading(false);
             console.error('Error login user:', err);//
             setError('An unexpected error occurred while login the user.');
         }
