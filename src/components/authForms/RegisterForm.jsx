@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 const CryptoJS = require('crypto-js');
 
-const RegisterForm = ({isRegister}) => {
+const RegisterForm = ({isRegister, setIsLoading, setError}) => {
 
     const router = useRouter();
     const [formData, setFormData] = useState({
@@ -60,6 +60,8 @@ const RegisterForm = ({isRegister}) => {
             //     pw: hashedPw,
             // };
 
+            setIsLoading(true);
+
             const {fName, faculty, type, emailR, pwR, confirmPw} = formData;
 
             if (pwR !== confirmPw) {
@@ -73,18 +75,23 @@ const RegisterForm = ({isRegister}) => {
 
             const res = await axios.post('/api/register', data);
 
+            setIsLoading(false);
+
             res.status === 201 && router.push('/authPages?mode=login');
             console.log(res.data);//
 
             formReset();
         }
         catch (err) {
+            setIsLoading(false);
             if (err.response && err.response.status === 409) {
                 console.error(err.response.data.message);
-                alert(err.response.data.message); // Alert the conflict message
+                setError(err.response.data.message);
+                //alert(err.response.data.message); // Alert the conflict message
             } else {
                 console.error('Error registering user:', err);
-                alert('An unexpected error occurred while registering the user.');
+                setError('An unexpected error occurred while registering the user.');
+                //alert('An unexpected error occurred while registering the user.');
             }
         }
 
