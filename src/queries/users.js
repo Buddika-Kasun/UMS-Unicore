@@ -13,13 +13,40 @@ export async function createUser(user) {
     }
 }
 
-const us = [{
-    name: 'Test',
-    faculty: 'test',
-    type: 'a',
-    email: 'test@gmail.com',
-    pw: 'test1234',
-}];                                     // DB
+const us = [
+    {
+        name: 'Test',
+        faculty: 'test',
+        type: 'a',
+        email: 'test@gmail.com',
+        pw: 'test1234',
+        role: 'Test'
+    },
+    {
+        name: 'System Admin',
+        faculty: 'test',
+        type: 'a',
+        email: 'systemadmin@gmail.com',
+        pw: 'systemAdmin1234',
+        role: 'System Admin'
+    },
+    {
+        name: 'Staff',
+        faculty: 'test',
+        type: 'a',
+        email: 'staff@gmail.com',
+        pw: 'staff1234',
+        role: 'Staff'
+    },
+    {
+        name: 'Administrators',
+        faculty: 'test',
+        type: 'a',
+        email: 'administrators@gmail.com',
+        pw: 'admin1234',
+        role: 'Administrators'
+    }
+];                                     // DB
 
 export /*async*/ function findUserByEmail(email) {
     try {
