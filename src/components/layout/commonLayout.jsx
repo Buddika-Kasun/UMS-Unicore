@@ -10,7 +10,7 @@ import LoadingComp from "@/app/(all-pages)/loadingPage/page";
 import Link from "next/link";
 
 const CommonLayout = ({children, sessionData, sessionExpiry}) => {
-    console.log(sessionData,sessionExpiry);
+    //console.log(sessionData,sessionExpiry);
     const currentPath = usePathname();
 
     const [hamClick, setHamClick] = useState(false);
@@ -56,7 +56,7 @@ const CommonLayout = ({children, sessionData, sessionExpiry}) => {
             <div className={style.header}><Header hamClick={hamClick} setHamClick={setHamClick} sessionData={sessionData} clickedPath={handleClickedPath}/></div>
 
             <div className= {style.innerContainer}>
-                <Nav hamClick={hamClick} clickedPath={handleClickedPath}/>
+                <Nav hamClick={hamClick} clickedPath={handleClickedPath} role={sessionData.role}/>
                 <div className={style.child}>
                     {children}
                     <div className={`${style.loadingComp} ${loading && style.loadingCompHide}`}>
