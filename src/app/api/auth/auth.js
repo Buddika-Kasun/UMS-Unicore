@@ -26,6 +26,12 @@ export const {
                         console.log(user);//
                         if (isMatch) {
                             return user;
+                            /*return {
+                                id: user.id,
+                                email: user.email,
+                                name: user.name,  // Add any additional properties you want to include in the session
+                                role: user.role,  // Example of including a custom property
+                            }*/
                         }
                         else {
                             throw ("406 - Check your password!");
@@ -43,11 +49,4 @@ export const {
         }),
         // ...add more providers here
     ],
-    secret: process.env.NEXTAUTH_SECRET, // Ensure this is set
-    session: {
-        // Configure session expiry
-        //maxAge: 24 * 60 * 60, // Session will expire in 24 hours (in seconds)
-        maxAge: 30,
-        updateAge: 60 * 60, // Session will be updated every hour (in seconds)
-    },
 });
