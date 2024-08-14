@@ -6,17 +6,17 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import EyeBtn from "../eyeBtn/eyeBtn";
+import { toast } from "react-toastify";
 const CryptoJS = require('crypto-js');
 
-function LoginForm({isLogin, setIsLoading, setError}) {
+function LoginForm({isLogin, setIsLoading}) {
 
     const router = useRouter();
-    //const [error, setError] = useState('');
     const [formData, setFormData] = useState({
         emailL: '',
         pwL: '',
     });
-    const [attempts, setAttempts] = useState(0);
+    const [attempts, setAttempts] = useState(1);
     const maxAttempts = 3;
     const [showPassword, setShowPassword] = useState(false);
     const passwordRef = useRef(null);
@@ -44,13 +44,14 @@ function LoginForm({isLogin, setIsLoading, setError}) {
         });
     }
 
+    const handleFormLeave =  () => {
+        formReset();
+        toast.dismiss();
+        setAttempts(0);
+    }
+
     const handleLogin = async(event) => {
         event.preventDefault();
-
-        if (attempts >= maxAttempts) {
-            setError('You have been locked out due to too many failed attempts.');
-            return;
-        }
 
         try {
             setIsLoading(true);
@@ -69,12 +70,28 @@ function LoginForm({isLogin, setIsLoading, setError}) {
                 setIsLoading(false);
                 setAttempts(prevAttempts => prevAttempts + 1);
                 console.error('Error = ', res.data.message);//
-                setError(res.data.message);
-                //alert(res.data.message);
+                toast.error(res.data.message);
+
+                if (attempts >= maxAttempts) {
+                    console.log(attempts);
+                    toast.error(
+                        <>
+                            You have been locked out due to too many failed attempts.
+                            <br /><br />
+                            Change your password.
+                        </>,
+                        {
+                            autoClose: false,
+                        }
+                    );
+                    formReset();
+                    return;
+                }
             }
             else if(res.status === 200){
                 formReset();
                 setAttempts(0);
+                toast.success('Login success.');
                 router.push('/dashboard');
             }
 
@@ -82,12 +99,17 @@ function LoginForm({isLogin, setIsLoading, setError}) {
         catch(err) {
             setIsLoading(false);
             console.error('Error login user:', err);//
-            setError('An unexpected error occurred while login the user.');
+            toast.error('An unexpected error occurred while login the user.');
         }
     }
 
     return (
-        <div className={`${style.childContainer} ${isLogin? style.deactiveLoginContainer : style.activeLoginContainer}`}>
+        <div
+            className={`
+                ${style.childContainer}
+                ${isLogin? style.deactiveLoginContainer : style.activeLoginContainer}
+            `}
+        >
             <div className={style.hL}>Welcome to UniCore</div>
             <form className={style.formL}  onSubmit={handleLogin}>
                 <div className={style.field}>
@@ -101,6 +123,7 @@ function LoginForm({isLogin, setIsLoading, setError}) {
                         onFocus={handleOnfocus}
                         placeholder="Enter your email"
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        disabled={attempts >= maxAttempts+1}
                         required
                     />
                 </div>
@@ -118,19 +141,26 @@ function LoginForm({isLogin, setIsLoading, setError}) {
                             placeholder="Enter your password"
                             ref={passwordRef}
                             className={style.pswd}
+                            disabled={attempts >= maxAttempts+1}
                             required
                         />
                         <EyeBtn fun={togglePasswordVisibility} clickStat={showPassword}/>
                     </div>
                 </div>
                 <div className={style.btnsL}>
-                    <button type="submit" className={style.submitBtn} disabled={attempts >= maxAttempts}>
-                        {attempts >= maxAttempts ? "Locked Out" : "Log in"}
+                    <button type="submit" className={style.submitBtn} disabled={attempts >= maxAttempts+1}>
+                        {attempts >= maxAttempts+1 ? "Locked Out" : "Log in"}
                     </button>
                     {/* {error && <div className={style.error}>{error}</div>} */}
                     <span>
                         Don’t have an account? &nbsp;
-                        <Link onClick={formReset} href={"/authPages?mode=register"} className={style.visitBtn}>Sign up</Link>
+                        <Link
+                            onClick={handleFormLeave}
+                            href={"/authPages?mode=register"}
+                            className={style.visitBtn}
+                        >
+                            Sign up
+                        </Link>
                     </span>
                 </div>
             </form>

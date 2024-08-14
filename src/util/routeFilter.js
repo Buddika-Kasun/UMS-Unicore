@@ -5,7 +5,7 @@ const filterRouteByRole = (userRole) => {
 
     const filteredMenu = filterMenuByRole(menuData, userRole);
 
-    const route = [];
+    const route = ['/profile'];
 
     filteredMenu.forEach(section => {
         section.menu.forEach(menu => {

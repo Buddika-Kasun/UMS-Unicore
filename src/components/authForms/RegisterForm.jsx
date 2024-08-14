@@ -5,9 +5,10 @@ import style from "./authForms.module.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 const CryptoJS = require('crypto-js');
 
-const RegisterForm = ({isRegister, setIsLoading, setError}) => {
+const RegisterForm = ({isRegister, setIsLoading}) => {
 
     const router = useRouter();
     const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const RegisterForm = ({isRegister, setIsLoading, setError}) => {
         const nameRegex = /^[.a-zA-Z\s]+$/;
 
         if(name === 'fName' && !nameRegex.test(value)) {
-            alert("Name should only contain letters and spaces.");
+            toast.warning("Name should only contain letters and spaces.");
             return;
         }
 
@@ -65,7 +66,8 @@ const RegisterForm = ({isRegister, setIsLoading, setError}) => {
             const {fName, faculty, type, emailR, pwR, confirmPw} = formData;
 
             if (pwR !== confirmPw) {
-                alert('Passwords do not match!');
+                toast.warning('Passwords do not match!');
+                setIsLoading(false);
                 return;
             }
 
@@ -86,11 +88,11 @@ const RegisterForm = ({isRegister, setIsLoading, setError}) => {
             setIsLoading(false);
             if (err.response && err.response.status === 409) {
                 console.error(err.response.data.message);
-                setError(err.response.data.message);
+                toast.error(err.response.data.message);
                 //alert(err.response.data.message); // Alert the conflict message
             } else {
                 console.error('Error registering user:', err);
-                setError('An unexpected error occurred while registering the user.');
+                toast.errorr('An unexpected error occurred while registering the user.');
                 //alert('An unexpected error occurred while registering the user.');
             }
         }

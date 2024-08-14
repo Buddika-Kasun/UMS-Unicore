@@ -7,19 +7,13 @@ import RegisterForm from "@/components/authForms/registerForm";
 import LoginForm from "@/components/authForms/loginForm";
 import LoadingComp from "../loadingPage/page";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 const AuthPage = () => {
     const path = useSearchParams().get("mode"); // get router query (path from "mode")
     const mode = path !== "register";
 
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    if(error !== null) {
-        console.log(error);
-        alert(error);
-        setError(null);
-    };
 
     return (
         <div className={style.container}>
@@ -40,9 +34,9 @@ const AuthPage = () => {
 
             <div className={style.containerBottom}>
 
-                <RegisterForm isRegister={mode} setIsLoading={setIsLoading} setError={setError}/>
+                <RegisterForm isRegister={mode} setIsLoading={setIsLoading} />
 
-                <LoginForm isLogin={mode} setIsLoading={setIsLoading} setError={setError}/>
+                <LoginForm isLogin={mode} setIsLoading={setIsLoading} />
 
             </div>
 

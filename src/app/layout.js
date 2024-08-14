@@ -1,8 +1,10 @@
-import { Inter } from 'next/font/google'
-import './globals.css'
-import Footer from '@/components/footer/Footer'
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Footer from '@/components/footer/Footer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'UniCore',
@@ -17,6 +19,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         {children}
+        <ToastContainer />
       </body>
     </html>
   )
