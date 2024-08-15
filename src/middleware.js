@@ -20,7 +20,7 @@ export async function middleware(req) {
     //console.log("midleware");
 
     const isAuthenticated = !!session?.user;
-    //console.log(isAuthenticated, nextUrl.pathname);
+    //console.log("IN MID = ", isAuthenticated, nextUrl);
 
     const isPublicRoute = (PUBLIC_ROUTES.find(route => nextUrl.pathname.includes(route))
     || nextUrl.pathname === ROOT);
@@ -29,11 +29,17 @@ export async function middleware(req) {
     //console.log(isRoleBasedRoute);
 
     if(!isAuthenticated && !isPublicRoute) {
-        return NextResponse.redirect(new URL(LOGIN, nextUrl));
+        //return NextResponse.redirect(new URL(LOGIN, nextUrl));
+        const loginUrl = new URL(LOGIN, nextUrl);
+        loginUrl.searchParams.set("message", "unauthenticated");
+        return NextResponse.redirect(loginUrl);
     }
 
-    if(isAuthenticated && !isRoleBasedRoute){
-        return NextResponse.redirect(new URL('/dashboard', nextUrl));
+    if(isAuthenticated && !(isRoleBasedRoute || isPublicRoute)){
+        //return NextResponse.redirect(new URL('/dashboard', nextUrl));
+        const dashboardUrl = new URL("/dashboard", nextUrl);
+        dashboardUrl.searchParams.set("message", "unauthorized");
+        return NextResponse.redirect(dashboardUrl);
     }
 
 }
