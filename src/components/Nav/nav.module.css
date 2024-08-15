@@ -258,6 +258,10 @@
     display: flex;
 }
 
+.title1::before {
+    background-color: transparent;
+}
+
 .item1 {
     height: 20.5px;
     width: fit-content;
