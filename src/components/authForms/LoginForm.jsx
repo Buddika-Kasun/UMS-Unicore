@@ -99,7 +99,8 @@ function LoginForm({isLogin, setIsLoading}) {
         catch(err) {
             setIsLoading(false);
             console.error('Error login user:', err);//
-            toast.error('An unexpected error occurred while login the user.');
+            // toast.error('An unexpected error occurred while login the user.');
+            toast.error(err.response.data.message);
         }
     }
 
