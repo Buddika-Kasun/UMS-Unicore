@@ -26,6 +26,6 @@ export const authConfig = {
         maxAge: 1 * 60 * 60, // Session will expire in 1 hours (in seconds)
         //maxAge: 30,
         //updateAge: 30 * 60, // Session will be updated every 30 min (in seconds)
-        updateAge: 1 * 60,
+        updateAge: 2 * 60 * 60,
     },
 }
