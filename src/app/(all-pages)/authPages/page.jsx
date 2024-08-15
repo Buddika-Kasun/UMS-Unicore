@@ -6,14 +6,28 @@ import { useSearchParams } from "next/navigation";
 import RegisterForm from "@/components/authForms/registerForm";
 import LoginForm from "@/components/authForms/loginForm";
 import LoadingComp from "../loadingPage/page";
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import handleMiddlewareMsg from "@/util/handleMiddlewareMsg";
 
 const AuthPage = () => {
-    const path = useSearchParams().get("mode"); // get router query (path from "mode")
+
+    const searchParams = useSearchParams();
+
+    const path = searchParams.get("mode"); // get router query (path from "mode")
     const mode = path !== "register";
 
+    const message = searchParams.get("message");
+    const messageDisplayedRef = useReducer(false);
+
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (!messageDisplayedRef.current && message) {
+            handleMiddlewareMsg(message);
+            messageDisplayedRef.current = true; // Mark the message as displayed
+        }
+    }, [message]);
 
     return (
         <div className={style.container}>
