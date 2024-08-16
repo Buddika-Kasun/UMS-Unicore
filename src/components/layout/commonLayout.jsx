@@ -96,9 +96,9 @@ const CommonLayout = ({children, sessionData, sessionExpiry}) => {
                 onClick={()=>setAutoHide(pre => !pre)}
             >
                 {autoHide?
-                    <BiSolidLockOpen size={12} />
+                    <BiSolidLockOpen size={14} />
                 :
-                    <BiSolidLock size={12} />
+                    <BiSolidLock size={14} />
                 }
                 <div className={style.hint}>Auto hide {autoHide? 'enable': 'disable'}</div>
             </div>

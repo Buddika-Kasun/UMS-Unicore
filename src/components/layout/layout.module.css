@@ -99,11 +99,9 @@
 }
 
 .lock:hover {
-    transform: scale(1.1);
     color: black;
     background-color: rgb(224, 224, 224);
-    transition: transform 0.1s ease-out,
-                background-color 0.3s ease-in-out,
+    transition: background-color 0.3s ease-in-out,
                 color 0.3s ease-in-out;
 }
 
