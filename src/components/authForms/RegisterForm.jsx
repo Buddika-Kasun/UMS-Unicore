@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import RegisterFormSelect from "../customDropdown/registerFormSelect";
 const CryptoJS = require('crypto-js');
 
 const RegisterForm = ({isRegister, setIsLoading}) => {
@@ -23,7 +24,7 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        const nameRegex = /^[.a-zA-Z\s]+$/;
+        const nameRegex = /^[.a-zA-Z\s]*$/;
 
         if(name === 'fName' && !nameRegex.test(value)) {
             toast.warning("Name should only contain letters and spaces.");
@@ -77,23 +78,27 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
 
             const res = await axios.post('/api/register', data);
 
-            setIsLoading(false);
+            if (res.status === 201) {
+                //console.log(res.data.message);//
+                setIsLoading(false);
+                formReset();
+                toast.success(res.data.message, {
+                    autoClose: 2000,
+                    onClose: () => {
+                        router.push('/authPages?mode=login');
+                    }
+                });
+            }
 
-            res.status === 201 && router.push('/authPages?mode=login');
-            console.log(res.data);//
-
-            formReset();
         }
         catch (err) {
             setIsLoading(false);
             if (err.response && err.response.status === 409) {
-                console.error(err.response.data.message);
+                //console.error(err.response.data.message);
                 toast.error(err.response.data.message);
-                //alert(err.response.data.message); // Alert the conflict message
             } else {
-                console.error('Error registering user:', err);
-                toast.errorr('An unexpected error occurred while registering the user.');
-                //alert('An unexpected error occurred while registering the user.');
+                //console.error('Error registering user:', err);
+                toast.error('An unexpected error occurred while registering the user.');
             }
         }
 
@@ -117,7 +122,7 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
                 </div>
                 <div className={`${style.field} ${style.fieldR}`}>
                     <label htmlFor="faculty">Faculty</label>
-                    <input
+                    {/* <input
                         type="text"
                         name="faculty"
                         id="faculty"
@@ -125,11 +130,27 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
                         onChange={handleChange}
                         placeholder="Select your faculty"
                         required
-                    />
+                    /> */}
+                    <RegisterFormSelect
+                        name="faculty"
+                        id="faculty"
+                        value={formData.faculty}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="" className={style.placeholder} disabled hidden>Select your faculty</option>
+                        <option value="tec">Faculty of Technology</option>
+                        <option value="arts">Faculty of Arts</option>
+                        <option value="science">Faculty of Science</option>
+                        <option value="engineering">Faculty of Engineering</option>
+                        <option value="business">Faculty of Business</option>
+                        <option value="law">Faculty of Law</option>
+                    </RegisterFormSelect>
+
                 </div>
                 <div className={`${style.field} ${style.fieldR}`}>
                     <label htmlFor="type">User Type</label>
-                    <input
+                    {/* <input
                         type="text"
                         name="type"
                         id="type"
@@ -137,7 +158,20 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
                         onChange={handleChange}
                         placeholder="Select the type of user you want"
                         required
-                    />
+                    /> */}
+                    <RegisterFormSelect
+                        name="type"
+                        id="type"
+                        value={formData.type}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="" disabled hidden>Select the type of user you want</option>
+                        <option value="science">a</option>
+                        <option value="engineering">a</option>
+                        <option value="business">a</option>
+                        <option value="law">a</option>
+                    </RegisterFormSelect>
                 </div>
                 <div className={`${style.field} ${style.fieldR}`}>
                     <label htmlFor="emailR">Email</label>
