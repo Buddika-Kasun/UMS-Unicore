@@ -3,6 +3,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {authConfig} from "./auth.config";
 import bcrypt from "bcryptjs";
+import { dbConnect } from "@/lib/mongo";
 
 export const {
     handlers: {GET, POST},
@@ -16,15 +17,19 @@ export const {
         CredentialsProvider({
             async authorize(credentials) {
                 if (credentials === null) return null;
-                console.log("credencials = ", credentials);//
+                //console.log("credencials = ", credentials);//
                 try {
-                    const user = findUserByEmail(credentials?.email);
-                    console.log('user =',user);//
+                    dbConnect();
+                    const user = await findUserByEmail(credentials?.email);
+                    //console.log('user =',user);//
                     if (user) {
-                        const isMatch = user?.pw === credentials?.pw;
-                        //const isMatch = await bcrypt.compare(credentials?.pw, user?.pw); // DB
-                        console.log(user);//
+                        //const isMatch = user?.pw === credentials?.pw;
+                        const isMatch = await bcrypt.compare(credentials?.pw, user?.pw); // DB
+                        //console.log(user);//
                         if (isMatch) {
+
+                            user.pw = undefined;
+                            //console.log(user);//
                             return user;
                         }
                         else {
@@ -43,5 +48,4 @@ export const {
         }),
         // ...add more providers here
     ],
-    secret: process.env.NEXTAUTH_SECRET, // Ensure this is set
 });

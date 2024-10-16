@@ -3,7 +3,6 @@
 }
 
 body{
-    background-color: white;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -28,6 +27,6 @@ body{
 }
 
 /* Small Screen (767px and below) */
-@media (max-width: 767px) {
+@media (max-width: 480px) {
 
 }

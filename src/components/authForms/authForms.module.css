@@ -114,12 +114,13 @@
     font-weight: 500;
 }
 
-.field input:focus {
-    outline-color: rgb(18, 102, 211);
+.field select{
+    width: 100%;
+    height: calc(40% + 2px);
 }
 
-.field input:focus::placeholder{
-    color: rgba(18, 102, 211, 0.5);
+.field input:focus {
+    outline-color: rgb(18, 102, 211);
 }
 
 .field input::placeholder {
@@ -127,6 +128,10 @@
     font-style: italic;
     font-size: 12px;
     letter-spacing: 0.5px;
+}
+
+.field input:focus::placeholder {
+    color: rgba(18, 102, 211, 0.5);
 }
 
 .field input[type='email'] {

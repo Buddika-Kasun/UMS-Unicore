@@ -1,13 +1,18 @@
 "use client"
 
 import Link from 'next/link';
-import menu from '@/data/menuData';
 import style from './nav.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { HiChevronDown, HiOutlineDocumentText } from "react-icons/hi";
 import { usePathname } from 'next/navigation';
+import menuData from '@/data/menuData';
+import filterMenuByRole from '@/util/menuFilter';
 
-const Nav = ({ hamClick, clickedPath }) => {
+const Nav = ({ hamClick, clickedPath, role }) => {
+
+    const mainMenu = menuData;
+    const userRole = role;
+    const filterdMenu = filterMenuByRole(mainMenu, userRole);
 
     const pathname = usePathname();
 
@@ -65,7 +70,7 @@ const Nav = ({ hamClick, clickedPath }) => {
             }
         >
             <nav className={style.nav}>
-                {menu.map((section, sectionIndex) => (
+                {filterdMenu.map((section, sectionIndex) => (
                     <div className={style.section} key={sectionIndex}>
                         {!(section.section === null) && (
                             <div onMouseEnter={() => handleMouseEnter(section.secDescription)}
@@ -158,7 +163,7 @@ const Nav = ({ hamClick, clickedPath }) => {
                 }
             >
                 <nav className={style.aaaa}>
-                    {menu.map((section, sectionIndex) => (
+                    {filterdMenu.map((section, sectionIndex) => (
                         <div className={style.section} key={sectionIndex}>
                             {!(section.section === null) && (
                                 <div className={`${style.title} ${style.title1}`}>

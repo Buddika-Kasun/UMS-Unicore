@@ -9,6 +9,8 @@ import { usePathname } from "next/navigation";
 
 const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
 
+    const [profileClick, setProfileClick] = useState(false);
+
     const handleHamburger = () => {
         setHamClick(prevClick => !prevClick);
     }
@@ -18,26 +20,44 @@ const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
         doLogOut();
     }
 
+    // Handle out side click of profile button
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (profileClick && !event.target.closest(`.${style.profileBtn}`)) {
+                setProfileClick(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [profileClick]);
+
     return (
         <div className={style.container}>
             <div className={style.innerContainer}>
-            <div className={style.hamburger} onClick={handleHamburger}>
-                {
-                    !hamClick?
-                    (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
-                    ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    )
-                }
+                <div className={style.hamburger} onClick={handleHamburger}>
+                    {
+                        !hamClick?
+                        (
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        )
+                    }
+                </div>
+                <div className={style.name}>
+                    Unicore - <span className={style.uni}>University of Sri Jayawardenapura</span>
+                </div>
             </div>
-            <div className={style.name}>Unicore - <span className={style.uni}>University of Sri Jayawardenapura</span></div>
-            </div>
-            <div>
+
+            {/* <div>
                 <form action="#" className={style.form}>
                     <input type="text" className={style.search} />
                     <button type="submit" className={style.searchBtn}>
@@ -46,11 +66,28 @@ const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
                         </svg>
                     </button>
                 </form>
-            </div>
+            </div> */}
+
             <div className={style.bottomContainer}>
                 <div>{sessionData.name}</div>
+
+                <div className={style.profileBtn} onClick={() => setProfileClick(pre=> !pre)}>
+                    <FaRegUserCircle className={style.profileIcon}/>
+                </div>
+            </div>
+
+            <div className={`${style.profileContainer} ${profileClick && style.profileContainerActive}`}>
+                <Link
+                    onClick={() => {
+                        clickedPath('/profile')
+                        //setProfileClick(false);
+                    }}
+                    href={'/profile'}
+                    className={style.vwProfile}
+                >
+                    View Profile
+                </Link>
                 <div className={style.logOut} onClick={handleLogOut}>LogOut</div>
-                <Link onClick={() => clickedPath('/profile')} href={'/profile'} className={style.profile}><FaRegUserCircle className={style.profileIcon}/></Link>
             </div>
 
         </div>

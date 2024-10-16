@@ -1,0 +1,38 @@
+.select {
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-color: rgb(229, 239, 248);
+    /* height: 40%; */
+    /* width: calc(100% - 20px); */
+    padding-left: 10px;
+    /* color: rgba(0, 0, 0, 80%); */
+    color: rgb(18, 102, 211);
+    font-size: 15px;
+    font-weight: 500;
+    font-style: none;
+    line-height: 10px;
+    cursor: pointer;
+}
+
+.placeholder {
+    color: rgba(0, 0, 0, 0.17);
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.placeholder:focus {
+    color: rgba(18, 102, 211, 0.5);
+}
+
+.select:focus {
+    border-color: rgb(18, 102, 211);
+}
+
+.select option{
+    color: rgb(18, 102, 211);
+    font-style: italic;
+    font-size: 13px;
+    font-weight: 400;
+}
