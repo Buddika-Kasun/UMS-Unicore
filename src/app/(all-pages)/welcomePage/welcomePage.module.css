@@ -1,198 +1,185 @@
-/* XX-Small Devices (small phones, <380px) */
+/*... (rest of the code remains the same) */
 .container{
     width: 100%;
     height: calc(100vh - 30px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    overflow: auto;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid black; */
 }
 
 .imageContainer{
+    max-width: 45%;
+    max-height: 68%;
+    padding-top: 2.5%;
+    /* border: 1px solid black; */
+}
+
+.imageContainer img{
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(-10px 5px 10px rgba(17, 101, 212, 25%))
+            drop-shadow(12px -8px 10px rgba(0, 0, 0, 20%));
+    transition: filter 0.5s ease-in-out;
+}
+
+.imageContainer img:hover {
+    filter: drop-shadow(-10px 5px 15px rgba(17, 101, 212, 40%))
+            drop-shadow(12px -8px 15px rgba(0, 0, 0, 30%));
+}
+
+.textContainer{
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    margin-bottom: 35%;
-}
-
-.imageContainer img{
-    width: 260px;
-    height: 340px;
-}
-
-.textContainer{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    bottom: -30%;
+    top: -12.5%;
+    /* border: 1px solid black; */
 }
 
 .h1{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 55px;
+    align-items: flex-end;
+    font-size: clamp(25px, 3.5vw, 200px);
     font-weight: bold;
     letter-spacing: 2px;
-}
-
-.h1 .child2{
-    margin: -83px 0 -78px 0;
-    font-size: 30px;
+    cursor: default;
+    user-select: none;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 30%);
+    /* border: 1px solid black; */
 }
 
 .h2{
+    font-size: clamp(12px, 1.25vw, 200px);
     color: rgba(17, 101, 212, 80%);
     letter-spacing: 1px;
     word-spacing: 3px;
+    cursor: default;
+    user-select: none;
+    text-shadow: 0.5px 1px 2px rgba(17, 101, 212, 45%);
 }
 
 .buttonField{
-    width: 100%;
+    width: 90%;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-around;
+    position: relative;
+    top: -10%;
+    /* border: 1px solid black; */
 }
 
 .button{
     background-color: rgba(0, 0, 0, 90%);
     color: white;
     text-align: center;
-    border-radius: 4px;
+    /* border-radius: 8px; */
+    border-radius: clamp(6px, 0.8vw, 16px);
     text-decoration: none;
-    font-size: 20px;
-    width: 70%;
-    padding: 5px 0;
-    margin: 7px 0;
+    /* font-size: 20px; */
+    font-size: clamp(12px, 1.5vw, 200px);
+    width: 23%;
+    padding: 0.5% 0;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 20%);
+    transition: background-color 0.3s ease-in-out;
 }
-  
-/* X-Small Devices (phones, ≥380px) */
-@media (min-width: 380px) {
+
+.button:hover {
+    background-color: rgb(18, 102, 211);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 25%);
+}
+
+.button:active {
+    background-color: #004494;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 30%);
+    transform: translateY(2px);
+}
+
+/* Extra Large Screen (1200px and above) */
+@media (min-width: 1200px) {
+
+}
+
+/* Large Screen (992px to 1199px) */
+@media (max-width: 1199px) {
     .imageContainer{
-        margin-bottom: 10%;
+        max-width: 45%;
+        padding-top: 0;
     }
 
-    .imageContainer img{
-        height: 400px;
-        width: 320px;
-    }
-    
-    .textContainer{
-        position: relative;
-        bottom: 0;
+    .h1 {
+        font-size: clamp(25px, 7vw, 200px);
     }
 
-    .button{
-        font-size: 23px;
-        padding: 8px 0;
-        margin: 10px 0;
+    .h2 {
+        font-size: clamp(25px, 3vw, 200px);
+    }
+
+    .container {
+        justify-content: center;
+        gap: 7%;
+    }
+
+    .textContainer {
+        top: 0;
+    }
+
+    .buttonField {
+        top: 0;
+    }
+
+    .button {
+        width: 30%;
+        padding: 2% 0;
+        font-size: clamp(12px, 3vw, 200px);
     }
 }
 
-/* Small Devices (landscape phone, ≥576px) */
-@media (min-width: 576px) {
-    
-} 
+/* Medium Screen (768px to 991px) */
+@media (max-width: 991px) {
 
-/* Medium Devices (tablets, ≥768px) */
-@media (min-width: 768px) {
-    .imageContainer{
-        margin-bottom: 7%;
-    }
+}
 
-    .imageContainer img{
-        height: 500px;
-        width: 380px;
-    }
-
-    .button{
-        font-size: 25px;
-        padding: 8px 0;
-        margin: 0 0 30px 0;
-    }
-} 
-  
-/* Large Devices (laptops, ≥992px) */
-@media (min-width: 992px) {
-    .container{
-        justify-content: space-evenly;
+/* Small Screen (767px and below) */
+@media (max-width: 767px) {
+    .container {
+        gap: 0;
     }
 
     .imageContainer{
-        margin-bottom: 0;
+        max-width: 65%;
     }
 
-    .imageContainer img{ 
-        height: 350px;
-        width: 280px;
+    .textContainer {
+        margin: -13% 0 10% 0;
     }
 
-    .textContainer{
-        position: absolute;
-        bottom: -3%;
+    .h1 {
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        font-size: clamp(10px, 15vw, 100px);
     }
-    
-    .h1{
-        flex-direction: row;
-        align-items: flex-end;
-        font-size: 50px;
-        letter-spacing: 1.5px;
+
+    .h1 :nth-child(2) {
+        font-size: clamp(28px, 7vw, 200px);
+        margin: -5%;
     }
-    
-    .h1 .child2{
-        font-size: 50px;
-        margin: 0;
+
+    .h2 {
+        font-size: clamp(15px, 3vw, 200px);
     }
-    
-    .h2{
-        position: absolute;
-        bottom: -15px;
-        font-size: 17px;
+
+    .buttonField {
+        flex-direction: column;
     }
-    
-    .buttonField{
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-    }
-    
-    .button{
-        font-size: 20px;
-        width: 20%;
-        padding: 5px 0;
-        margin-bottom: 10px;
+
+    .button {
+        width: 75%;
+        margin: 2% 0;
+        font-size: clamp(12px, 5vw, 200px);
     }
 }
-
-/* X-Large Devices (desktops, ≥1400px) */
-@media (min-width: 1400px) {
-    .imageContainer img{ 
-        height: 600px;
-        width: 500px;
-    }
-
-    .h1{
-        font-size: 70px;
-    }
-
-    .h1 .child2{
-        font-size: 70px;
-    }
-
-    .h2{
-        font-size: 25px;
-    }
-
-    .button{
-        font-size: 30px;
-        width: 25%;
-        padding: 10px 0;
-        margin-bottom: 10px;
-    }
-}
-  

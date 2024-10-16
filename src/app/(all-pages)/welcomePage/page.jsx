@@ -8,21 +8,25 @@ const WelcomePage = () => {
     return (
         <>
             <div className={style.container}>
+
                 <div className={style.imageContainer}>
                     <img src="/logo.png" alt="" />
-                    <div className={style.textContainer}>
-                        <div className={style.h1}>
-                            <span>Welcome</span>&nbsp;
-                            <span className={style.child2}>to</span>&nbsp;
-                            <span>UniCore</span>
-                        </div>
-                        <div className={style.h2}>University Management System</div>
+                </div>
+
+                <div className={style.textContainer}>
+                    <div className={style.h1}>
+                        <span>Welcome</span>
+                        <span>&nbsp;to&nbsp;</span>
+                        <span>UniCore</span>
                     </div>
+                    <div className={style.h2}>University Management System</div>
                 </div>
+
                 <div className={style.buttonField}>
-                    <Link href={"/auth?mode=login"} className={style.button}>Log in</Link>
-                    <Link href={"/auth?mode=register"} className={style.button}>Register</Link>
+                    <Link href={"/authPages?mode=login"} className={style.button}>Log in</Link>
+                    <Link href={"/authPages?mode=register"} className={style.button}>Register</Link>
                 </div>
+
             </div>
             <Footer />
         </>

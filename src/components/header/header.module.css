@@ -1,0 +1,185 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container * {
+    user-select: none;
+}
+
+.innerContainer {
+    display: flex;
+    align-items: center;
+}
+
+.hamburger {
+    background-color: rgb(255, 255, 255, 0.4);
+    border-radius: 5px;
+    min-width: 1.25rem;
+    padding: 4px;
+    display: flex;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.hamburger:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.name {
+    /* font-size: 15px; */
+    font-size: 1rem;
+    cursor: default;
+    user-select: none;
+}
+
+.name .uni {
+    font-size: 13px;
+}
+
+.form {
+    display: flex;
+    position: absolute;
+    left: calc(25% + 13%);
+    width: 25%;
+    height: 22px;
+    top: 8px;
+}
+
+.form .search {
+    position: relative;
+    border-radius: 20px;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+}
+
+.form .searchBtn {
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+    position: relative;
+    color: black;
+    right: 22px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.form .searchBtn:hover {
+    background-color: blue;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.icon {
+    width: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottomContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    background-color: black;
+    height: 100%;
+    min-width: 130px;
+    z-index: 12;
+}
+
+.profileBtn {
+    width: 27px;
+    height: 27px;
+    background-color: white;
+    border-radius: 100%;
+    margin-right: 10px;
+    padding: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.profileIcon {
+    color: black;
+    width: 100%;
+    height: 100%;
+}
+
+.profileContainer {
+    position: absolute;
+    right: 6px;
+    top: -40px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 8px;
+    gap: 8px;
+    z-index: 10;
+    opacity: 0;
+    transition: transform 0.4s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.profileContainer::before {
+    content: '';
+    border-bottom: 10px solid black;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    position: absolute;
+    right: 13px;
+    top: -8px;
+}
+
+.profileContainerActive {
+    /* right: 10px; */
+    transform: translateY(115%);
+    opacity: 1;
+    transition: transform 0.5s ease-in-out, opacity 1s ease-in-out;
+}
+
+.vwProfile, .logOut {
+    text-decoration: none;
+    color: white;
+    text-wrap: nowrap;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.vwProfile {
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+.vwProfile:hover {
+    background-color: rgb(255, 255, 255, 0.4);
+}
+
+.logOut {
+    background-color: rgba(255, 0, 0, 0.9);
+    /* font-weight: 600; */
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.logOut:hover {
+    background-color: red;
+}

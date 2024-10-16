@@ -4,7 +4,7 @@ import Spinner from "@/components/spinner/Spinner";
 import style from "./loadingPage.module.css";
 import { useEffect, useState } from "react";
 
-const Loading = () => {
+const LoadingComp = ({color, type, size}) => {
 
     const [spinnerSize, setSpinnerSize] = useState(100); // Default size
 
@@ -14,14 +14,14 @@ const Loading = () => {
             // Example logic for determining size based on viewport dimensions
             const width = window.innerWidth;
             const height = window.innerHeight;
-            
+
             // Calculate spinner size as a percentage of viewport width or height
-            const size = Math.min(width, height) * 0.2; // 20% of the smaller dimension (width or height)
-            
+            const sizes = Math.min(width, height) * (size || 0.17); // 17% of the smaller dimension (width or height)
+
             // Set size
-            setSpinnerSize(size);
+            setSpinnerSize(sizes);
         };
-  
+
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
@@ -30,9 +30,9 @@ const Loading = () => {
 
     return (
         <div className={style.container}>
-           <Spinner type={"hash"} color={"rgb(18, 102, 211)"} size={spinnerSize}/> 
+           <Spinner type={type || "hash"} color={color || "rgb(18, 102, 211)"} size={spinnerSize}/>
         </div>
     );
 }
 
-export default Loading;
+export default LoadingComp;
