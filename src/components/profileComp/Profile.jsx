@@ -69,7 +69,7 @@ const Profile = ({ user: initialUser }) => {
               </div>
               <div className={style.formGroup1}>
                 <div className={style.formGroup3}>
-                    <label for="firstName">FIRST NAME</label>
+                    <label htmlFor="firstName">FIRST NAME</label>
                     <input
                       type="text"
                       id="firstName"
@@ -81,7 +81,7 @@ const Profile = ({ user: initialUser }) => {
                     />
                 </div>
                 <div className={style.formGroup3}>
-                    <label for="lastName">LAST NAME</label>
+                    <label htmlFor="lastName">LAST NAME</label>
                     <input
                       type="text"
                       id="lastName"
@@ -94,7 +94,7 @@ const Profile = ({ user: initialUser }) => {
                 </div>
               </div>
               <div className={style.formGroup2}>
-                  <label for="faculty">FACULTY</label>
+                  <label htmlFor="faculty">FACULTY</label>
                   <input
                     type="text"
                     id="faculty"
@@ -104,7 +104,7 @@ const Profile = ({ user: initialUser }) => {
                   />
               </div>
               <div className={style.formGroup2}>
-                  <label for="email">EMAIL</label>
+                  <label htmlFor="email">EMAIL</label>
                   <input
                     type="email"
                     id="email"
@@ -121,7 +121,7 @@ const Profile = ({ user: initialUser }) => {
               <div className={style.vfContainer}>
                 <div className={style.vfLeft}>
                   <div className={style.formGroup4}>
-                    <label for="role">Role</label>
+                    <label htmlFor="role">Role</label>
                     <select>
                         <option value="System Admin">System Admin</option>
                         <option value="Student">Student</option>
@@ -132,7 +132,7 @@ const Profile = ({ user: initialUser }) => {
                     </select>
                   </div>
                   <div className={style.formGroup4}>
-                    <label for="vrify">Verify from</label>
+                    <label htmlFor="vrify">Verify from</label>
                     <select>
                       <option>Student ID</option>
                       <option>NIC</option>
