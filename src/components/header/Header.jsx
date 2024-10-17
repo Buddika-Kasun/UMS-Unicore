@@ -5,7 +5,6 @@ import style from "./header.module.css"
 import { doLogOut } from "@/app/api/action";
 import { FaRegUserCircle } from "react-icons/fa";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
 
@@ -16,7 +15,7 @@ const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
     }
 
     const handleLogOut = () => {
-        console.log("hi");
+        // console.log("hi");
         doLogOut();
     }
 
@@ -53,7 +52,7 @@ const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
                     }
                 </div>
                 <div className={style.name}>
-                    Unicore - <span className={style.uni}>University of Sri Jayawardenapura</span>
+                    Unicore <span className={style.uni}>- University of Sri Jayawardenapura</span>
                 </div>
             </div>
 
