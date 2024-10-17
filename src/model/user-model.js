@@ -26,6 +26,14 @@ const userSchema = new Schema({
         type: String,
         default: "guest", // Assign default value
     },
+    createdDate: {
+        type: Date,
+        default: Date.now,
+    },
+    loginDate: {
+        type: Date,
+        default: Date.now,
+    }
 });
 
 export const User = models.User || model("User", userSchema);
