@@ -60,7 +60,9 @@ function LoginForm({isLogin, setIsLoading}) {
 
             const encryptedPw = CryptoJS.AES.encrypt(pwL, "tEsT123#").toString();
 
-            const data = {email: emailL, pw: encryptedPw};
+            const localDate = new Date();
+
+            const data = {email: emailL, pw: encryptedPw, date: localDate};
 
             const res = await axios.post('/api/login', data);
 
