@@ -74,7 +74,9 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
 
             const encryptedPw = CryptoJS.AES.encrypt(pwR, "tEsT123#").toString();
 
-            const data = {name: fName, faculty, type, email: emailR, pw: encryptedPw};
+            const localDate = new Date();
+
+            const data = {name: fName, faculty, type, email: emailR, pw: encryptedPw, date: localDate};
 
             const res = await axios.post('/api/register', data);
 
@@ -139,12 +141,12 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
                         required
                     >
                         <option value="" className={style.placeholder} disabled hidden>Select your faculty</option>
-                        <option value="tec">Faculty of Technology</option>
-                        <option value="arts">Faculty of Arts</option>
-                        <option value="science">Faculty of Science</option>
-                        <option value="engineering">Faculty of Engineering</option>
-                        <option value="business">Faculty of Business</option>
-                        <option value="law">Faculty of Law</option>
+                        <option value="Faculty of Technology">Faculty of Technology</option>
+                        <option value="Faculty of Arts">Faculty of Arts</option>
+                        <option value="Faculty of Science">Faculty of Science</option>
+                        <option value="engineeringFaculty of Engineering">Faculty of Engineering</option>
+                        <option value="Faculty of Business">Faculty of Business</option>
+                        <option value="Faculty of Law">Faculty of Law</option>
                     </RegisterFormSelect>
 
                 </div>
@@ -167,10 +169,12 @@ const RegisterForm = ({isRegister, setIsLoading}) => {
                         required
                     >
                         <option value="" disabled hidden>Select the type of user you want</option>
-                        <option value="science">a</option>
-                        <option value="engineering">a</option>
-                        <option value="business">a</option>
-                        <option value="law">a</option>
+                        <option value="System Admin">System Admin</option>
+                        <option value="Student">Student</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Library Staff">Library Staff</option>
+                        <option value="Administrators">Administrators</option>
+                        <option value="Test">Test</option>
                     </RegisterFormSelect>
                 </div>
                 <div className={`${style.field} ${style.fieldR}`}>
