@@ -1,9 +1,9 @@
-import style from "./dashboard.module.css";
+import styles from "./dashboard.module.css";
 
 const dashboard = () => {
   return (
     <div>dashboard</div>
-  )
+  );
 }
 
 export default dashboard;
