@@ -183,3 +183,9 @@
 .logOut:hover {
     background-color: red;
 }
+
+@media (max-width: 767px) {
+    .uni {
+        display: none;
+    }
+}

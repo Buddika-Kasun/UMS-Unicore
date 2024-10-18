@@ -11,7 +11,7 @@ export async function POST(req) {
 
     try {
 
-        let {name, faculty, type, email, pw} = await req.json();
+        let {name, faculty, type, email, pw, date} = await req.json();
 
         // XSS Protection
         name = xssSanitize(name);
@@ -36,7 +36,7 @@ export async function POST(req) {
 
         const hashedPw = await hash(decryptedPw);
 
-        const newUser = {name, faculty, type, email, pw: hashedPw};
+        const newUser = {name, faculty, type, email, pw: hashedPw, createdDate: date, loginDate: date};
 
         await createUser(newUser);
     }
