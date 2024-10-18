@@ -1,0 +1,378 @@
+.container {
+    /* height: calc(100vh - 40px); */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    transition: width 1s ease-in-out;
+    overflow-y: scroll;
+    direction: rtl;
+    z-index: 1;
+}
+
+.container *{
+    font-weight: 600;
+    user-select: none;
+    /* direction: ltr; */
+    /* border: 1px solid red; */
+}
+
+.activeContainer {
+    width: 250px; /* Adjust the width as needed */
+}
+
+.inactiveContainer {
+    width: 60px; /* Adjust the width as needed */
+}
+
+.nav {
+    height: 100%;
+    color: white;
+    /* overflow-y: auto; */
+    /* direction: rtl; */
+}
+
+.nav * {
+    direction: ltr;
+}
+
+/* Custom scrollbar styles */
+.container::-webkit-scrollbar {
+    width: 9px; /* Width of the scrollbar */
+}
+
+.container::-webkit-scrollbar-track {
+    /* background: #f1f1f1; Background of the scrollbar track */
+    /* border-radius: 10px; */
+}
+
+.container::-webkit-scrollbar-thumb {
+    /* background-color: #888; Color of the scrollbar thumb */
+    background-color: transparent;
+    border-radius: 5px;
+    border: 2px solid black; /* Padding around the thumb */
+}
+
+.container:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.7); /* Hover color for the scrollbar thumb */
+}
+
+.section {
+    width: calc(100% - 4px);
+    padding: 0 0 30px 0;
+    text-wrap: nowrap;
+    position: relative;
+}
+
+.sectionIcon {
+    position: absolute;
+    padding: 10px 6px 0 6px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius:0 0 15px;
+}
+
+.title {
+    font-size: 15px;
+    padding: 12px 0 4px 2px;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    margin-right: 8px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius:0 0 15px;
+}
+
+.title::before, .sectionIcon::before {
+    position: absolute;
+    content: ' ';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.itemContainer {
+    padding: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item {
+    width: calc(100% - 15px);
+    height: auto;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 4px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+
+.item:hover, .submenuItem:hover {
+    /* color: black; */
+    background-color: rgba(255, 255, 255, 0.4);
+    transition: background-color 0.3s ease, color 0.5s ease;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.iconSub {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.name {
+    width: inherit;
+    font-size: 13px;
+    overflow: hidden;
+}
+
+.arrowUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.arrowDown {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0 15px 10px;
+    overflow: hidden;
+}
+
+.submenuItem {
+    width: calc(100% - 15px);
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+    padding: 0 4px;
+    border-radius: 5px;
+    display: flex;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.nameSub {
+    font-size: 11px;
+    margin: 4px 0;
+}
+
+.subItemSelected, .subItemSelected:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+}
+
+.itemClicked {
+    overflow: visible;
+    pointer-events: none;
+}
+
+.itemClicked, .subItemClicked, .itemClicked:hover, .subItemClicked:hover  {
+    background-color: white;
+    color: black;
+    position: relative;
+}
+
+.itemClicked:hover {
+    background-color: white;
+}
+
+
+.itemClicked::after {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    content: ' ';
+    background-color: white;
+    width: 15px;
+    height: 100%;
+    /* border-radius: 5px; */
+}
+
+.activeName {
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.inactiveName {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+
+
+.secondContainer {
+    position: relative;
+    z-index: 1;
+}
+
+.secondContainer * {
+    color: rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+    /* border: 1px solid red; */
+}
+
+.innerContainer {
+    position: absolute;
+    left: 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    transition: width 1s ease-in-out;
+    overflow-y: scroll;
+    pointer-events: none;
+}
+
+.innerContainer::-webkit-scrollbar {
+    width: 0; /* Width of the scrollbar */
+    background-color: transparent;
+}
+
+.title1 {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 5px 9px;
+    display: flex;
+}
+
+.title1::before {
+    background-color: transparent;
+}
+
+.item1 {
+    height: 20.5px;
+    width: fit-content;
+    padding-left: 9px;
+}
+
+.submenu1 {
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+.submenuItem1 {
+    width: fit-content;
+    margin: 0;
+    padding: 0 0 0 5px;
+}
+
+.hintName {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 1.8px 6px;
+    position: relative;
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    background-color: white;
+    opacity: 0;
+    width: 0px;
+    overflow: hidden;
+    transition: width 0.4s ease-out, opacity 0.3s ease-out;
+}
+
+.hintHover {
+    opacity: 1;
+    width: 100%;
+    transition: width 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.trangle1, .trangle2, .trangle3 {
+    position: relative;
+}
+
+.trangle1::before, .trangle2::before, .trangle3::before {
+    content: '';
+    position: absolute;
+    top: -5px; /* Adjust based on the hint box position */
+    left: -5px; /* Adjust to align with hint box */
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 5px solid rgba(0, 0, 0, 0.8);
+    border-bottom: 5px solid transparent; /* Same color as the hint box */
+    opacity: 0;
+    transition: opacity 0.2s ease-out, transform 0.5s ease-out;
+}
+
+.trangle2::before {
+    top: 5.5px;
+}
+
+.trangle3::before {
+    top: 5.5px;
+    left: -1px;
+}
+
+.trangleHover::before {
+    opacity: 1;
+    transition: opacity 0.4s ease-out, transform 0.5s ease-out;
+    transform: translateX(-4px);
+}
+
+
+/* Extra Large Screen (1200px and above) */
+@media (min-width: 1200px) {
+
+}
+
+/* Large Screen (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Medium Screen (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Small Screen (767px and below) */
+@media (max-width: 767px) {
+    .activeContainer {
+        width: 100vw; /* Adjust the width as needed */
+    }
+
+    .inactiveContainer {
+        width: 0; /* Adjust the width as needed */
+    }
+
+    .secondContainer {
+        left: -1000px;
+    }
+
+    .sectionIcon {
+        display: none;
+    }
+
+    .icon, .arrowDown, .arrowUp {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    .iconActive {
+        opacity: 1;
+        transition: opacity 1s ease-in-out;
+    }
+}

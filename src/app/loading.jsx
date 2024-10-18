@@ -1,6 +1,8 @@
+import LoadingComp from "./(all-pages)/loadingPage/page";
+
 const Loading = () => {
     return(
-        <div>Loading ...</div>
+        <LoadingComp />
     )
 }
 

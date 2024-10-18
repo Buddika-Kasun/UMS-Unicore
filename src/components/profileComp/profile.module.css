@@ -1,0 +1,345 @@
+.container * {
+    /* border: 1px solid red; */
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    padding-left: 4%;
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.access {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.accessDate {
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.title1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.nameMain {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.bodyContainer {
+    width: 100%;
+    height: 90%;
+    display: flex;
+}
+
+.left {
+    position: relative;
+    width: 40%;
+    height: 100%;
+    /* border-right: 1px solid black; */
+}
+
+.left::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    content: " ";
+    height: 92%;
+    width: 2px;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-radius: 50px;
+}
+
+.dpContainer {
+    height: 65%;
+    padding: 0 10%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.dp {
+    min-width: 40%;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 10% 0 5% 0;
+    border: 2px solid black;
+}
+
+.nameContainer div {
+    text-align: center;
+    padding: 5% 0;
+}
+
+.dpBtn {
+    margin: 5% 0 0 0;
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.dpBtn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.accessContainer {
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.accessBox {
+    padding: 10px 10%;
+}
+
+.right *{
+    /* border: 1px solid red; */
+}
+
+.right {
+    width: 60%;
+    padding: 4% 5%;
+}
+
+.detailsContainer {
+    width: 100%;
+    height: 60%;
+}
+
+.form1 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.formGroup1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerBar {
+    padding-bottom: 3%;
+    position: relative;
+}
+
+.headerBar::after {
+    position: absolute;
+    bottom: 0;
+    content: " ";
+    height: 2px;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.15);
+    border-radius: 50px;
+}
+
+.formGroup2, .formGroup3 {
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup3 {
+    width: 48%;
+}
+
+.editBtn {
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.editBtn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.form1 .allow {
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+.form1 input {
+    margin-top: 5px;
+    padding: 4px 6px;
+    border-radius: 5px;
+    border: 1.5px solid rgba(128, 128, 128, 0.1);
+}
+
+.verificationContainer {
+    width: 100;
+    height: 40%;
+}
+
+.verificationContainer * {
+    /* border: 1px solid red; */
+}
+
+.form2 {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 4%;
+}
+
+.vfContainer {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2%;
+}
+
+.vfLeft {
+    width: 58%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1%;
+}
+
+.formGroup4 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form2 select {
+    width: 65%;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 5px;
+    padding: 4px;
+    background-color: rgba(128, 128, 128, 0.05);
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.uploadBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.vfRight {
+    width: 38%;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    background-color: rgba(128, 128, 128, 0.05);
+    color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.uploadBtn {
+    padding: 5px 15px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+.uploadBtn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+@media (max-width: 767px) {
+    .title {
+        justify-content: center;
+    }
+
+    .bodyContainer{
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+
+    .bodyContainer * {
+        /* border: 1px solid red; */
+    }
+
+    .left, .right {
+        width: auto;
+        height: auto;
+    }
+
+    .left::after {
+        width: 0;
+    }
+
+    .detailsContainer {
+        margin-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    .headerBar {
+        padding-bottom: 20px;
+    }
+
+    .formGroup1:nth-child(2) {
+        flex-direction: column;
+    }
+
+    .formGroup3, .formGroup2 {
+        width: calc(100% - 10px);
+        margin-top: 30px;
+        padding-left: 10px;
+    }
+
+    .formGroup3:nth-child(1) {
+        margin-top: 10px;
+    }
+
+    .vfContainer {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        position: relative;
+    }
+
+    .vfLeft {
+        width: auto;
+        padding-left: 10px;
+        padding-right: 0;
+    }
+
+    .formGroup4 {
+        margin-top: 20px;
+    }
+
+    .vfRight {
+        width: auto;
+        margin: 20px 0 50px 10px;
+        height: 200px;
+    }
+
+    .uploadBtn {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 10px);
+        padding: 5px 0;
+        margin-left: 10px;
+        text-align: center;
+    }
+
+}
