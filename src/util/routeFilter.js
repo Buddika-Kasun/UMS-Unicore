@@ -5,7 +5,7 @@ const filterRouteByRole = (userRole) => {
 
     const filteredMenu = filterMenuByRole(menuData, userRole);
 
-    const route = ['/profile'];
+    const route = ['/profile','/pages']; // add custome routes of API's
 
     filteredMenu.forEach(section => {
         section.menu.forEach(menu => {
