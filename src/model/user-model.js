@@ -1,4 +1,5 @@
 import {model, models, Schema} from "mongoose";
+import { stringifyCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 const userSchema = new Schema({
     name: {
@@ -33,7 +34,19 @@ const userSchema = new Schema({
     loginDate: {
         type: Date,
         default: Date.now,
-    }
+    },
+    verification: {
+        state: {
+            type: String,
+            default: "none",
+        },
+        type: {
+            type: String,
+        },
+        image: {
+            type: String,
+        },
+    },
 });
 
 export const User = models.User || model("User", userSchema);
