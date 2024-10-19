@@ -15,7 +15,7 @@ const profile = async() => {
 
   const existingUser = await findUserByEmail(email);
 
-   console.log(existingUser);
+  //console.log(existingUser);
 
   const user = {
     firstName: existingUser.name,
@@ -29,7 +29,7 @@ const profile = async() => {
     profilePicture: "Profile Picture", // You can replace this with an image URL
   };
 
-  return <Profile user={user} />;
+  return <Profile user={user}/>;
 }
 
 export default profile;
