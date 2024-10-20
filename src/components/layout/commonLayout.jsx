@@ -3,6 +3,7 @@
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import style from "./layout.module.css";
+import scroll from '@/components/scrollBar/scrollBar.module.css'
 import { useEffect, useRef, useState } from "react";
 import Nav from "@/components/nav/Nav";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -105,7 +106,7 @@ const CommonLayout = ({children, sessionData, sessionExpiry}) => {
 
             <div className= {style.innerContainer}>
                 <Nav hamClick={hamClick} clickedPath={handleClickedPath} role={sessionData.role}/>
-                <div className={style.child}>
+                <div className={`${style.child} ${scroll.container}`}>
                     {children}
                     <div className={`${style.loadingComp} ${loading && style.loadingCompHide}`}>
                         <LoadingComp color={"rgba(0, 0, 0, 0.8)"}/>
