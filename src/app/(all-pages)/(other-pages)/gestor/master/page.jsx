@@ -15,7 +15,7 @@ const CreateLocationForm = () => {
 
         <div className={styles.formGroup}>
           <label>Doc Date</label>
-          <input type="text" className={styles.input} value="DateTime.Now" readOnly />
+          <input type="text" className={styles.input} value={new Date(Date.now()).toLocaleString()} readOnly />
         </div>
       </div>
 
