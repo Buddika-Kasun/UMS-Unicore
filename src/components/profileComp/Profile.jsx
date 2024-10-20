@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import style from "./profile.module.css";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const Profile = ({ user: initialUser }) => {
+const Profile = ({ user: initialUser, saveVerify }) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [user, setUser] = useState(initialUser);
@@ -16,6 +18,33 @@ const Profile = ({ user: initialUser }) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
+
+  const [type, setType] = useState(user.type);
+  const [verifyType, setVerifyType] = useState("NIC");
+
+  const handleUpload = async(e) => {
+    e.preventDefault();
+
+    try {
+      const data = {type, verifyType, email: user.email};
+
+      const res = await axios.post('/api/pages/profile', data);
+
+      if (res.status === 201) {
+        //console.log(res.data.message);//
+        // setIsLoading(false);
+        toast.success(res.data.message, {
+            autoClose: 2000,
+            //onClose: () => {
+            //    route.push('/profile');
+            //}
+        });
+      }
+    }
+    catch(err) {
+      console.log(err);
+    }
+  }
 
   const optionsDate = {
     weekday: 'long',    // Full day name (e.g., Sunday)
@@ -122,7 +151,7 @@ const Profile = ({ user: initialUser }) => {
                 <div className={style.vfLeft}>
                   <div className={style.formGroup4}>
                     <label htmlFor="role">Role</label>
-                    <select>
+                    <select value={type} onChange={(e) => setType(e.target.value)}>
                         <option value="System Admin">System Admin</option>
                         <option value="Student">Student</option>
                         <option value="Staff">Staff</option>
@@ -133,14 +162,14 @@ const Profile = ({ user: initialUser }) => {
                   </div>
                   <div className={style.formGroup4}>
                     <label htmlFor="vrify">Verify from</label>
-                    <select>
-                      <option>Student ID</option>
-                      <option>NIC</option>
-                      <option>Driving licence</option>
+                    <select value={verifyType || ''} onChange={(e) => setVerifyType(e.target.value)}>
+                      <option value="Student ID">Student ID</option>
+                      <option value="NIC">NIC</option>
+                      <option value="Driving licence">Driving licence</option>
                     </select>
                   </div>
                   <div className={style.uploadBtnContainer}>
-                    <div className={style.uploadBtn}>Upload</div>
+                    <div className={style.uploadBtn} onClick={handleUpload}>Upload</div>
                   </div>
                 </div>
                 <div className={style.vfRight}>Add</div>

@@ -1,3 +1,5 @@
+"use server"
+
 import { auth } from "@/app/api/auth/auth";
 import CommonLayout from "@/components/layout/commonLayout";
 import { redirect } from "next/navigation";
@@ -16,7 +18,9 @@ const Layout = async({children}) => {
     }
 
     return (
-        <CommonLayout children={children} sessionData={session?.user} sessionExpiry={timeLeft}/>
+        <CommonLayout sessionData={session?.user} sessionExpiry={timeLeft}>
+            {children}
+        </CommonLayout>
     )
 }
 

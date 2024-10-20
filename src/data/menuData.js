@@ -11,7 +11,7 @@ const menuData = [
                 path: "/dashboard",
                 icon: HiOutlinePresentationChartBar,
                 haveSubmenu: false,
-                permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "User"]  // Assuming all roles can access Dashboard
+                permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
             }
         ]
     },

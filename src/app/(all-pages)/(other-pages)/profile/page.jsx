@@ -5,15 +5,6 @@ import Profile from "@/components/profileComp/Profile";
 import { dbConnect } from "@/lib/mongo";
 import { findUserByEmail } from "@/queries/users";
 
-<<<<<<< HEAD
-const profile = () => {
-  return (
-    <div className={style.container}>
-      <div className={style.leftContainer}>a</div>
-      <div className={style.rightContainer}>b</div>
-    </div>
-  )
-=======
 const profile = async() => {
 
   const session = await auth();
@@ -24,7 +15,7 @@ const profile = async() => {
 
   const existingUser = await findUserByEmail(email);
 
-   console.log(existingUser);
+  //console.log(existingUser);
 
   const user = {
     firstName: existingUser.name,
@@ -38,8 +29,8 @@ const profile = async() => {
     profilePicture: "Profile Picture", // You can replace this with an image URL
   };
 
-  return <Profile user={user} />;
->>>>>>> e8cf2056862c9b3a29d214a48d75944aac1a4053
+  return <Profile user={user}/>;
+
 }
 
 export default profile;
