@@ -1,7 +1,9 @@
+"use server"
+import "server-only";
+
 import { dbConnect } from "@/lib/mongo";
 import { User } from "@/model/user-model";
 import { NextResponse } from "next/server";
-import "server-only";
 
 export async function GET(req) {
     try{
