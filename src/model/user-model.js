@@ -25,7 +25,7 @@ const userSchema = new Schema({
     role: {
         // required: true,
         type: String,
-        default: "guest", // Assign default value
+        default: "Guest", // Assign default value
     },
     createdDate: {
         type: Date,
