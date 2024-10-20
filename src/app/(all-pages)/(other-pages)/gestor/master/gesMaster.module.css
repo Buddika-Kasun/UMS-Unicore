@@ -1,0 +1,91 @@
+.container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Document Section */
+  .docSection {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .formGroup label {
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Button Group - Aligned to the Right */
+  .buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Form Fields Section */
+  .form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .radioGroup {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .radioGroup input {
+    margin-right: 5px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .form {
+      grid-template-columns: 1fr;
+    }
+  
+    .buttonGroup {
+      justify-content: center;
+    }
+  }
+  

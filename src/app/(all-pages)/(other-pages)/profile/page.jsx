@@ -30,6 +30,7 @@ const profile = async() => {
   };
 
   return <Profile user={user}/>;
+
 }
 
 export default profile;
