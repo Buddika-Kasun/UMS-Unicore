@@ -93,11 +93,12 @@ function LoginForm({isLogin, setIsLoading}) {
             else if(res.status === 200){
                 formReset();
                 setAttempts(0);
+                router.push('/dashboard');
                 toast.success('Login success.', {
                     autoClose: 2000,
-                    onClose: () => {
-                        router.push('/dashboard');
-                    }
+                    // onClose: () => {
+                    //     router.push('/dashboard');
+                    // }
                 });
             }
 
