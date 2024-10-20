@@ -1,8 +1,8 @@
 .container {
-    padding: 20px;
+    padding: 0 20px;
     background-color: #ffffff;
     border-radius: 8px;
-    width: 100%;
+    width: calc(100% - 40px);
     max-width: 1200px;
     margin: auto;
   }
@@ -38,6 +38,7 @@
     border: 1px solid #ccc;
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
   }
   
   /* Button Group - Aligned to the Right */
@@ -76,6 +77,14 @@
   
   .radioGroup input {
     margin-right: 5px;
+  }
+
+  .radioGroup label {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-flex;
+    margin-right: 20px;
   }
   
   /* Responsive Design */
