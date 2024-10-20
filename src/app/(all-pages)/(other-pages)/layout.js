@@ -1,3 +1,5 @@
+"use server"
+
 import { auth } from "@/app/api/auth/auth";
 import CommonLayout from "@/components/layout/commonLayout";
 import { redirect } from "next/navigation";
