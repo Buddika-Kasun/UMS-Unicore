@@ -3,21 +3,25 @@ import styles from './gesMaster.module.css';
 
 const CreateLocationForm = () => {
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Create Location</h2>
+    <>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Create Location</h2>
 
-      {/* Document Section */}
-      <div className={styles.docSection}>
-        <div className={styles.formGroup}>
-          <label>Doc ID</label>
-          <input type="text" className={styles.input} value="LOC/serialNo" readOnly />
-        </div>
+        {/* Document Section */}
+        <div className={styles.docSection}>
+          <div className={styles.formGroup}>
+            <label>Doc ID</label>
+            <input type="text" className={styles.input} value="LOC/serialNo" readOnly />
+          </div>
 
-        <div className={styles.formGroup}>
-          <label>Doc Date</label>
-          <input type="text" className={styles.input} value={new Date(Date.now()).toLocaleString()} readOnly />
+          <div className={styles.formGroup}>
+            <label>Doc Date</label>
+            <input type="text" className={styles.input} value={new Date(Date.now()).toLocaleString()} readOnly />
+          </div>
         </div>
       </div>
+
+    <div className={styles.container}>
 
       {/* Button Group Aligned to the Right */}
       <div className={styles.buttonGroup}>
@@ -85,6 +89,7 @@ const CreateLocationForm = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
