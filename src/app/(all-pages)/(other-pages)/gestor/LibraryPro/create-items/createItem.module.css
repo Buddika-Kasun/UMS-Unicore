@@ -1,0 +1,156 @@
+/* Container for the entire form */
+.container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    max-width: 1200px;
+    margin: auto;
+    width: 100%;
+  }
+  
+  /* First Row: Title and Document Info */
+  .firstRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .docInfo {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inputGroup label {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .inputField {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #e8e8e8;
+  }
+  
+  /* Second Row: Profile Picture */
+  .pictureContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .userPicture {
+    width: 150px;
+    height: 150px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+  }
+  
+  /* Third Row: Buttons Aligned Left */
+  .buttonGroup {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .buttonRejected, .buttonApproved {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .buttonRejected {
+    background-color: #d9534f;
+  }
+  
+  .buttonApproved {
+    background-color: #5cb85c;
+  }
+  
+  .buttonRejected:hover {
+    background-color: #c9302c;
+  }
+  
+  .buttonApproved:hover {
+    background-color: #4cae4c;
+  }
+  
+  /* Fourth Row: Form Body */
+  .formBody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .formGroup {
+    width: 48%;
+    margin-bottom: 20px;
+  }
+  
+  .formGroup label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .firstRow {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .docInfo {
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .pictureContainer {
+        justify-content: center;
+    }
+  
+    .buttonGroup {
+      justify-content: center;
+    }
+  
+    .formBody {
+      flex-direction: column;
+    }
+  
+    .formGroup {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .inputField {
+      padding: 8px;
+    }
+  }
+  
