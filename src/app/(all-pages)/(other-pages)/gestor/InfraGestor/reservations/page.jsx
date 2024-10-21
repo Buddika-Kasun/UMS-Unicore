@@ -3,7 +3,7 @@ import styles from './reservation.module.css';
 
 const ReservationForm = () => {
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.header}>
         <h2 className={styles.title}>Reservations</h2>
 
@@ -18,6 +18,8 @@ const ReservationForm = () => {
           </div>
         </div>
       </div>
+
+    <div className={styles.container}>
 
       {/* Button Group now in a new row */}
       <div className={styles.buttonRow}>
@@ -157,6 +159,7 @@ const ReservationForm = () => {
         </table>
       </div>
     </div>
+    </>
   );
 };
 
