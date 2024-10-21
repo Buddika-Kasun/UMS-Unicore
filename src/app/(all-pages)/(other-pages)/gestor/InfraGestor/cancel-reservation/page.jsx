@@ -3,8 +3,12 @@ import styles from './canReserv.module.css';
 
 const CancelReservationForm = () => {
   return (
+    <>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Cancel Reservation</h2>
+      </div>
+
     <div className={styles.container}>
-      <h2 className={styles.title}>Cancel Reservation</h2>
 
       {/* Parameters Section */}
       <div className={styles.form}>
@@ -82,6 +86,7 @@ const CancelReservationForm = () => {
         </table>
       </div>
     </div>
+    </>
   );
 };
 
