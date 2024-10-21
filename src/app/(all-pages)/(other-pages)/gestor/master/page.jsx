@@ -1,96 +1,40 @@
-import React from 'react';
-import styles from './gesMaster.module.css';
+"use server"
 
-const CreateLocationForm = () => {
+import LocationForm from '@/components/locationForm/LocationForm';
+import { dbConnect } from '@/lib/mongo';
+import { Location } from '@/model/location-model';
+
+const CreateLocationForm = async() => {
+
+  const currentYear = (new Date().getFullYear()) % 100;
+
+  await dbConnect();
+  const preDocID = await Location.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+
+  const id = parseInt(preDocID.docID.split('/')[2]) + 1;
+
+  const newdocId = `${currentYear}/LOC/${id}`;
+
+  /*const formData = {
+    docID: newdocId,
+    docDate: new Date(Date.now()).toLocaleString(),
+    faculty: 'Faculty of Law',
+    cost: '',
+    locationType: '',
+    active: 'yes',
+    buildingNo: 0,
+    floorNo: 0,
+    locName: '',
+    locCode: 'LOC/1',
+  }*/
+
+  const formData = {
+    docID: newdocId,
+  }
+
   return (
-    <>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Create Location</h2>
-
-        {/* Document Section */}
-        <div className={styles.docSection}>
-          <div className={styles.formGroup}>
-            <label>Doc ID</label>
-            <input type="text" className={styles.input} value="LOC/serialNo" readOnly />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Doc Date</label>
-            <input type="text" className={styles.input} value={new Date(Date.now()).toLocaleString()} readOnly />
-          </div>
-        </div>
-      </div>
-
-    <div className={styles.container}>
-
-      {/* Button Group Aligned to the Right */}
-      <div className={styles.buttonGroup}>
-        <button className={styles.button}>List View</button>
-        <button className={styles.button}>New</button>
-        <button className={styles.button}>Save</button>
-      </div>
-
-      {/* Form Fields Section */}
-      <div className={styles.form}>
-        <div className={styles.formGroup}>
-          <label>Faculty</label>
-          <select className={styles.input}>
-            <option>Internal Use</option>
-            <option>External Use</option>
-          </select>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Cost Center</label>
-          <select className={styles.input}>
-            <option>Internal Use</option>
-            <option>External Use</option>
-          </select>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Location Type</label>
-          <select className={styles.input}>
-            <option>Internal Use</option>
-            <option>External Use</option>
-          </select>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Active?</label>
-          <div className={styles.radioGroup}>
-            <label>
-              <input type="radio" name="active" /> Yes
-            </label>
-            <label>
-              <input type="radio" name="active" /> No
-            </label>
-          </div>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Building No</label>
-          <input type="text" className={styles.input} placeholder="Value" />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Floor No</label>
-          <input type="text" className={styles.input} placeholder="Value" />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Location Name</label>
-          <input type="text" className={styles.input} placeholder="Value" />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Location Code</label>
-          <input type="text" className={styles.input} value="Display" readOnly />
-        </div>
-      </div>
-    </div>
-    </>
-  );
-};
+    <LocationForm data={formData}/>
+  )
+}
 
 export default CreateLocationForm;
