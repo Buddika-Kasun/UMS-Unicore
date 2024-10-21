@@ -1,0 +1,30 @@
+.tableContainer {
+    margin-top: 20px;
+    overflow-x: auto;
+    margin-bottom: 40px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .table th {
+    background-color: #f1f1f1;
+  }
+
+  /* Responsive Design */
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 8px;
+  }
+}

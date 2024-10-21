@@ -120,7 +120,7 @@ const ReservationForm = () => {
 
       {/* Table */}
       <div className={styles.tableContainer}>
-        <table className={styles.table}>
+      <table className={styles.table}>
           <thead>
             <tr>
               <th>Location Name</th>
