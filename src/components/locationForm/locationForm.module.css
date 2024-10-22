@@ -60,7 +60,7 @@
     margin-bottom: 20px;
   }
   
-  .button {
+  .button, .backBtn {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
@@ -69,8 +69,17 @@
     cursor: pointer;
   }
   
-  .button:hover {
+  .button:hover, .backBtn:hover {
     background-color: #0056b3;
+  }
+
+  .backBtn {
+    border-radius: 100%;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    margin-right: 10px;
   }
   
   /* Form Fields Section */
