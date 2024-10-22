@@ -26,7 +26,7 @@ const listView = async() => {
 
   return (
     <div>
-      <ListView data={formData} headers={headers} path='/gestor/master' />
+      <ListView data={formData} headers={headers} path='/gestor/master?docID=' />
     </div>
   );
 };
