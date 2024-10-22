@@ -1,0 +1,7 @@
+.load {
+    position: absolute;
+    height: 80vh;
+    width: calc(100%);
+    overflow: hidden;
+    z-index: 100;
+}
