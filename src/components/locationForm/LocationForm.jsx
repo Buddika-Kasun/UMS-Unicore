@@ -1,11 +1,15 @@
 "use client"
 
 import { useState } from 'react';
-import styles from './gesMaster.module.css';
+import styles from './locationForm.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import SubLoading from '../loading/SubLoading';
 
 const LocationForm = ({data}) => {
+
+  const [isloading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     docID: data.docID,
@@ -60,6 +64,8 @@ const LocationForm = ({data}) => {
       }
       // console.log(formData);
 
+      setIsLoading(true);
+
       const res = await axios.post('/api/pages/gestor/master', formData);
 
       if (res.status === 200) {
@@ -71,6 +77,8 @@ const LocationForm = ({data}) => {
 
         formReset(newDocId, formData.locCode);
 
+        setIsLoading(false);
+
         toast.success(res.data.message, {
             autoClose: 2000,
         });
@@ -79,12 +87,21 @@ const LocationForm = ({data}) => {
     }
     catch(err) {
       console.log(err);
+      setIsLoading(false);
       toast.error('An unexpected error occurred while registering the user.');
     }
   };
 
+  const router = useRouter();
+
+  const visit = () => {
+    setIsLoading(true);
+    router.push('/gestor/master/listView');
+  }
+
   return (
     <>
+      {isloading && <SubLoading />}
       <div className={styles.header}>
         <h2 className={styles.title}>Create Location</h2>
 
@@ -106,7 +123,7 @@ const LocationForm = ({data}) => {
 
       {/* Button Group Aligned to the Right */}
       <div className={styles.buttonGroup}>
-        <button className={styles.button}>List View</button>
+        <button className={styles.button} onClick={visit}>List View</button>
         <button className={styles.button} onClick={() => formReset(formData.docID, formData.locCode)}>New</button>
         <button className={styles.button} onClick={handleSave}>Save</button>
       </div>
@@ -148,10 +165,10 @@ const LocationForm = ({data}) => {
           <label>Active?</label>
           <div className={styles.radioGroup}>
             <label>
-              <input type="radio" name="active" value="yes" checked={formData.active === 'yes'} onChange={handleChange}/> Yes
+              <input type="radio" name="active" value="Yes" checked={formData.active === 'Yes'} onChange={handleChange}/> Yes
             </label>
             <label>
-              <input type="radio" name="active" value="no" checked={formData.active === 'no'} onChange={handleChange}/> No
+              <input type="radio" name="active" value="No" checked={formData.active === 'No'} onChange={handleChange}/> No
             </label>
           </div>
         </div>
