@@ -4,9 +4,9 @@ import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import style from "./layout.module.css";
 import scroll from '@/components/scrollBar/scrollBar.module.css'
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Nav from "@/components/nav/Nav";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import LoadingComp from "@/app/(all-pages)/loadingPage/page";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -53,6 +53,10 @@ const CommonLayout = ({children, sessionData, sessionExpiry}) => {
         setLoading(currentPath !== clickedPath);
         autoHide && !(currentPath !== clickedPath) && setHamClick(false);
     },[currentPath, clickedPath]);
+
+    useEffect(() => {
+        setLoading(false);
+    },[currentPath]);
 
     // Handle outside click of nav bar
     useEffect(() => {
