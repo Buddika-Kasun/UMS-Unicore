@@ -19,7 +19,7 @@ const ListView = ({ headers, data, path}) => {
 
     const handleEdit = (docId) => {
         setIsLoading(true);
-        router.push(`${path}/"${docId}"`);
+        router.push(`${path}${docId}`);
     }
 
     const goBack = () => {
