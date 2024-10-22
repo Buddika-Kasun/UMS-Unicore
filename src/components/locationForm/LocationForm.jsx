@@ -7,13 +7,14 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import SubLoading from '../loading/SubLoading';
 
-const LocationForm = ({data}) => {
+const LocationForm = ({data, method}) => {
 
   const [isloading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     docID: data.docID,
-    docDate: data.docDate || new Date(Date.now()).toLocaleString(),
+    // docDate: data.docDate || new Date(Date.now()).toLocaleString(),
+    docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
     faculty: data.faculty || '',
     cost: data.cost || '',
     locationType: data.locationType || '',
@@ -66,7 +67,15 @@ const LocationForm = ({data}) => {
 
       setIsLoading(true);
 
-      const res = await axios.post('/api/pages/gestor/master', formData);
+      let res;
+
+      if(method == 'Create') {
+        res = await axios.post('/api/pages/gestor/master', formData);
+      }
+
+      if(method == 'Update') {
+        res = await axios.put('/api/pages/gestor/master', formData);
+      }
 
       if (res.status === 200) {
         //console.log(res.data.message);
@@ -79,9 +88,16 @@ const LocationForm = ({data}) => {
 
         setIsLoading(false);
 
+        setTimeout(() => {
+          (method == 'Update') && router.push('/gestor/master/listView');
+        }, 1000);
+
         toast.success(res.data.message, {
             autoClose: 2000,
         });
+      }
+      else {
+        throw err;
       }
 
     }
@@ -103,7 +119,7 @@ const LocationForm = ({data}) => {
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
-        <h2 className={styles.title}>Create Location</h2>
+        <h2 className={styles.title}>{(method == "Update")? "Update" : "Create"} Location</h2>
 
         {/* Document Section */}
         <div className={styles.docSection}>
@@ -123,9 +139,10 @@ const LocationForm = ({data}) => {
 
       {/* Button Group Aligned to the Right */}
       <div className={styles.buttonGroup}>
-        <button className={styles.button} onClick={visit}>List View</button>
-        <button className={styles.button} onClick={() => formReset(formData.docID, formData.locCode)}>New</button>
-        <button className={styles.button} onClick={handleSave}>Save</button>
+        <button className={styles.button} onClick={visit}>{(method == "Update")? "Back" : "List View"}</button>
+        {(method == "Update") && <button className={styles.button} onClick={() => router.push('/gestor/master')}>New</button>}
+        <button className={styles.button} onClick={() => formReset(formData.docID, formData.locCode)}>Clear all</button>
+        <button className={styles.button} onClick={handleSave}>{(method == "Update")? "Update" : "Save"}</button>
       </div>
 
       {/* Form Fields Section */}
