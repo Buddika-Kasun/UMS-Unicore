@@ -57,6 +57,37 @@
     margin-right: 10px;
   }
 
+  .editBtn, .deleteBtn {
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    margin: 2px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .editBtn {
+    background-color: #007bff;
+    margin-left: 0;
+    margin-right: 6px;
+  }
+
+  .editBtn:hover {
+    background-color: #0056b3;
+  }
+
+  .deleteBtn {
+    background-color: red;
+  }
+
+  .deleteBtn:hover {
+    background-color: rgb(218, 0, 0);
+  }
+
   /* Responsive Design */
 @media (max-width: 768px) {
   .table th,
