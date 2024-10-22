@@ -5,6 +5,7 @@ import styles from './locationForm.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { HiArrowLeft } from "react-icons/hi";
 import SubLoading from '../loading/SubLoading';
 
 const LocationForm = ({data, method}) => {
@@ -102,9 +103,9 @@ const LocationForm = ({data, method}) => {
 
     }
     catch(err) {
-      console.log(err);
+      //console.log(err);
       setIsLoading(false);
-      toast.error('An unexpected error occurred while registering the user.');
+      toast.error('An unexpected error occurred while processing.');
     }
   };
 
@@ -115,11 +116,31 @@ const LocationForm = ({data, method}) => {
     router.push('/gestor/master/listView');
   }
 
+  const goNew = async() => {
+
+    setIsLoading(true);
+
+    try {
+      const res = await axios.get('/api/pages/gestor/master', {params: {last: 'true'}});
+      formReset(res.data,formData.locCode);
+    }
+    catch (error) {
+      setIsLoading(false);
+        toast.error('An unexpected error occurred while getting data.');
+    }
+
+    setIsLoading(false);
+    router.push('/gestor/master');
+  }
+
   return (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
-        <h2 className={styles.title}>{(method == "Update")? "Update" : "Create"} Location</h2>
+        <h2 className={styles.title}>
+          {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
+          {(method == "Update")? "Update" : "Create"} Location
+        </h2>
 
         {/* Document Section */}
         <div className={styles.docSection}>
@@ -139,8 +160,8 @@ const LocationForm = ({data, method}) => {
 
       {/* Button Group Aligned to the Right */}
       <div className={styles.buttonGroup}>
-        <button className={styles.button} onClick={visit}>{(method == "Update")? "Back" : "List View"}</button>
-        {(method == "Update") && <button className={styles.button} onClick={() => router.push('/gestor/master')}>New</button>}
+        {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
+        {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
         <button className={styles.button} onClick={() => formReset(formData.docID, formData.locCode)}>Clear all</button>
         <button className={styles.button} onClick={handleSave}>{(method == "Update")? "Update" : "Save"}</button>
       </div>
