@@ -4,37 +4,49 @@ import LocationForm from '@/components/locationForm/LocationForm';
 import { dbConnect } from '@/lib/mongo';
 import { Location } from '@/model/location-model';
 
-const CreateLocationForm = async() => {
+const CreateLocationForm = async({ searchParams }) => {
 
-  const currentYear = (new Date().getFullYear()) % 100;
+  const { docID } = searchParams || {};
+  //console.log("Search params docID = ", docID);
+
+  let formData = {};
 
   await dbConnect();
-  const preDocID = await Location.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
 
-  const id = parseInt(preDocID.docID.split('/')[2]) + 1;
+  const locationData = docID ? await Location.findOne({ docID }) : null;
 
-  const newdocId = `${currentYear}/LOC/${id}`;
+  if(locationData){
 
-  /*const formData = {
-    docID: newdocId,
-    docDate: new Date(Date.now()).toLocaleString(),
-    faculty: 'Faculty of Law',
-    cost: '',
-    locationType: '',
-    active: 'yes',
-    buildingNo: 0,
-    floorNo: 0,
-    locName: '',
-    locCode: 'LOC/1',
-  }*/
+    formData = {
+      docID: locationData.docID,
+      docDate: locationData.docDate,
+      faculty: locationData.faculty,
+      cost: locationData.cost,
+      locationType: locationData.locationType,
+      active: locationData.active,
+      buildingNo: locationData.buildingNo,
+      floorNo: locationData.floorNo,
+      locName: locationData.locName,
+      locCode: locationData.locCode,
+    };
 
-  const formData = {
-    docID: newdocId,
   }
+  else {
 
-  return (
-    <LocationForm data={formData}/>
-  )
+    const currentYear = (new Date().getFullYear()) % 100;
+
+    const preDocID = await Location.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+
+    const id = parseInt(preDocID.docID.split('/')[2]) + 1;
+
+    const newdocId = `${currentYear}/LOC/${id}`;
+
+    formData = {
+      docID: newdocId,
+    };
+  };
+
+  return <LocationForm data={formData} method={docID ? 'Update':'Create'}/>;
 }
 
 export default CreateLocationForm;
