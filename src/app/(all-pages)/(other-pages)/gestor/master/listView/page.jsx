@@ -26,7 +26,7 @@ const listView = async() => {
 
   return (
     <div>
-      <ListView data={formData} headers={headers} path='/gestor/master?docID=' />
+      <ListView initData={formData} headers={headers} updatePath='/gestor/master?docID=' reqPath='/api/pages/gestor/master' />
     </div>
   );
 };
