@@ -1,65 +1,55 @@
-import React from 'react';
-import styles from './catalog.module.css';
-import ListView from '@/components/listView/ListView';
+"use server"
 
-const FacultyCreationForm = () => {
-  
-  const Header = [
-    "Faculty Code",
-    "Faculty Name",
-    "Active",
-  ];
+import CreateFacultyComp from '@/components/createFacultyComp/CreateFacultyComp';
+import { dbConnect } from '@/lib/mongo';
+import { Faculty } from '@/model/faculty-model';
 
-  const data = [{
-    facultyCode: "001",
-    facultyName: "FOT",
-    Active: "Yes",
-  }];
-  
+const CreateFaculty = async({ searchParams }) => {
+
+  const { docID } = searchParams || {};
+  //console.log("Search params docID = ", docID);
+
+  let formData = {};
+
+  await dbConnect();
+
+  const faculty = docID ? await Faculty.findOne({ docID }) : null;
+
+  if(faculty){
+
+    formData = {
+      docID: faculty.docID,
+      facultyCode: faculty.facultyCode,
+      facultyName: faculty.facultyName,
+      Active: faculty.Active,
+    };
+
+  }
+  else {
+
+    const currentYear = (new Date().getFullYear()) % 100;
+
+    const preDocID = await Faculty.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+
+    let id;
+
+    if(!preDocID){
+      id = 1;
+    }
+    else{
+      id = parseInt(preDocID.docID.split('/')[2]) + 1;
+    }
+
+    const newdocId = `${currentYear}/FAC/${id}`;
+
+    formData = {
+      docID: newdocId,
+    };
+  }
+
   return (
-    <div className={styles.container}>
-      {/* Title */}
-      <h2 className={styles.title}>Create Faculty</h2>
-
-      {/* Buttons Row */}
-      <div className={styles.buttonGroup}>
-        <button className={styles.buttonNew}>New</button>
-        <button className={styles.buttonSave}>Save</button>
-      </div>
-
-      {/* Form Fields */}
-      <div className={styles.formBody}>
-        <div className={styles.formGroup}>
-          <label>Doc ID</label>
-          <input type="text" value="Auto" className={styles.inputField} disabled />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Faculty Code</label>
-          <input type="text" placeholder="Enter" className={styles.inputField} />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Faculty Name</label>
-          <input type="text" placeholder="Enter" className={styles.inputField} />
-        </div>
-
-        {/* Active Status with Radio Buttons */}
-        <div className={styles.formGroupActive}>
-          <label>Active?</label>
-          <div className={styles.activeOptions}>
-            <label>
-              <input type="radio" name="activeStatus" /> Yes
-            </label>
-            <label>
-              <input type="radio" name="activeStatus" /> No
-            </label>
-          </div>
-        </div>
-      </div>
-      <ListView initData={data} headers={Header} updatePath={"#"} reqPath={"#"}/>
-    </div>
+    <CreateFacultyComp data={formData} method={docID ? 'Update':'Create'}/>
   );
 };
 
-export default FacultyCreationForm;
+export default CreateFaculty;
