@@ -1,11 +1,31 @@
 "use client"
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './pendingUsers.module.css';
+import Link from 'next/link';
 
 const PendingUsersComp = ({users,facultys}) => {
 
+    //const [pendingUsers, setPendingUsers] = useState(users);
+    const [filteredUsers, setFilteredUsers] = useState(users);
+    const [selectedFaculty, setSelectedFaculty] = useState('');
+    const [selectedRole, setSelectedRole] = useState('');
 
+    let filtered = users;
+
+
+    useEffect(() => {
+
+        if (selectedFaculty) {
+            filtered = filtered.filter(user => user.faculty === selectedFaculty);
+        }
+
+        if (selectedRole) {
+            filtered = filtered.filter(user => user.type === selectedRole);
+        }
+
+        setFilteredUsers(filtered);
+    }, [selectedFaculty, selectedRole, users]);
 
     return (
         <>
@@ -15,8 +35,12 @@ const PendingUsersComp = ({users,facultys}) => {
             <div className={styles.parametersSection}>
                 <div className={styles.formGroup}>
                 <label>Faculty Name</label>
-                <select className={styles.inputField}>
-                    <option value="" disabled>Select Faculty</option>
+                <select
+                    className={styles.inputField}
+                    value={selectedFaculty}
+                    onChange={(e) => setSelectedFaculty(e.target.value)}
+                >
+                    <option value="">All</option>
                     {facultys.map((faculty, index) => (
                         <option key={index} value={faculty}>{faculty}</option>
                     ))}
@@ -33,8 +57,12 @@ const PendingUsersComp = ({users,facultys}) => {
 
                 <div className={styles.formGroup}>
                 <label>Role</label>
-                <select className={styles.inputField}>
-                    <option value="" disabled >Select the type of user you want</option>
+                <select
+                    className={styles.inputField}
+                    value={selectedRole}
+                    onChange={(e) => setSelectedRole(e.target.value)}
+                >
+                    <option value="">All</option>
                     <option value="System Admin">System Admin</option>
                     <option value="Student">Student</option>
                     <option value="Staff">Staff</option>
@@ -58,13 +86,29 @@ const PendingUsersComp = ({users,facultys}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {/* <tr>
                         <td>06/06/2024 12.00 PM</td>
                         <td>Building 1</td>
                         <td>Admin</td>
                         <td>Event 1</td>
                         <td><a href="#">Display(Hyperlink)</a></td>
-                    </tr>
+                    </tr> */}
+                    {filteredUsers.length > 0 ?
+                    (
+                        filteredUsers.map((user, index) => (
+                            <tr key={index}>
+                            <td>{user.name}</td>
+                            <td>{user.faculty}</td>
+                            <td>{user.type}</td>
+                            <td>{new Date(user.verification.createDate).toLocaleDateString()}</td>
+                            <td><Link href={`/setup/pendingUsers/verificationPage?id=${user._id}`} >Check</Link></td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="5">No pending users found</td>
+                        </tr>
+                    )}
                 </tbody>
                 </table>
             </div>
