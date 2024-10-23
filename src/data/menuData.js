@@ -18,6 +18,7 @@ const menuData = [
                 description: "Setup",
                 path: "/setup",
                 icon: HiOutlineCog,
+                haveSubmenu: true,
                 submenu: [
                     {
                         name: "Create Faculty",
