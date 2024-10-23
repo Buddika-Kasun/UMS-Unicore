@@ -4,8 +4,18 @@ import React, { useState } from 'react';
 import styles from './createCostCenterComp.module.css';
 import { useRouter } from 'next/navigation';
 import SubLoading from '../loading/SubLoading';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import ListView from '../listView/ListView';
 
-const CreateCostCenterComp= ({data, method}) => {
+const CreateCostCenterComp = ({data, method, list}) => {
+
+  const [dataList, setDataList] = useState(list);
+
+  const fetchListData = async() => {
+    const res = await axios.get('/api/pages/setup/createCostCenter');
+    setDataList(res.data);
+  }
 
   const [isloading, setIsLoading] = useState(false);
 
@@ -80,6 +90,9 @@ const CreateCostCenterComp= ({data, method}) => {
         toast.success(res.data.message, {
             autoClose: 2000,
         });
+
+        fetchListData();
+
       }
       else {
         throw err;
@@ -94,6 +107,16 @@ const CreateCostCenterComp= ({data, method}) => {
   };
 
   const router = useRouter();
+
+  const header = [
+    "Created By",
+    "Created Date",
+    "Faculty",
+    "CC Code",
+    "CC Name",
+    "Active",
+  ];
+
 
   return (
     <>
@@ -160,6 +183,7 @@ const CreateCostCenterComp= ({data, method}) => {
           </div>
         </form>
 
+        <ListView initData={dataList} headers={header} updatePath={'#'} reqPath={'/api/pages/setup/createCostCenter'} />
       </div>
     </>
   );
