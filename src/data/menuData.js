@@ -18,20 +18,21 @@ const menuData = [
                 description: "Setup",
                 path: "/setup",
                 icon: HiOutlineCog,
+                haveSubmenu: true,
                 submenu: [
                     {
                         name: "Create Faculty",
-                        path: "/gestor/InfraGestor/reservations",
+                        path: "/setup/createFaculty",
                         permission: ["Staff"]
                     },
                     {
-                        name: "Cancel Reservation",
-                        path: "/gestor/InfraGestor/cancel-reservation",
+                        name: "Create Cost Center",
+                        path: "/setup/createCostCenter",
                         permission: ["Staff"]
                     },
                     {
-                        name: "View Resource Utilization",
-                        path: "/gestor/InfraGestor/view-resource-utilization",
+                        name: "Create Lists",
+                        path: "/setup/createList",
                         permission: ["Administrators"]
                     }
                 ]
@@ -48,8 +49,19 @@ const menuData = [
                 description: "General Administration Masters",
                 path: "/gestor/master",
                 icon: HiOutlineCog,
-                haveSubmenu: false,
-                permission: ["System Admin"]
+                haveSubmenu: true,
+                submenu: [
+                    {
+                        name: "Create Locations",
+                        path: "/gestor/master/createLocation",
+                        permission: ["System Admin"]
+                    },
+                    {
+                        name: "Create Sub Locations",
+                        path: "/gestor/master/createSubLocation",
+                        permission: ["System Admin"]
+                    },
+                ]
             },
             {
                 name: "InfraGestor",
