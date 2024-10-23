@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { HiArrowLeft } from "react-icons/hi";
 import SubLoading from '../loading/SubLoading';
 
-const LocationForm = ({data, method}) => {
+const LocationForm = ({data, method, facultys, costCenters}) => {
 
   const [isloading, setIsLoading] = useState(false);
 
@@ -171,22 +171,20 @@ const LocationForm = ({data, method}) => {
         <div className={styles.formGroup}>
           <label>Faculty</label>
           <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} required>
-            <option value="Faculty of Technology">Faculty of Technology</option>
-            <option value="Faculty of Arts">Faculty of Arts</option>
-            <option value="Faculty of Science">Faculty of Science</option>
-            <option value="engineeringFaculty of Engineering">Faculty of Engineering</option>
-            <option value="Faculty of Business">Faculty of Business</option>
-            <option value="Faculty of Law">Faculty of Law</option>
-            <option value="" disabled>Select faculty</option>
+            <option value="" disabled>Select Faculty</option>
+            {facultys.map((faculty, index) => (
+              <option key={index} value={faculty}>{faculty}</option>
+            ))}
           </select>
         </div>
 
         <div className={styles.formGroup}>
           <label>Cost Center</label>
           <select className={styles.input} name='cost' value={formData.cost} onChange={handleChange}>
-            <option>Internal Use</option>
-            <option>External Use</option>
-            <option value="" disabled>Select cost center</option>
+            <option value="" disabled>Select Cost Center</option>
+            {costCenters.map((costCenter, index) => (
+              <option key={index} value={costCenter}>{costCenter}</option>
+            ))}
           </select>
         </div>
 
