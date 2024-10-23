@@ -3,6 +3,7 @@
 import CreateCostCenterComp from '@/components/createCostCenterComp/CreateCostCenterComp';
 import { dbConnect } from '@/lib/mongo';
 import { CostCenter } from '@/model/costCenter-model';
+import { Faculty } from '@/model/faculty-model';
 
 const createCostCenter = async({ searchParams }) => {
 
@@ -51,8 +52,11 @@ const createCostCenter = async({ searchParams }) => {
 
   const listData = await CostCenter.find({},{_id: 0, __v:0,}).lean();
 
+  const facultys = await Faculty.find({}, { facultyName: 1, _id: 0 }).lean();
+  const facultyNames = facultys.map(faculty => faculty.facultyName);
+
   return (
-    <CreateCostCenterComp data={formData} method={docID ? 'Update':'Create'} list={listData}/>
+    <CreateCostCenterComp data={formData} method={docID ? 'Update':'Create'} list={listData} facultys={facultyNames} />
    );
 }
 

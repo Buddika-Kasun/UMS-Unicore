@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import ListView from '../listView/ListView';
 
-const CreateCostCenterComp = ({data, method, list}) => {
+const CreateCostCenterComp = ({data, method, list, facultys}) => {
 
   useEffect(() =>{
     setFormData(data)
@@ -160,9 +160,10 @@ const CreateCostCenterComp = ({data, method, list}) => {
           <div className={styles.formGroup}>
             <label>Faculty</label>
             <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange}>
-              <option>Select</option>
-              <option>Faculty 1</option>
-              <option>Faculty 2</option>
+              <option value="" disabled>Select Faculty</option>
+              {facultys.map((faculty, index) => (
+                <option key={index} value={faculty}>{faculty}</option>
+              ))}
             </select>
           </div>
 
