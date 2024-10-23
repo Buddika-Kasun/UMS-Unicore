@@ -19,7 +19,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
     // Check if there's data to display
     if (!data || data.length === 0) {
         return <div className={styles.container}>No data available</div>;
-    };
+    }
 
     const fetchLocations = async () => {
         try {
