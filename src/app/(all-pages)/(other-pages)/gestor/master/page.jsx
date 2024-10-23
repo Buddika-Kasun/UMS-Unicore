@@ -44,7 +44,7 @@ const CreateLocationForm = async({ searchParams }) => {
     formData = {
       docID: newdocId,
     };
-  };
+  }
 
   return <LocationForm data={formData} method={docID ? 'Update':'Create'}/>;
 }
