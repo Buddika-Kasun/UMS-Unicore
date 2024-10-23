@@ -90,7 +90,7 @@ const LocationForm = ({data, method}) => {
         setIsLoading(false);
 
         setTimeout(() => {
-          (method == 'Update') && router.push('/gestor/master/listView');
+          (method == 'Update') && router.push('/gestor/master/createLocation/listView');
         }, 1000);
 
         toast.success(res.data.message, {
@@ -113,7 +113,7 @@ const LocationForm = ({data, method}) => {
 
   const visit = () => {
     setIsLoading(true);
-    router.push('/gestor/master/listView');
+    router.push('/gestor/master/createLocation/listView');
   }
 
   const goNew = async() => {
@@ -130,7 +130,7 @@ const LocationForm = ({data, method}) => {
     }
 
     setIsLoading(false);
-    router.push('/gestor/master');
+    router.push('/gestor/master/createLocation');
   }
 
   return (

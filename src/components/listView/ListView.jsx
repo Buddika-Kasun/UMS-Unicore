@@ -64,7 +64,7 @@ const ListView = ({ headers, initData, updatePath, reqPath}) => {
 
     const goBack = () => {
         setIsLoading(true);
-        router.push('/gestor/master');
+        router.push('/gestor/master/createLocation');
     }
 
     return (
