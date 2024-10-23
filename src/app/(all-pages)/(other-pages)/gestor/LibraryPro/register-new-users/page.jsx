@@ -17,7 +17,7 @@ const PendingUserCreation = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label>Faculty Name</label>
+          <label>User Name</label>
           <select className={styles.inputField}>
             <option>Internal Use</option>
             <option>External Use</option>
