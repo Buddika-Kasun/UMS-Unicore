@@ -47,8 +47,10 @@ const CreateFaculty = async({ searchParams }) => {
     };
   }
 
+  const listData = await Faculty.find({},{_id:0,__v:0,}).lean();
+
   return (
-    <CreateFacultyComp data={formData} method={docID ? 'Update':'Create'}/>
+    <CreateFacultyComp data={formData} method={docID ? 'Update':'Create'} list={listData}/>
   );
 };
 
