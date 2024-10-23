@@ -34,6 +34,10 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
         fetchLocations();
     },[]);
 
+    useEffect(() => {
+        fetchLocations();
+    },[initData]);
+
     const handleEdit = (docId) => {
         setIsLoading(true);
         router.push(`${updatePath}${docId}`);
