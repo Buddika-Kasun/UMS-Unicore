@@ -9,7 +9,11 @@ const routeData = [
         permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]
     },
     {
-        path: "/gestor/master",
+        path: "/gestor/master/createLocation",
+        permission: ["System Admin"]
+    },
+    {
+        path: "/gestor/master/createSubLocation",
         permission: ["System Admin"]
     },
     {
@@ -135,6 +139,18 @@ const routeData = [
     {
         path: "/performanceInsight/unicore-delight/analyze-student-feedbacks",
         permission: ["Administrators"]
+    },
+    {
+        path: "/setup/createLocation",
+        permission: ["System Admin"]
+    },
+    {
+        path: "/setup/createCostCenter",
+        permission: ["System Admin"]
+    },
+    {
+        path: "/setup/createList",
+        permission: ["System Admin"]
     },
     // API's Permissions
     {
