@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './listView.module.css';
 import { useRouter } from "next/navigation";
 import { HiArrowLeft } from "react-icons/hi";
@@ -9,7 +9,7 @@ import { MdEdit, MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const ListView = ({ headers, initData, updatePath, reqPath}) => {
+const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) => {
 
     const router = useRouter();
 
@@ -29,6 +29,10 @@ const ListView = ({ headers, initData, updatePath, reqPath}) => {
             toast.error('An unexpected error occurred while fetching locations.');
         }
     };
+
+    useEffect(() => {
+        fetchLocations();
+    },[]);
 
     const handleEdit = (docId) => {
         setIsLoading(true);
@@ -64,16 +68,16 @@ const ListView = ({ headers, initData, updatePath, reqPath}) => {
 
     const goBack = () => {
         setIsLoading(true);
-        router.push('/gestor/master/createLocation');
+        router.push(`${backPath}`);
     }
 
     return (
         <div className={styles.container}>
             {isloading && <SubLoading />}
-            <h2 className={styles.title}>
+            {(title) && <h2 className={styles.title}>
                 <button className={styles.backBtn} title="Create Location" onClick={goBack}><HiArrowLeft /></button>
-                Locations
-            </h2>
+                {title}
+            </h2>}
             <table className={styles.table}>
             <thead>
                 <tr>
