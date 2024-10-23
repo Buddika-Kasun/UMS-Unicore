@@ -1,7 +1,21 @@
 import React from 'react';
 import styles from './catalog.module.css';
+import ListView from '@/components/listView/ListView';
 
 const FacultyCreationForm = () => {
+  
+  const Header = [
+    "Faculty Code",
+    "Faculty Name",
+    "Active",
+  ];
+
+  const data = [{
+    facultyCode: "001",
+    facultyName: "FOT",
+    Active: "Yes",
+  }];
+  
   return (
     <div className={styles.container}>
       {/* Title */}
@@ -43,6 +57,7 @@ const FacultyCreationForm = () => {
           </div>
         </div>
       </div>
+      <ListView initData={data} headers={Header} updatePath={"#"} reqPath={"#"}/>
     </div>
   );
 };
