@@ -45,6 +45,10 @@ const userSchema = new Schema({
         image: {
             type: String,
         },
+        createDate: {
+            type: Date,
+            default: Date.now,
+        }
     },
 });
 

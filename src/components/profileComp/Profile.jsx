@@ -26,7 +26,7 @@ const Profile = ({ user: initialUser, saveVerify }) => {
     e.preventDefault();
 
     try {
-      const data = {type, verifyType, email: user.email};
+      const data = {type, verifyType, email: user.email, createdDate: Date.now()};
 
       const res = await axios.post('/api/pages/profile', data);
 
