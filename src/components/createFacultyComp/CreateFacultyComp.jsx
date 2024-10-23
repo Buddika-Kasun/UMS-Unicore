@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import SubLoading from '@/components/loading/SubLoading';
 import { useRouter } from 'next/navigation';
 
-const CreateFacultyComp = ({data,method}) => {
+const CreateFacultyComp = ({data,method,list}) => {
   const [isloading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -17,6 +17,8 @@ const CreateFacultyComp = ({data,method}) => {
     facultyName: data.facultyName || '',
     Active: data.Active || '',
   });
+
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,6 +78,8 @@ const CreateFacultyComp = ({data,method}) => {
         toast.success(res.data.message, {
             autoClose: 2000,
         });
+
+        router.push('/setup/createFaculty');
       }
       else {
         throw err;
@@ -88,20 +92,12 @@ const CreateFacultyComp = ({data,method}) => {
       toast.error('An unexpected error occurred while processing.');
     }
   };
-
-  const router = useRouter();
   
-  /* const Header = [
+  const Header = [
     "Faculty Code",
     "Faculty Name",
     "Active",
   ];
-
-  const data1 = [{
-    facultyCode: "001",
-    facultyName: "FOT",
-    Active: "Yes",
-  }]; */
   
   return (
     <>
@@ -146,7 +142,7 @@ const CreateFacultyComp = ({data,method}) => {
           </div>
         </div>
       </div>
-     {/*  <ListView initData={data1} headers={Header} updatePath={"#"} reqPath={"#"}/> */}
+      <ListView initData={list} headers={Header} updatePath={"#"} reqPath={"/api/pages/setup/createFaculty"}/>
     </div>
     </>
   );
