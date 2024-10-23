@@ -16,9 +16,8 @@ const createCostCenter = async({ searchParams }) => {
   const costCenters = docID ? await CostCenter.findOne({ docID }) : null;
 
   if(costCenters){
-
     formData = {
-      docID: costCenters.docId,
+      docID: costCenters.docID,
       createDate: costCenters.createDate, // when update use new date time
       createBy: costCenters.createBy,
       faculty: costCenters.faculty,
@@ -50,8 +49,10 @@ const createCostCenter = async({ searchParams }) => {
     };
   }
 
+  const listData = await CostCenter.find({},{_id: 0, __v:0,}).lean();
+
   return (
-    <CreateCostCenterComp data={formData} method={docID ? 'Update':'Create'} />
+    <CreateCostCenterComp data={formData} method={docID ? 'Update':'Create'} list={listData}/>
    );
 }
 

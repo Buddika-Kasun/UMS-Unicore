@@ -41,6 +41,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
     const handleEdit = (docId) => {
         //setIsLoading(true);
         router.push(`${updatePath}${docId}`);
+        setIsLoading(false);
     }
 
     const handleDelete = async(docId) => {

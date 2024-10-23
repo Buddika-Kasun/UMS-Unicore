@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './createCostCenterComp.module.css';
 import { useRouter } from 'next/navigation';
 import SubLoading from '../loading/SubLoading';
@@ -9,6 +9,10 @@ import axios from 'axios';
 import ListView from '../listView/ListView';
 
 const CreateCostCenterComp = ({data, method, list}) => {
+
+  useEffect(() =>{
+    setFormData(data)
+  },[data]);
 
   const [dataList, setDataList] = useState(list);
 
@@ -22,7 +26,7 @@ const CreateCostCenterComp = ({data, method, list}) => {
   const [formData, setFormData] = useState({
     docID: data.docID,
     createDate: new Date(Date.now()).toLocaleString(), // when update use new date time
-    createBy: data.createdBy || '',
+    createBy: data.createBy || '',
     faculty: data.faculty || '',
     costCenterCode: data.costCenterCode || '',
     costCenterName: data.costCenterName || '',
@@ -109,6 +113,7 @@ const CreateCostCenterComp = ({data, method, list}) => {
   const router = useRouter();
 
   const header = [
+    "Doc ID",
     "Created By",
     "Created Date",
     "Faculty",
@@ -122,15 +127,16 @@ const CreateCostCenterComp = ({data, method, list}) => {
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
-        <h2 className={styles.title}>Create Cost Center</h2>
+        <h2 className={styles.title}>{(method == 'Update')? "Update":"Save"} Cost Center</h2>
       </div>
 
       <div className={styles.container}>
 
         <div className={styles.buttonRow}>
           <div className={styles.buttonGroup}>
-            <button className={styles.button} onClick={formReset}>New</button>
-            <button className={styles.button} onClick={handleSave}>Save</button>
+            {(method == 'Update') && <button className={styles.button} onClick={() => router.push('/setup/createCostCenter')}>New</button>}
+            <button className={styles.button} onClick={() => formReset(formData.docID)}>{(method == 'Update')? "Clear All":"New"}</button>
+            <button className={styles.button} onClick={handleSave}>{(method == 'Update')? "Update":"Save"}</button>
           </div>
         </div>
 
@@ -183,7 +189,7 @@ const CreateCostCenterComp = ({data, method, list}) => {
           </div>
         </form>
 
-        <ListView initData={dataList} headers={header} updatePath={'#'} reqPath={'/api/pages/setup/createCostCenter'} />
+        <ListView initData={dataList} headers={header} updatePath={'/setup/createCostCenter?docID='} reqPath={'/api/pages/setup/createCostCenter'} />
       </div>
     </>
   );
