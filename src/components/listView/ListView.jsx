@@ -39,7 +39,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
     },[initData]);
 
     const handleEdit = (docId) => {
-        setIsLoading(true);
+        //setIsLoading(true);
         router.push(`${updatePath}${docId}`);
     }
 
