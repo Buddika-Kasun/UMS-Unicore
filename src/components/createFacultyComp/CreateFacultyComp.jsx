@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './createFaculty.module.css';
 import ListView from '@/components/listView/ListView';
 import axios from 'axios';
@@ -9,6 +9,19 @@ import SubLoading from '@/components/loading/SubLoading';
 import { useRouter } from 'next/navigation';
 
 const CreateFacultyComp = ({data,method,list}) => {
+
+  useEffect (()=>{
+    setFormData(data);
+  },[data])
+  
+  const [dataList, setDataList] = useState(list);
+
+  const fetchListData = async() => {
+    const res = await axios.get('/api/pages/setup/createFaculty');
+    setDataList(res.data);
+  }
+
+
   const [isloading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -73,6 +86,8 @@ const CreateFacultyComp = ({data,method,list}) => {
 
         formReset(newDocId);
 
+        fetchListData();
+
         setIsLoading(false);
 
         toast.success(res.data.message, {
@@ -94,6 +109,7 @@ const CreateFacultyComp = ({data,method,list}) => {
   };
   
   const Header = [
+    "Doc ID",
     "Faculty Code",
     "Faculty Name",
     "Active",
@@ -104,12 +120,13 @@ const CreateFacultyComp = ({data,method,list}) => {
     {isloading && <SubLoading />}
     <div className={styles.container}>
       {/* Title */}
-      <h2 className={styles.title}>Create Faculty</h2>
+      <h2 className={styles.title}>{(method === "Update") ? "Update" : "Save"} Faculty</h2>
 
       {/* Buttons Row */}
       <div className={styles.buttonGroup}>
-        <button className={styles.buttonNew} onClick={formReset}>New</button>
-        <button className={styles.buttonSave} onClick={handleSave}>Save</button>
+        {(method == "Update") && <button className={styles.buttonNew} onClick={()=> router.push("/setup/createFaculty")}>New</button>}
+        <button className={styles.buttonNew} onClick={()=> formReset(formData.docID)}>{(method === "Update") ? "Clear All" : "New"}</button>
+        <button className={styles.buttonSave} onClick={handleSave}>{(method === "Update") ? "Update" : "Save"}</button>
       </div>
 
       {/* Form Fields */}
@@ -142,7 +159,7 @@ const CreateFacultyComp = ({data,method,list}) => {
           </div>
         </div>
       </div>
-      <ListView initData={list} headers={Header} updatePath={"#"} reqPath={"/api/pages/setup/createFaculty"}/>
+      <ListView initData={dataList} headers={Header} updatePath={"/setup/createFaculty?docID="} reqPath={"/api/pages/setup/createFaculty"}/>
     </div>
     </>
   );
