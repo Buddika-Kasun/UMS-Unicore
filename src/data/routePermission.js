@@ -2,11 +2,11 @@
 const routeData = [
     {
         path: "/dashboard",
-        permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
     },
     {
         path: "/profile",
-        permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators", "Guest"]
     },
     {
         path: "/gestor/master/createLocation",
@@ -42,15 +42,15 @@ const routeData = [
     },
     {
         path: "/gestor/LibraryPro/view-catalogs",
-        permission: ["Library Staff", "Students"]
+        permission: ["Library Staff", "Student"]
     },
     {
         path: "/gestor/LibraryPro/reserve-items",
-        permission: ["Students", "Staff"]
+        permission: ["Student", "Staff"]
     },
     {
         path: "/gestor/LibraryPro/remove-reservation",
-        permission: ["Library Staff", "Students", "Staff"]
+        permission: ["Library Staff", "Student", "Staff"]
     },
     {
         path: "/gestor/LibraryPro/view-reservations",
@@ -159,7 +159,7 @@ const routeData = [
     // API's Permissions
     {
         path: "/api/pages/profile",
-        permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators", "Guest"]
     },
     {
         path: "/api/pages/users",
