@@ -60,7 +60,9 @@ function LoginForm({isLogin, setIsLoading}) {
 
             const encryptedPw = CryptoJS.AES.encrypt(pwL, "tEsT123#").toString();
 
-            const data = {email: emailL, pw: encryptedPw};
+            const localDate = new Date();
+
+            const data = {email: emailL, pw: encryptedPw, date: localDate};
 
             const res = await axios.post('/api/login', data);
 
@@ -91,11 +93,12 @@ function LoginForm({isLogin, setIsLoading}) {
             else if(res.status === 200){
                 formReset();
                 setAttempts(0);
+                router.push('/dashboard');
                 toast.success('Login success.', {
                     autoClose: 2000,
-                    onClose: () => {
-                        router.push('/dashboard');
-                    }
+                    // onClose: () => {
+                    //     router.push('/dashboard');
+                    // }
                 });
             }
 

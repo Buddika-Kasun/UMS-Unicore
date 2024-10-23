@@ -1,7 +1,7 @@
-const Catalog = () => {
-    return (
-      <div>Catalog page</div>
-    );
-  };
-
-  export default Catalog;
+const page = () => {
+  return ( 
+    <></>
+   );
+}
+ 
+export default page;

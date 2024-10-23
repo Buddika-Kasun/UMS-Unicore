@@ -1,9 +1,11 @@
+"use server"
 import "server-only";
 
 import { NextResponse } from "next/server";
 import { decrypt } from "@/security/encryption";
 import { doCredentialLogIn } from "../action";
 import { xssSanitize } from "@/security/purify";
+import { User } from "@/model/user-model";
 
 
 const getErrMessage = (err) => {
@@ -19,7 +21,7 @@ const getErrMessage = (err) => {
 };
 
 export async function POST(req) {
-    let { email, pw} = await req.json();
+    let { email, pw, date} = await req.json();
 
     // XSS Protection
     email = xssSanitize(email);
@@ -36,6 +38,8 @@ export async function POST(req) {
     try {
         const res = await doCredentialLogIn({email, decryptedPw});
         console.log("In /login/route = ", res);//
+
+        await User.updateOne({email: email}, {$set: {loginDate: date}});
 
         return NextResponse.json({message: "Loging successful."}, { status: 200 });
     }

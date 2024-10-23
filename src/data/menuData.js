@@ -11,7 +11,36 @@ const menuData = [
                 path: "/dashboard",
                 icon: HiOutlinePresentationChartBar,
                 haveSubmenu: false,
-                permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "User"]  // Assuming all roles can access Dashboard
+                permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
+            },
+            {
+                name: "Setup",
+                description: "Setup",
+                path: "/setup",
+                icon: HiOutlineCog,
+                haveSubmenu: true,
+                submenu: [
+                    {
+                        name: "Create Faculty",
+                        path: "/setup/createFaculty",
+                        permission: ["Staff"]
+                    },
+                    {
+                        name: "Create Cost Center",
+                        path: "/setup/createCostCenter",
+                        permission: ["Staff"]
+                    },
+                    {
+                        name: "Create Lists",
+                        path: "/setup/createList",
+                        permission: ["Administrators"]
+                    },
+                    {
+                        name: "Pending Users",
+                        path: "/setup/pendingUsers",
+                        permission: ["Administrators"]
+                    }
+                ]
             }
         ]
     },
@@ -25,8 +54,19 @@ const menuData = [
                 description: "General Administration Masters",
                 path: "/gestor/master",
                 icon: HiOutlineCog,
-                haveSubmenu: false,
-                permission: ["System Admin"]
+                haveSubmenu: true,
+                submenu: [
+                    {
+                        name: "Create Locations",
+                        path: "/gestor/master/createLocation",
+                        permission: ["System Admin"]
+                    },
+                    {
+                        name: "Create Sub Locations",
+                        path: "/gestor/master/createSubLocation",
+                        permission: ["System Admin"]
+                    },
+                ]
             },
             {
                 name: "InfraGestor",

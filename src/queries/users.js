@@ -13,6 +13,7 @@ export async function createUser(user) {
     }
 }
 
+/*
 const us = [
     {
         name: 'Test',
@@ -46,7 +47,8 @@ const us = [
         pw: 'admin1234',
         role: 'Administrators'
     }
-];                                     // DB
+];
+*/                                   // DB
 
 export async function findUserByEmail(email) {
     try {

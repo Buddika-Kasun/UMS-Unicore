@@ -24,7 +24,27 @@ const userSchema = new Schema({
     role: {
         // required: true,
         type: String,
-        default: "guest", // Assign default value
+        default: "Guest", // Assign default value
+    },
+    createdDate: {
+        type: Date,
+        default: Date.now,
+    },
+    loginDate: {
+        type: Date,
+        default: Date.now,
+    },
+    verification: {
+        state: {
+            type: String,
+            default: "none",
+        },
+        type: {
+            type: String,
+        },
+        image: {
+            type: String,
+        },
     },
 });
 

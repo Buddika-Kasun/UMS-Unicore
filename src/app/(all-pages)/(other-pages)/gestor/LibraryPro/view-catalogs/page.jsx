@@ -1,7 +1,5 @@
-const ViewCat = () => {
-    return (
-      <div>Catelog view page</div>
-    );
-  };
-
-  export default ViewCat;
+const page = () => {
+  return (  <></>);
+}
+ 
+export default page;
