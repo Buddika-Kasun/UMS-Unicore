@@ -3,7 +3,7 @@
 import React from 'react';
 import styles from './pendingUsers.module.css';
 
-const PendingUsersComp = ({users}) => {
+const PendingUsersComp = ({users,facultys}) => {
 
 
 
@@ -16,24 +16,31 @@ const PendingUsersComp = ({users}) => {
                 <div className={styles.formGroup}>
                 <label>Faculty Name</label>
                 <select className={styles.inputField}>
-                    <option>Internal Use</option>
-                    <option>External Use</option>
+                    <option value="" disabled>Select Faculty</option>
+                    {facultys.map((faculty, index) => (
+                        <option key={index} value={faculty}>{faculty}</option>
+                    ))}
                 </select>
                 </div>
 
-                <div className={styles.formGroup}>
+                {/* <div className={styles.formGroup}>
                 <label>User Name</label>
                 <select className={styles.inputField}>
                     <option>Internal Use</option>
                     <option>External Use</option>
                 </select>
-                </div>
+                </div> */}
 
                 <div className={styles.formGroup}>
                 <label>Role</label>
                 <select className={styles.inputField}>
-                    <option>Internal Use</option>
-                    <option>External Use</option>
+                    <option value="" disabled >Select the type of user you want</option>
+                    <option value="System Admin">System Admin</option>
+                    <option value="Student">Student</option>
+                    <option value="Staff">Staff</option>
+                    <option value="Library Staff">Library Staff</option>
+                    <option value="Administrators">Administrators</option>
+                    <option value="Test">Test</option>
                 </select>
                 </div>
             </div>

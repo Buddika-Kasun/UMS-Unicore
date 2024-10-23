@@ -23,7 +23,8 @@
   /* Parameters Section */
   .parametersSection {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap: 50px;
     margin-bottom: 20px;
   }
   
