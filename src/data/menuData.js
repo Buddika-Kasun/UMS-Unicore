@@ -12,6 +12,29 @@ const menuData = [
                 icon: HiOutlinePresentationChartBar,
                 haveSubmenu: false,
                 permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
+            },
+            {
+                name: "Setup",
+                description: "Setup",
+                path: "/setup",
+                icon: HiOutlineCog,
+                submenu: [
+                    {
+                        name: "Create Faculty",
+                        path: "/gestor/InfraGestor/reservations",
+                        permission: ["Staff"]
+                    },
+                    {
+                        name: "Cancel Reservation",
+                        path: "/gestor/InfraGestor/cancel-reservation",
+                        permission: ["Staff"]
+                    },
+                    {
+                        name: "View Resource Utilization",
+                        path: "/gestor/InfraGestor/view-resource-utilization",
+                        permission: ["Administrators"]
+                    }
+                ]
             }
         ]
     },
