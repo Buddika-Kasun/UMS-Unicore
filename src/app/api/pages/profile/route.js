@@ -6,7 +6,7 @@ import "server-only";
 export async function POST(req) {
     try{
 
-        const {email, type, verifyType} = await req.json();
+        const {email, type, verifyType, createdDate} = await req.json();
 
         //console.log(email, type, verifyType);
 
@@ -18,9 +18,10 @@ export async function POST(req) {
                 verification: {
                     state: "request",
                     type: verifyType,
-                    image: "none"
+                    image: "none",
+                    createDate: createdDate,
                 },
-                role: type,
+                type: type,
             }}
         );
 
