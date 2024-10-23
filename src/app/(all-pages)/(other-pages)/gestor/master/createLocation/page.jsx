@@ -37,7 +37,14 @@ const CreateLocationForm = async({ searchParams }) => {
 
     const preDocID = await Location.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
 
-    const id = parseInt(preDocID.docID.split('/')[2]) + 1;
+    let id;
+
+    if (!preDocID) {
+      id = 1;
+    }
+    else {
+      id = parseInt(preDocID.docID.split('/')[2]) + 1;
+    }
 
     const newdocId = `${currentYear}/LOC/${id}`;
 

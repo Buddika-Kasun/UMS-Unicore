@@ -25,7 +25,7 @@ const costCenterSchema = new Schema({
         required: true,
         type: String,
     },
-    Active: {
+    active: {
         required: true,
         type: String,
     },
