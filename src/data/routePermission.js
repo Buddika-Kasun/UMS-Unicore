@@ -164,7 +164,15 @@ const routeData = [
     {
         path: "/api/pages/gestor/master",
         permission: ["System Admin"]
-    }
+    },
+    {
+        path: "/api/pages/setup/createCostCenter",
+        permission: [""]
+    },
+    {
+        path: "/api/pages/setup/createCostCenter",
+        permission: [""]
+    },
 ];
 
 export default routeData;
