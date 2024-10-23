@@ -64,7 +64,7 @@ export async function GET(req) {
             return NextResponse.json(newdocId, { status: 200 });
         }
         else{
-            const faculty = await Faculty.find({},{_id: 0, __v:0,docID:0}).lean();
+            const faculty = await Faculty.find({},{_id: 0, __v:0,}).lean();
 
             return NextResponse.json(faculty, { status: 200 });
         }
@@ -77,4 +77,57 @@ export async function GET(req) {
 
 }
 
+//  UPDATE  //
+export async function PUT(req) {
+
+    //console.log("api/pages/gestor/master = Catch update req");
+
+    try {
+
+        const data = await req.json();
+
+        // XSS Protection
+        const sanitizedData = sanitize(data);
+
+        await dbConnect();
+
+        const result = await Faculty.updateOne({docID: sanitizedData.docID}, {$set: sanitizedData});
+
+        if (result.modifiedCount === 0) {
+            return NextResponse.json({message: "No document was updated. Please check the Doc ID."}, { status: 500 });
+        }
+
+    }
+    catch(err) {
+        return NextResponse.json({message: err.message}, { status: 500 });
+    }
+
+    return NextResponse.json({message: "Updated Faculty"}, { status: 200 });
+}
+
+//  DELETE   //
+export async function DELETE(req) {
+
+    //console.log("api/pages/gestor/master = Catch delete req");
+
+    try {
+        const data = await req.json();
+
+        await dbConnect();
+
+        const result = await Faculty.deleteOne({docID: data.docId});
+
+        if (result.deletedCount === 0) {
+            return NextResponse.json({message: "No document found with the specified Doc ID."}, { status: 500 });
+        }
+
+    }
+    catch(err) {
+        console.log(err)
+        return NextResponse.json({message: err.message}, { status: 500 });
+    }
+
+    return NextResponse.json({message: "Deleted Faculty"}, { status: 200 });
+
+}
 
