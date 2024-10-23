@@ -152,6 +152,10 @@ const routeData = [
         path: "/setup/createList",
         permission: ["System Admin"]
     },
+    {
+        path: "/setup/pendingUsers",
+        permission: ["System Admin"]
+    },
     // API's Permissions
     {
         path: "/api/pages/profile",

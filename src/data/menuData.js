@@ -34,6 +34,11 @@ const menuData = [
                         name: "Create Lists",
                         path: "/setup/createList",
                         permission: ["Administrators"]
+                    },
+                    {
+                        name: "Pending Users",
+                        path: "/setup/pendingUsers",
+                        permission: ["Administrators"]
                     }
                 ]
             }
