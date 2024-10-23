@@ -141,7 +141,7 @@ const routeData = [
         permission: ["Administrators"]
     },
     {
-        path: "/setup/createLocation",
+        path: "/setup/createFaculty",
         permission: ["System Admin"]
     },
     {
