@@ -1,74 +1,58 @@
-import React from 'react';
-import styles from './viewCat.module.css';
+"use server"
 
-const CostCenterForm = () => {
+import CreateCostCenterComp from '@/components/createCostCenterComp/CreateCostCenterComp';
+import { dbConnect } from '@/lib/mongo';
+import { CostCenter } from '@/model/costCenter-model';
+
+const createCostCenter = async({ searchParams }) => {
+
+  const { docID } = searchParams || {};
+  //console.log("Search params docID = ", docID);
+
+  let formData = {};
+
+  await dbConnect();
+
+  const costCenters = docID ? await CostCenter.findOne({ docID }) : null;
+
+  if(costCenters){
+
+    formData = {
+      docID: costCenters.docId,
+      createDate: costCenters.createDate, // when update use new date time
+      createBy: costCenters.createBy,
+      faculty: costCenters.faculty,
+      costCenterCode: costCenters.costCenterCode,
+      costCenterName: costCenters.costCenterName,
+      active: costCenters.active,
+    };
+
+  }
+  else {
+
+    const currentYear = (new Date().getFullYear()) % 100;
+
+    const preDocID = await CostCenter.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+
+    let id;
+
+    if (!preDocID) {
+      id = 1;
+    }
+    else {
+      id = parseInt(preDocID.docID.split('/')[2]) + 1;
+    }
+
+    const newdocId = `${currentYear}/CC/${id}`;
+
+    formData = {
+      docID: newdocId,
+    };
+  }
+
   return (
-    <>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Create Cost Center</h2>
-      </div>
+    <CreateCostCenterComp data={formData} method={docID ? 'Update':'Create'} />
+   );
+}
 
-      <div className={styles.container}>
-
-        <div className={styles.buttonRow}>
-          <div className={styles.buttonGroup}>
-            <button className={styles.button}>New</button>
-            <button className={styles.button}>Save</button>
-          </div>
-        </div>
-
-        <form className={styles.form}>
-
-          <div className={styles.formGroup}>
-            <label>Doc ID</label>
-            <input type="text" className={styles.input} placeholder="Auto Display" readOnly />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Create By</label>
-            <input type="text" className={styles.input} placeholder="Auto Display" readOnly />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Create Date</label>
-            <input type="text" className={styles.input} placeholder="dd/mm/yyyy (Auto Display)" readOnly />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Faculty</label>
-            <select className={styles.input}>
-              <option>Select</option>
-              <option>Faculty 1</option>
-              <option>Faculty 2</option>
-            </select>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Cost Center Code</label>
-            <input type="text" className={styles.input} placeholder="Enter" />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Cost Center Name</label>
-            <input type="text" className={styles.input} placeholder="Enter" />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Active?</label>
-            <div className={styles.inlineGroup}>
-              <label className={styles.radio}>
-                <input type="radio" name="active" value="yes" /> Yes
-              </label>
-              <label className={styles.radio}>
-                <input type="radio" name="active" value="no" /> No
-              </label>
-            </div>
-          </div>
-        </form>
-
-      </div>
-    </>
-  );
-};
-
-export default CostCenterForm;
+export default createCostCenter;
