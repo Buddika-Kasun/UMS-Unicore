@@ -5,7 +5,20 @@ const CreateListForm = () => {
   return (
     <>
       <div className={styles.header}>
+
         <h2 className={styles.title}>Create List</h2>
+
+        <div className={styles.docInfo}>
+          <div className={styles.formGroup}>
+            <label>Doc ID</label>
+            <input type="text" className={styles.input} placeholder="LOC/serialNo" />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Doc Date</label>
+            <input type="text" className={styles.input} value={new Date(Date.now()).toLocaleString()} readOnly/>
+          </div>
+        </div>
+
       </div>
 
       <div className={styles.container}>
@@ -19,10 +32,6 @@ const CreateListForm = () => {
 
         <form className={styles.form}>
           {/* Left side inputs */}
-          <div className={styles.formGroup}>
-            <label>Doc ID</label>
-            <input type="text" className={styles.input} placeholder="Auto Display" readOnly />
-          </div>
 
           <div className={styles.formGroup}>
             <label>Entered By</label>
