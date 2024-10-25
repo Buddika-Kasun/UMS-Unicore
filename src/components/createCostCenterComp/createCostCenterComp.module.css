@@ -22,6 +22,12 @@
     font-weight: bold;
     letter-spacing: 1px;
   }
+
+  .docInfo {
+    display: flex;
+    gap: 20px;
+    padding-top: 10px;
+  }
   
   .buttonRow {
     margin-bottom: 20px;

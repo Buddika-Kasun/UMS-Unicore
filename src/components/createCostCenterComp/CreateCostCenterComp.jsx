@@ -127,7 +127,20 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
+
         <h2 className={styles.title}>{(method == 'Update')? "Update":"Save"} Cost Center</h2>
+
+        <div className={styles.docInfo}>
+          <div className={styles.formGroup}>
+            <label>Doc ID</label>
+            <input type="text" name='docID' className={styles.input} value={formData.docID} disabled />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Doc Date</label>
+            <input type="text" name='createDate' className={styles.input} value={formData.createDate} disabled/>
+          </div>
+        </div>
+
       </div>
 
       <div className={styles.container}>
