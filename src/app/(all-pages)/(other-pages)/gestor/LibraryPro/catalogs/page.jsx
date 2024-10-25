@@ -1,7 +1,5 @@
 const page = () => {
-  return ( 
-    <></>
-   );
+  return ( <>aaaa</> );
 }
  
 export default page;
