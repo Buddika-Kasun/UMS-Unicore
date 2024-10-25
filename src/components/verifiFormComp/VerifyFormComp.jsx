@@ -110,8 +110,11 @@ const LocationForm = ({reqUser}) => {
             <input type="text" className={styles.input} value={reqUser.name} disabled />
           </div>
 
-          <div>
-            <button className={styles.button} onClick={approve}>Accept</button>
+          <div className={styles.vfRight}>Add</div>
+
+          <div className={styles.buttonGroup}>
+            <button className={styles.button1}>Reject</button>
+            <button className={styles.button}>Approve</button>
           </div>
 
       </div>
