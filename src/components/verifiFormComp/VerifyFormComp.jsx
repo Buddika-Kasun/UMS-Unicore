@@ -114,7 +114,7 @@ const LocationForm = ({reqUser}) => {
 
           <div className={styles.buttonGroup}>
             <button className={styles.button1}>Reject</button>
-            <button className={styles.button}>Approve</button>
+            <button className={styles.button} onClick={approve}>Approve</button>
           </div>
 
       </div>
