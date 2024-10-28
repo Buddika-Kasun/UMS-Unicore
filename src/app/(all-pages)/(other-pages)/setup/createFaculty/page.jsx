@@ -19,6 +19,7 @@ const CreateFaculty = async({ searchParams }) => {
 
     formData = {
       docID: faculty.docID,
+      docDate: faculty.docDate,
       facultyCode: faculty.facultyCode,
       facultyName: faculty.facultyName,
       Active: faculty.Active,

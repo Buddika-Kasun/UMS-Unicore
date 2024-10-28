@@ -1,104 +1,58 @@
-import React from 'react';
-import styles from './reserItem.module.css';
+"use server"
 
-const CreateListForm = () => {
+import ListFormComp from "@/components/listFormComp/ListFormComp";
+import { dbConnect } from "@/lib/mongo";
+import { List } from "@/model/list-model";
+
+
+const createList = async({ searchParams }) => {
+
+  const { docID } = searchParams || {};
+  //console.log("Search params docID = ", docID);
+
+  let formData = {};
+
+  await dbConnect();
+
+  const list = docID ? await List.findOne({ docID }) : null;
+
+  if(list){
+
+    formData = {
+      docID: list.docID,
+      docDate: list.docDate,
+      listCode: list.listCode,
+      listDscrp: list.listDscrp,
+      active: list.active,
+      details: list.details || [{ valueCode: '', valueDscrp: '' }]
+    };
+
+  }
+  else {
+
+    const currentYear = (new Date().getFullYear()) % 100;
+
+    const preDocID = await List.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+
+    let id;
+
+    if(!preDocID){
+      id = 1;
+    }
+    else{
+      id = parseInt(preDocID.docID.split('/')[2]) + 1;
+    }
+
+    const newdocId = `${currentYear}/LV/${id}`;
+
+    formData = {
+      docID: newdocId,
+    };
+  }
+
   return (
-    <>
-      <div className={styles.header}>
+    <ListFormComp data={formData} method={docID ? 'Update':'Create'} />
+  )
+}
 
-        <h2 className={styles.title}>Create List</h2>
-
-        <div className={styles.docInfo}>
-          <div className={styles.formGroup}>
-            <label>Doc ID</label>
-            <input type="text" className={styles.input} placeholder="LOC/serialNo" />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Doc Date</label>
-            <input type="text" className={styles.input} value={new Date(Date.now()).toLocaleString()} readOnly/>
-          </div>
-        </div>
-
-      </div>
-
-      <div className={styles.container}>
-
-        <div className={styles.buttonRow}>
-          <div className={styles.buttonGroup}>
-            <button className={styles.button}>New</button>
-            <button className={styles.button}>Save</button>
-          </div>
-        </div>
-
-        <form className={styles.form}>
-          {/* Left side inputs */}
-
-          <div className={styles.formGroup}>
-            <label>Entered By</label>
-            <input type="text" className={styles.input} placeholder="Auto Display" readOnly />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Created Date</label>
-            <input type="text" className={styles.input} placeholder="dd/mm/yyyy (Auto Display)" readOnly />
-          </div>
-
-          {/* Right side inputs */}
-          <div className={styles.formGroup}>
-            <label>Modified By</label>
-            <input type="text" className={styles.input} placeholder="Auto Display" readOnly />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Modified Date</label>
-            <input type="text" className={styles.input} placeholder="dd/mm/yyyy (Auto Display)" readOnly />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Active?</label>
-            <div className={styles.inlineGroup}>
-              <label className={styles.radio}>
-                <input type="radio" name="active" value="yes" /> Yes
-              </label>
-              <label className={styles.radio}>
-                <input type="radio" name="active" value="no" /> No
-              </label>
-            </div>
-          </div>
-        </form>
-
-        {/* Table */}
-        <div className={styles.tableContainer}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Value Code</th>
-                <th>Value Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Enter</td>
-                <td>Enter</td>
-              </tr>
-              <tr>
-                <td>Enter</td>
-                <td>Enter</td>
-              </tr>
-              <tr>
-                <td>Enter</td>
-                <td>Enter</td>
-              </tr>
-              <tr>
-                <td>Enter</td>
-                <td>Enter</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default CreateListForm;
+export default createList;

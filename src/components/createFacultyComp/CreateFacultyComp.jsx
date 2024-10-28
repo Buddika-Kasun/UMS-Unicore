@@ -26,10 +26,13 @@ const CreateFacultyComp = ({data,method,list}) => {
 
   const [formData, setFormData] = useState({
     docID: data.docID,
+    docDate: new Date(Date.now()).toLocaleString(),
     facultyCode: data.facultyCode || '',
     facultyName: data.facultyName || '',
     Active: data.Active || '',
   });
+
+  // console.log(formData);
 
   const router = useRouter();
 
@@ -49,6 +52,7 @@ const CreateFacultyComp = ({data,method,list}) => {
   const formReset = (docID) => {
     setFormData({
       docID: docID,
+      docDate: new Date(Date.now()).toLocaleString(),
       facultyCode:'',
       facultyName:'',
       Active:'',
@@ -63,7 +67,8 @@ const CreateFacultyComp = ({data,method,list}) => {
         toast.warning("All fields required");
         return;
       }
-      // console.log(formData);
+      
+      console.log(" ");
 
       setIsLoading(true);
 
@@ -102,7 +107,7 @@ const CreateFacultyComp = ({data,method,list}) => {
 
     }
     catch(err) {
-      //console.log(err);
+      console.log(err);
       setIsLoading(false);
       toast.error('An unexpected error occurred while processing.');
     }
@@ -110,6 +115,7 @@ const CreateFacultyComp = ({data,method,list}) => {
   
   const Header = [
     "Doc ID",
+    "Doc Date",
     "Faculty Code",
     "Faculty Name",
     "Active",
@@ -118,23 +124,34 @@ const CreateFacultyComp = ({data,method,list}) => {
   return (
     <>
     {isloading && <SubLoading />}
+    <div className={styles.header}>
+        {/* Title */}
+        <h2 className={styles.title}>{(method === "Update") ? "Update" : "Save"} Faculty</h2>
+
+        {/* Document Section */}
+        <div className={styles.docSection}>
+          <div className={styles.formGroup}>
+            <label>Doc ID</label>
+            <input type="text" name='docID' className={styles.inputField} value={formData.docID} disabled />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label>Doc Date</label>
+            <input type="text" name='createDate' className={styles.inputField} value={formData.docDate} disabled/>
+          </div>
+        </div>
+      </div>
     <div className={styles.container}>
-      {/* Title */}
-      <h2 className={styles.title}>{(method === "Update") ? "Update" : "Save"} Faculty</h2>
 
       {/* Buttons Row */}
       <div className={styles.buttonGroup}>
-        {(method == "Update") && <button className={styles.buttonNew} onClick={()=> router.push("/setup/createFaculty")}>New</button>}
+        {(method == "Update") && <button className={styles.buttonNew} onClick={()=> {router.push("/setup/createFaculty");formReset();}}>New</button>}
         <button className={styles.buttonNew} onClick={()=> formReset(formData.docID)}>{(method === "Update") ? "Clear All" : "New"}</button>
         <button className={styles.buttonSave} onClick={handleSave}>{(method === "Update") ? "Update" : "Save"}</button>
       </div>
 
       {/* Form Fields */}
       <div className={styles.formBody}>
-        <div className={styles.formGroup}>
-          <label>Doc ID</label>
-          <input type="text" name='docID' className={styles.inputField} value={formData.docID} disabled />
-        </div>
 
         <div className={styles.formGroup}>
           <label>Faculty Code</label>
