@@ -20,6 +20,10 @@ const listSchema = new Schema({
         required: true,
         type: String,
     },
+    faculty: {
+        required: true,
+        type: String,
+    },
     listCode: {
         required: true,
         type: String,
@@ -28,7 +32,7 @@ const listSchema = new Schema({
         required: true,
         type: String,
     },
-    modifyBy: {
+    modifiedBy: {
         required: false,
         type: String,
     },

@@ -5,19 +5,26 @@ import styles from './reserItem.module.css';
 import { toast } from 'react-toastify';
 import SubLoading from '../loading/SubLoading';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { HiArrowLeft } from "react-icons/hi";
 
-const ListFormComp = ({data, method}) => {
+const ListFormComp = ({data, method, user, facultys}) => {
 
     const [isloading, setIsLoading] = useState(false);
+
+    const router = useRouter();
 
     const [formData, setFormData] = useState({
         docID: data.docID,
         // docDate: data.docDate || new Date(Date.now()).toLocaleString(),
-        docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
+        docDate: data.docDate || new Date(Date.now()).toLocaleString(), // when update use new date time
+        faculty: data.faculty || '',
         listCode: data.listCode || '',
         listDscrp: data.listDscrp || '',
         active: data.active || '',
-        details: data.details || [{ valueCode: '', valueDscrp: '' }]
+        details: data.details || [{ valueCode: '', valueDscrp: '' }],
+        modifiedBy: data.modifiedBy || 'Not modify',
+        modifiedDate: data.modifiedDate || 'Not modify',
     });
 
     const handleChange = (e) => {
@@ -72,12 +79,19 @@ const ListFormComp = ({data, method}) => {
         setFormData({
           docID: docID,
           docDate: new Date(Date.now()).toLocaleString(),
+          faculty: '',
           listCode: '',
           listDscrp: '',
           active: '',
           details: [{ valueCode: '', valueDscrp: '' }]
         });
       };
+
+      const listReset = () => {
+        setFormData({
+            details: [{ valueCode: '', valueDscrp: '' }]
+        })
+      }
 
       const handleSave = async (e) => {
         e.preventDefault();
@@ -92,6 +106,11 @@ const ListFormComp = ({data, method}) => {
             return;
         }
 
+        if (method === 'Update') {
+            formData.modifiedBy = user;
+            formData.modifiedDate = new Date(Date.now()).toLocaleString();
+        }
+
         try {
             setIsLoading(true);
             let res;
@@ -103,6 +122,9 @@ const ListFormComp = ({data, method}) => {
             }
 
             if (res?.status === 200) {
+
+                if (method === 'Update'){router.push('/setup/createList/listView')}
+
                 const x = formData.docID.split('/');
                 const newDocId = `${x[0]}/${x[1]}/${parseInt(x[2]) + 1}`;
 
@@ -124,7 +146,10 @@ const ListFormComp = ({data, method}) => {
       {isloading && <SubLoading />}
       <div className={styles.header}>
 
-        <h2 className={styles.title}>Create List</h2>
+        <h2 className={styles.title}>
+            {(method === "Update") && <button className={styles.backBtn} onClick={() => {router.push('/setup/createList/listView')}}><HiArrowLeft /></button>}
+            {(method === "Update") ? "Update" : "Create"} List
+        </h2>
 
         <div className={styles.docInfo}>
           <div className={styles.formGroup}>
@@ -143,9 +168,10 @@ const ListFormComp = ({data, method}) => {
 
         <div className={styles.buttonRow}>
           <div className={styles.buttonGroup}>
-            <button className={styles.button} >List View</button>
-            <button className={styles.button} onClick={() => {formReset(formData.docID)}}>New</button>
-            <button className={styles.button} onClick={handleSave} >Save</button>
+          {(method === "Create") && <button className={styles.button} onClick={() => {router.push('/setup/createList/listView')}}>List View</button>}
+          {(method === "Create") &&  <button className={styles.button} onClick={() => {formReset(formData.docID)}}>New</button>}
+          {(method === "Update") &&  <button className={styles.button} onClick={listReset}>Clear List</button>}
+            <button className={styles.button} onClick={handleSave} >{(method === "Update") ? "Update" : "Save"}</button>
           </div>
         </div>
 
@@ -153,25 +179,36 @@ const ListFormComp = ({data, method}) => {
           {/* Left side inputs */}
 
           <div className={styles.formGroup}>
+            <label>Faculty</label>
+            <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === "Update"} >
+            <option value="" disabled>Select Faculty</option>
+            <option value="All">All</option>
+              {facultys.map((faculty, index) => (
+                <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.formGroup}>
             <label>List Code</label>
-            <input type="text" className={styles.input} placeholder="Type list code here" name='listCode' value={formData.listCode} onChange={handleChange} />
+            <input type="text" className={styles.input} placeholder="Type list code here" name='listCode' value={formData.listCode} onChange={handleChange} disabled={method === "Update"}/>
           </div>
 
           <div className={styles.formGroup}>
             <label>List Description</label>
-            <input type="text" className={styles.input} placeholder="Type list description here" name='listDscrp' value={formData.listDscrp} onChange={handleChange} />
+            <input type="text" className={styles.input} placeholder="Type list description here" name='listDscrp' value={formData.listDscrp} onChange={handleChange} disabled={method === "Update"} />
           </div>
 
           {/* Right side inputs */}
-          <div className={styles.formGroup}>
+          {(method === "Update") && <><div className={styles.formGroup}>
             <label>Modified By</label>
-            <input type="text" className={styles.input} placeholder="Auto Display" readOnly />
+            <input type="text" className={styles.input} name='modifiedBy' value={formData.modifiedBy} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Modified Date</label>
-            <input type="text" className={styles.input} placeholder="dd/mm/yyyy (Auto Display)" readOnly />
-          </div>
+            <input type="text" className={styles.input} name='modifiedDate' value={formData.modifiedDate} disabled />
+          </div></>}
 
           <div className={styles.formGroup}>
             <label>Active?</label>
@@ -210,13 +247,13 @@ const ListFormComp = ({data, method}) => {
                             <input type="text" name="valueDscrp" className={styles.tableList} placeholder="Enter description" value={detail.valueDscrp} onChange={(e) => handleDetailChange(index, e)} />
                         </td>
                         <td className={styles.noTD}>
-                            <button onClick={() => removeRow(index)}>-</button>
+                            <button className={styles.removeBtn} onClick={() => removeRow(index)}>-</button>
                         </td>
                     </tr>
                 ))}
                 <tr>
-                    <td className={styles.noTD}>
-                        <button onClick={addRow}>+</button>
+                    <td className={styles.noTD} colSpan={2}>
+                        <button className={styles.addBtn} onClick={addRow}>Add</button>
                     </td>
                 </tr>
             </tbody>

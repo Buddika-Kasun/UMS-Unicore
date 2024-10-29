@@ -12,6 +12,7 @@ const CreateFacultyComp = ({data,method,list}) => {
 
   useEffect (()=>{
     setFormData(data);
+    formData.docDate = new Date(Date.now()).toLocaleString();
   },[data])
   
   const [dataList, setDataList] = useState(list);
@@ -26,13 +27,13 @@ const CreateFacultyComp = ({data,method,list}) => {
 
   const [formData, setFormData] = useState({
     docID: data.docID,
-    docDate: new Date(Date.now()).toLocaleString(),
+    docDate: data.docDate || new Date(Date.now()).toLocaleString(),
     facultyCode: data.facultyCode || '',
     facultyName: data.facultyName || '',
     Active: data.Active || '',
   });
 
-  // console.log(formData);
+  //console.log(formData);
 
   const router = useRouter();
 
@@ -68,7 +69,7 @@ const CreateFacultyComp = ({data,method,list}) => {
         return;
       }
       
-      console.log(" ");
+      //console.log(" ");
 
       setIsLoading(true);
 
@@ -89,9 +90,9 @@ const CreateFacultyComp = ({data,method,list}) => {
         const x = formData.docID.split('/');
         const newDocId = `${x[0]}/${x[1]}/${parseInt(x[2])+1}`;
 
-        formReset(newDocId);
+        await formReset(newDocId);
 
-        fetchListData();
+        await fetchListData();
 
         setIsLoading(false);
 
@@ -126,7 +127,7 @@ const CreateFacultyComp = ({data,method,list}) => {
     {isloading && <SubLoading />}
     <div className={styles.header}>
         {/* Title */}
-        <h2 className={styles.title}>{(method === "Update") ? "Update" : "Save"} Faculty</h2>
+        <h2 className={styles.title}>{(method === "Update") ? "Update" : "Create"} Faculty</h2>
 
         {/* Document Section */}
         <div className={styles.docSection}>
@@ -137,7 +138,7 @@ const CreateFacultyComp = ({data,method,list}) => {
 
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" name='createDate' className={styles.inputField} value={formData.docDate} disabled/>
+            <input type="text" name='docDate' className={styles.inputField} value={formData.docDate} disabled/>
           </div>
         </div>
       </div>

@@ -1,7 +1,9 @@
 "use server"
 
+import { auth } from "@/app/api/auth/auth";
 import ListFormComp from "@/components/listFormComp/ListFormComp";
 import { dbConnect } from "@/lib/mongo";
+import { Faculty } from "@/model/faculty-model";
 import { List } from "@/model/list-model";
 
 
@@ -9,6 +11,9 @@ const createList = async({ searchParams }) => {
 
   const { docID } = searchParams || {};
   //console.log("Search params docID = ", docID);
+
+  const session = await auth();
+  const userName = session.user.name;
 
   let formData = {};
 
@@ -21,10 +26,19 @@ const createList = async({ searchParams }) => {
     formData = {
       docID: list.docID,
       docDate: list.docDate,
+      faculty: list.faculty,
       listCode: list.listCode,
       listDscrp: list.listDscrp,
       active: list.active,
-      details: list.details || [{ valueCode: '', valueDscrp: '' }]
+      //details: list.details && list.details.length > 0 ? [...list.details] : [{ valueCode: '', valueDscrp: '' }],
+      details: Array.isArray(list.details) && list.details.length > 0 
+        ? list.details.map(detail => ({
+            valueCode: detail.valueCode || '',
+            valueDscrp: detail.valueDscrp || ''
+          })) 
+        : [{ valueCode: '', valueDscrp: '' }],
+        modifiedBy: list.modifiedBy,
+        modifiedDate: list.modifiedDate,
     };
 
   }
@@ -50,8 +64,10 @@ const createList = async({ searchParams }) => {
     };
   }
 
+  const facultys = await Faculty.find({}, { facultyName: 1, facultyCode: 1, _id: 0 }).lean();
+
   return (
-    <ListFormComp data={formData} method={docID ? 'Update':'Create'} />
+    <ListFormComp data={formData} method={docID ? 'Update':'Create'} user={userName} facultys={facultys}/>
   )
 }
 

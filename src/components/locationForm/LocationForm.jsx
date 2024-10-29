@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './locationForm.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -8,22 +8,32 @@ import { useRouter } from 'next/navigation';
 import { HiArrowLeft } from "react-icons/hi";
 import SubLoading from '../loading/SubLoading';
 
-const LocationForm = ({data, method, facultys, costCenters}) => {
+const LocationForm = (
+  {
+    data, 
+    method, 
+    facultys, 
+    costCenters, 
+    buildings, 
+    locationTypes,
+    floors,
+  }
+) => {
 
   const [isloading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     docID: data.docID,
-    // docDate: data.docDate || new Date(Date.now()).toLocaleString(),
-    docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
+    docDate: data.docDate || new Date(Date.now()).toLocaleString(),
+    //docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
     faculty: data.faculty || '',
     cost: data.cost || '',
     locationType: data.locationType || '',
     active: data.active || '',
-    buildingNo: data.buildingNo || 0,
-    floorNo: data.floorNo || 0,
+    buildingNo: data.buildingNo || '',
+    floorNo: data.floorNo || '',
     locName: data.locName || '',
-    locCode: data.locCode || 'LOC/1',
+    locCode: data.locCode || '',
   });
 
   //const [formData, setFormData] = useState(data.data);
@@ -41,7 +51,7 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const formReset = (docID, locCode) => {
+  const formReset = (docID) => {
     setFormData({
       docID: docID,
       docDate: new Date(Date.now()).toLocaleString(),
@@ -49,10 +59,10 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
       cost: '',
       locationType: '',
       active: '',
-      buildingNo: 0,
-      floorNo: 0,
+      buildingNo: '',
+      floorNo: '',
       locName: '',
-      locCode: locCode,
+      locCode: '',
     });
   };
 
@@ -71,11 +81,11 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
       let res;
 
       if(method == 'Create') {
-        res = await axios.post('/api/pages/gestor/master', formData);
+        res = await axios.post('/api/pages/gestor/master/location', formData);
       }
 
       if(method == 'Update') {
-        res = await axios.put('/api/pages/gestor/master', formData);
+        res = await axios.put('/api/pages/gestor/master/location', formData);
       }
 
       if (res.status === 200) {
@@ -85,7 +95,7 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
         const x = formData.docID.split('/');
         const newDocId = `${x[0]}/${x[1]}/${parseInt(x[2])+1}`;
 
-        formReset(newDocId, formData.locCode);
+        formReset(newDocId);
 
         setIsLoading(false);
 
@@ -122,7 +132,7 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
 
     try {
       const res = await axios.get('/api/pages/gestor/master', {params: {last: 'true'}});
-      formReset(res.data,formData.locCode);
+      formReset(res.data);
     }
     catch (error) {
       setIsLoading(false);
@@ -132,6 +142,17 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
     setIsLoading(false);
     router.push('/gestor/master/createLocation');
   }
+
+  useEffect(() => {
+    const selectedFaculty = facultys.find(fac => fac.facultyName === formData.faculty);
+    const selectedBuilding = buildings.find(bld => bld.valueDscrp === formData.buildingNo);
+    const selectedFloor = floors.find(flr => flr.valueDscrp === formData.floorNo);
+
+    if (selectedFaculty && selectedBuilding && selectedFloor) {
+      const newLocCode = `${selectedFaculty.facultyCode}/${selectedBuilding.valueCode}/${selectedFloor.valueCode}`;
+      setFormData(prevData => ({ ...prevData, locCode: newLocCode }));
+    }
+  }, [formData.faculty, formData.buildingNo, formData.floorNo]);
 
   return (
     <>
@@ -146,12 +167,12 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
         <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" className={styles.input} value={formData.docID} readOnly/>
+            <input type="text" className={styles.input} value={formData.docID} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" className={styles.input} value={formData.docDate} readOnly />
+            <input type="text" className={styles.input} value={formData.docDate} disabled />
           </div>
         </div>
       </div>
@@ -162,18 +183,54 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
       <div className={styles.buttonGroup}>
         {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
         {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
-        <button className={styles.button} onClick={() => formReset(formData.docID, formData.locCode)}>Clear all</button>
+        <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
         <button className={styles.button} onClick={handleSave}>{(method == "Update")? "Update" : "Save"}</button>
       </div>
 
       {/* Form Fields Section */}
       <div className={styles.form}>
+
+        
+        <div className={styles.formGroup}>
+          <label>Location Name</label>
+          <input type="text" className={styles.input} placeholder="Enater location name" name='locName' value={formData.locName} onChange={handleChange} />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Location Code</label>
+          <input type="text" className={styles.input} value={formData.locCode} disabled />
+        </div>
+
         <div className={styles.formGroup}>
           <label>Faculty</label>
           <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} required>
             <option value="" disabled>Select Faculty</option>
             {facultys.map((faculty, index) => (
-              <option key={index} value={faculty}>{faculty}</option>
+              <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Building No</label>
+          <select className={styles.input} name='buildingNo' value={formData.buildingNo} onChange={handleChange}>
+            <option value="" disabled>Select building</option>
+            {buildings.map((building, index) => (
+              <option key={index} value={building.valueDscrp}>
+                {building.valueDscrp}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Floor No</label>
+          <select className={styles.input} name='floorNo' value={formData.floorNo} onChange={handleChange}>
+            <option value="" disabled>Select floor</option>
+            {floors.map((floor, index) => (
+              <option key={index} value={floor.valueDscrp}>
+                {floor.valueDscrp}
+              </option>
             ))}
           </select>
         </div>
@@ -191,9 +248,12 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
         <div className={styles.formGroup}>
           <label>Location Type</label>
           <select className={styles.input} name='locationType' value={formData.locationType} onChange={handleChange}>
-            <option>Internal Use</option>
-            <option>External Use</option>
             <option value="" disabled>Select location type</option>
+            {locationTypes.map((locationType, index) => (
+              <option key={index} value={locationType.valueDscrp}>
+                {locationType.valueDscrp}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -209,25 +269,6 @@ const LocationForm = ({data, method, facultys, costCenters}) => {
           </div>
         </div>
 
-        <div className={styles.formGroup}>
-          <label>Building No</label>
-          <input type="number" className={styles.input} name='buildingNo' value={formData.buildingNo} onChange={handleChange}/>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Floor No</label>
-          <input type="number" className={styles.input} name='floorNo' value={formData.floorNo} onChange={handleChange} />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Location Name</label>
-          <input type="text" className={styles.input} placeholder="Enater location name" name='locName' value={formData.locName} onChange={handleChange} />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Location Code</label>
-          <input type="text" className={styles.input} value={formData.locCode} readOnly />
-        </div>
       </div>
     </div>
     </>

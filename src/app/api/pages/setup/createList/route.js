@@ -11,6 +11,7 @@ const sanitize = (value) => {
     const sanitizedData = {
         docID: xssSanitize(value.docID),
         docDate: xssSanitize(value.docDate),
+        faculty: xssSanitize(value.faculty),
         listCode: xssSanitize(value.listCode),
         listDscrp: xssSanitize(value.listDscrp),
         active: xssSanitize(value.active),
@@ -18,6 +19,8 @@ const sanitize = (value) => {
             valueCode: xssSanitize(detail.valueCode),
             valueDscrp: xssSanitize(detail.valueDscrp),
         })),
+        modifiedBy: xssSanitize(value.modifiedBy),
+        modifiedDate: xssSanitize(value.modifiedDate),
     };
 
     return sanitizedData;
@@ -57,7 +60,7 @@ export async function GET(req) {
 
             return NextResponse.json(newdocId, { status: 200 });
         } else {
-            const listItems = await List.find({}, { _id: 0, __v: 0 }).lean();
+            const listItems = await List.find({}, { _id: 0, __v: 0, details:0, modifiedBy:0, modifiedDate:0 }).lean();
 
             return NextResponse.json(listItems, { status: 200 });
         }

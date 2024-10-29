@@ -27,11 +27,11 @@ const locationSchema = new Schema({
     },
     buildingNo: {
         required: true,
-        type: Number,
+        type: String,
     },
     floorNo: {
         required: true,
-        type: Number,
+        type: String,
     },
     locName: {
         required: true,

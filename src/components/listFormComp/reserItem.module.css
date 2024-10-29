@@ -82,7 +82,7 @@
 
   .table th,
   .table td {
-    /* padding: 12px; */
+    padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
   }
@@ -102,6 +102,7 @@
 
   .table .noTD {
     border: none;
+    padding: 10px 0;
   }
 
   .buttonGroup {
@@ -109,7 +110,7 @@
     gap: 10px;
   }
 
-  .button {
+  .button, .backBtn {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -118,8 +119,43 @@
     cursor: pointer;
   }
 
-  .button:hover {
+  .button:hover, .backBtn:hover, .addBtn:hover {
     background-color: #0056b3;
+  }
+
+  .removeBtn:hover {
+    background-color: #c9302c;
+  }
+
+  .backBtn {
+    border-radius: 100%;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    margin-right: 10px;
+  }
+
+  .addBtn{
+    width: 100%;
+    margin: 5px 0;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .removeBtn{
+    width: 25px;
+    color: #fff;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
   }
 
   /* Responsive Design */

@@ -9,8 +9,7 @@ import { CostCenter } from "@/model/costCenter-model";
 const sanitize = (value) => {
     const sanitizedData = {
         docID: xssSanitize(value.docID),
-        createDate: new Date(Date.now()).toLocaleString(), // when update use new date time
-        createBy: xssSanitize(value.createBy),
+        docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
         faculty: xssSanitize(value.faculty),
         costCenterCode: xssSanitize(value.costCenterCode),
         costCenterName: xssSanitize(value.costCenterName),

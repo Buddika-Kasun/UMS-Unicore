@@ -1,144 +1,88 @@
+"use server"
+
+import CreateSubLocation from '@/components/createSubLocation/CreateSubLocation';
+import { dbConnect } from '@/lib/mongo';
+import { Faculty } from '@/model/faculty-model';
+import { List } from '@/model/list-model';
+import { Location } from '@/model/location-model';
+import { Sublocation } from '@/model/subLocation-model';
 import React from 'react';
-import styles from './SubLocation.module.css';
 
-const SubLocationForm = () => {
+const SubLocationForm = async({ searchParams }) => {
+
+  const { docID } = searchParams || {};
+  //console.log("Search params docID = ", docID);
+
+  let formData = {};
+
+  await dbConnect();
+
+  const subLocationData = docID ? await Sublocation.findOne({ docID }) : null;
+
+  if(subLocationData){
+
+    formData = {
+      docID: subLocationData.docID,
+      docDate: subLocationData.docDate,
+      faculty: subLocationData.faculty,
+      locationName: subLocationData.locationName,
+      subLocationName: subLocationData.subLocationName,
+      subLocationCode: subLocationData.subLocationCode,
+      hallCap: subLocationData.hallCap,
+      stockLoc: subLocationData.stockLoc,
+      rackNo: subLocationData.rackNo,
+      binNo: subLocationData.binNo,
+      active: subLocationData.active,
+    };
+
+  }
+  else {
+
+    const currentYear = (new Date().getFullYear()) % 100;
+
+    const preDocID = await Sublocation.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+
+    let id;
+
+    if (!preDocID) {
+      id = 1;
+    }
+    else {
+      id = parseInt(preDocID.docID.split('/')[2]) + 1;
+    }
+
+    const newdocId = `${currentYear}/SLOC/${id}`;
+
+    formData = {
+      docID: newdocId,
+    };
+  }
+
+  const facultys = await Faculty.find({}, { facultyName: 1, facultyCode: 1, _id: 0 }).lean();
+
+  const locations = await Location.find({}, { locName: 1, faculty: 1, _id: 0 }).lean();
+
+  const deps = await List.find({ listCode: 'DEP' }, { faculty: 1, details: 1, _id: 0 }).lean();
+
+  // Transform the result to include faculty and details
+  const depNames = deps.map(dep => ({
+    faculty: dep.faculty,
+    details: dep.details.map(detail => ({
+      valueCode: detail.valueCode,
+      valueDscrp: detail.valueDscrp
+    }))
+  }));
+
+  //console.log(depNames)
+
   return (
-    <>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Create Sub Location</h2>
-
-        <div className={styles.docInfo}>
-          <div className={styles.formGroup}>
-            <label>Doc ID</label>
-            <input type="text" className={styles.input} placeholder="LOC/serialNo" />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Doc Date</label>
-            <input type="text" className={styles.input} value={new Date(Date.now()).toLocaleString()} readOnly/>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.container}>
-
-        {/* Button Group */}
-        <div className={styles.buttonRow}>
-          <div className={styles.buttonGroup}>
-            <button className={styles.button}>List View</button>
-            <button className={styles.button}>New</button>
-            <button className={styles.button}>Save</button>
-          </div>
-        </div>
-
-        <form className={styles.form}>
-          {/* Faculty */}
-          <div className={styles.formGroup}>
-            <label>Faculty</label>
-            <select className={styles.input}>
-              <option>Internal Use</option>
-            </select>
-          </div>
-
-          {/* Location Name */}
-          <div className={styles.formGroup}>
-            <label>Location Name</label>
-            <select className={styles.input}>
-              <option>Internal Use</option>
-            </select>
-          </div>
-
-          {/* Sublocation Name */}
-          <div className={styles.formGroup}>
-            <label>Sublocation Name</label>
-            <input type="text" className={styles.input} placeholder="Value" />
-          </div>
-
-          {/* Sublocation Code */}
-          <div className={styles.formGroup}>
-            <label>Sublocation Code</label>
-            <input type="text" className={styles.input} placeholder="Value" />
-          </div>
-
-          {/* Hall Capacity */}
-          <div className={styles.formGroup}>
-            <label>Hall Capacity</label>
-            <select className={styles.input}>
-              <option>Internal Use</option>
-            </select>
-          </div>
-
-          {/* Stock Location */}
-          <div className={styles.formGroup}>
-            <label>Stock Location</label>
-            <div className={styles.inlineGroup}>
-              <label className={styles.radio}>
-                <input type="radio" name="stockLocation" value="yes" /> Yes
-              </label>
-              <label className={styles.radio}>
-                <input type="radio" name="stockLocation" value="no" /> No
-              </label>
-            </div>
-            
-          </div>
-                    {/* Rack No */}
-                    <div className={styles.formGroup}>
-            <label>Rack No</label>
-            <input type="text" className={styles.input} placeholder="Value" />
-          </div>
-
-          {/* Active */}
-          <div className={styles.formGroup}>
-            <label>Active?</label>
-            <div className={styles.inlineGroup}>
-              <label className={styles.radio}>
-                <input type="radio" name="active" value="yes" /> Yes
-              </label>
-              <label className={styles.radio}>
-                <input type="radio" name="active" value="no" /> No
-              </label>
-            </div>
-          </div>
-
-          {/* Bin No */}
-          <div className={styles.formGroup}>
-            <label>Bin No</label>
-            <input type="text" className={styles.input} placeholder="Value" />
-          </div>
-        </form>
-
-        {/* Table */}
-        <div className={styles.tableContainer}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Department</th>
-                <th>Active</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ICT</td>
-                <td>
-                  <input type="checkbox" />
-                </td>
-              </tr>
-              <tr>
-                <td>EGT</td>
-                <td>
-                  <input type="checkbox"  />
-                </td>
-              </tr>
-              <tr>
-                <td>BST</td>
-                <td>
-                  <input type="checkbox" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
+    <CreateSubLocation
+      data = {formData}
+      method={docID ? 'Update':'Create'}
+      facultys = {facultys}
+      locations = {locations}
+      deps = {depNames}
+    />
   );
 };
 

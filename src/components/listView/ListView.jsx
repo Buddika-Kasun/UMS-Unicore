@@ -44,7 +44,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
         setIsLoading(false);
     }
 
-    const handleDelete = async(docId) => {
+    /* const handleDelete = async(docId) => {
         setIsLoading(true);
 
         try {
@@ -62,14 +62,14 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
                 });
             }
             else {
-                throw err;
+                throw new Error;
             }
         }
         catch(err) {
             setIsLoading(false);
             toast.error('An unexpected error occurred while processing.');
         }
-    }
+    } */
 
     const goBack = () => {
         setIsLoading(true);
@@ -99,7 +99,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
                     ))}
                     <td className={styles.edit}>
                         <button title="Edit" className={styles.editBtn} onClick={() => handleEdit(row.docID)}><MdEdit /></button>
-                        <button title="Delete" className={styles.deleteBtn} onClick={() => handleDelete(row.docID)}><MdDeleteForever /></button>
+                        {/* <button title="Delete" className={styles.deleteBtn} onClick={() => handleDelete(row.docID)}><MdDeleteForever /></button> */}
                     </td>
                 </tr>
                 ))}
