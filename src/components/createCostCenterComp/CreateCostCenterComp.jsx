@@ -11,7 +11,8 @@ import ListView from '../listView/ListView';
 const CreateCostCenterComp = ({data, method, list, facultys}) => {
 
   useEffect(() =>{
-    setFormData(data)
+    setFormData(data);
+    formData.docDate = data.docDate || new Date(Date.now()).toLocaleString();
   },[data]);
 
   const [dataList, setDataList] = useState(list);
@@ -25,8 +26,7 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
 
   const [formData, setFormData] = useState({
     docID: data.docID,
-    createDate: new Date(Date.now()).toLocaleString(), // when update use new date time
-    createBy: data.createBy || '',
+    docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
     faculty: data.faculty || '',
     costCenterCode: data.costCenterCode || '',
     costCenterName: data.costCenterName || '',
@@ -49,8 +49,7 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
   const formReset = (docID) => {
     setFormData({
       docID: docID,
-      createDate: new Date(Date.now()).toLocaleString(), // when update use new date time
-      createBy: '',
+      docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
       faculty: '',
       costCenterCode: '',
       costCenterName: '',
@@ -114,8 +113,7 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
 
   const header = [
     "Doc ID",
-    "Created By",
-    "Created Date",
+    "Doc Date",
     "Faculty",
     "CC Code",
     "CC Name",
@@ -127,7 +125,20 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
-        <h2 className={styles.title}>{(method == 'Update')? "Update":"Save"} Cost Center</h2>
+
+        <h2 className={styles.title}>{(method == 'Update')? "Update":"Create"} Cost Center</h2>
+
+        <div className={styles.docInfo}>
+          <div className={styles.formGroup}>
+            <label>Doc ID</label>
+            <input type="text" name='docID' className={styles.input} value={formData.docID} disabled />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Doc Date</label>
+            <input type="text" name='docDate' className={styles.input} value={formData.docDate} disabled/>
+          </div>
+        </div>
+
       </div>
 
       <div className={styles.container}>
@@ -143,31 +154,6 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
         <form className={styles.form}>
 
           <div className={styles.formGroup}>
-            <label>Doc ID</label>
-            <input type="text" name='docID' className={styles.input} value={formData.docID} disabled />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Create By</label>
-            <input type="text" name='createBy' className={styles.input} value={formData.createBy} onChange={handleChange} />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Create Date</label>
-            <input type="text" name='createDate' className={styles.input} value={formData.createDate} disabled/>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>Faculty</label>
-            <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange}>
-              <option value="" disabled>Select Faculty</option>
-              {facultys.map((faculty, index) => (
-                <option key={index} value={faculty}>{faculty}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className={styles.formGroup}>
             <label>Cost Center Code</label>
             <input type="text" name='costCenterCode' className={styles.input} placeholder="Enter cost center code" value={formData.costCenterCode} onChange={handleChange} />
           </div>
@@ -175,6 +161,17 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
           <div className={styles.formGroup}>
             <label>Cost Center Name</label>
             <input type="text" name='costCenterName' className={styles.input} placeholder="Enter cost cenet name" value={formData.costCenterName} onChange={handleChange} />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label>Faculty</label>
+            <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange}>
+              <option value="" disabled>Select Faculty</option>
+              <option key={'All'} value={'All'}>All</option>
+              {facultys.map((faculty, index) => (
+                <option key={index} value={faculty}>{faculty}</option>
+              ))}
+            </select>
           </div>
 
           <div className={styles.formGroup}>

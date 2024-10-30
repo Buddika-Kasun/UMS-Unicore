@@ -1,4 +1,3 @@
-
 const RegNewUser = () => {
   return ( 
     <></>
@@ -6,4 +5,3 @@ const RegNewUser = () => {
 }
  
 export default RegNewUser;
-

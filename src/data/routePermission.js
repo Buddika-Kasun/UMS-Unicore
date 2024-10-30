@@ -153,6 +153,10 @@ const routeData = [
         permission: ["System Admin"]
     },
     {
+        path: "/setup/createList/listView",
+        permission: ["System Admin"]
+    },
+    {
         path: "/setup/pendingUsers",
         permission: ["System Admin"]
     },
@@ -177,6 +181,10 @@ const routeData = [
         path: "/api/pages/setup/createCostCenter",
         permission: [""]
     },
+    {
+        path: "/api/pages/setup/createList",
+        permission: [""]
+    }
 ];
 
 export default routeData;

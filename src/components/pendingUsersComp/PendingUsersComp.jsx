@@ -97,10 +97,10 @@ const PendingUsersComp = ({users,facultys}) => {
                     (
                         filteredUsers.map((user, index) => (
                             <tr key={index}>
-                            <td>{user.name}</td>
-                            <td>{user.faculty}</td>
-                            <td>{user.type}</td>
                             <td>{new Date(user.verification.createDate).toLocaleDateString()}</td>
+                            <td>{user.faculty}</td>
+                            <td>{user.name}</td>
+                            <td>{user.type}</td>
                             <td><Link href={`/setup/pendingUsers/verificationPage?id=${user._id}`} >Check</Link></td>
                             </tr>
                         ))

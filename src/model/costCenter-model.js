@@ -5,11 +5,7 @@ const costCenterSchema = new Schema({
         required: true,
         type: String,
     },
-    createBy: {
-        required: true,
-        type: String,
-    },
-    createDate: {
+    docDate: {
         required: true,
         type: String,
     },

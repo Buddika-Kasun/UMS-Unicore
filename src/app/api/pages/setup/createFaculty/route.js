@@ -9,6 +9,7 @@ import { Faculty } from "@/model/faculty-model";
 const sanitize = (value) => {
     const sanitizedData = {
         docID: xssSanitize(value.docID),
+        docDate: xssSanitize(value.docDate),
         facultyCode: xssSanitize(value.facultyCode),
         facultyName: xssSanitize(value.facultyName),
         Active: xssSanitize(value.Active),

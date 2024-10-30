@@ -1,6 +1,6 @@
 import {model, models, Schema} from "mongoose";
 
-const locationSchema = new Schema({
+const subLocationSchema = new Schema({
     docID: {
         required: true,
         type: String,
@@ -13,11 +13,15 @@ const locationSchema = new Schema({
         required: true,
         type: String,
     },
-    cost: {
+    locationName: {
         required: true,
         type: String,
     },
-    locationType: {
+    subLocationName: {
+        required: true,
+        type: String,
+    },
+    subLocationCode: {
         required: true,
         type: String,
     },
@@ -25,22 +29,26 @@ const locationSchema = new Schema({
         required: true,
         type: String,
     },
-    buildingNo: {
+    hallCap: {
+        type: String,
+        default: "",
+    },
+    stockLoc: {
         required: true,
         type: String,
     },
-    floorNo: {
-        required: true,
+    rackNo: {
         type: String,
+        default: "",
     },
-    locName: {
-        required: true,
+    binNo:{
         type: String,
+        default: "",
     },
-    locCode:{
-        required: true,
-        type: String,
+    departments: {
+        type: [String], // Array to store selected department names
+        default: [],
     },
 });
 
-export const Location = models.Location || model("Location", locationSchema);
+export const Sublocation = models.Sublocation || model("Sublocation", subLocationSchema);

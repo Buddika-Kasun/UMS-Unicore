@@ -19,8 +19,7 @@ const createCostCenter = async({ searchParams }) => {
   if(costCenters){
     formData = {
       docID: costCenters.docID,
-      createDate: costCenters.createDate, // when update use new date time
-      createBy: costCenters.createBy,
+      docDate: costCenters.createDate, // when update use new date time
       faculty: costCenters.faculty,
       costCenterCode: costCenters.costCenterCode,
       costCenterName: costCenters.costCenterName,

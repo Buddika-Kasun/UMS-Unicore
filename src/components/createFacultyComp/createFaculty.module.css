@@ -7,13 +7,33 @@
     max-width: 1200px;
     margin: auto;
   }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: rgba(128, 128, 128, 0.1);
+    padding: 0 20px;
+  }
   
-  /* Title Styling */
   .title {
+    /* margin-bottom: 20px; */
     font-size: 24px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
+    /* font-size: 30px; */
+    letter-spacing: 1px;
+  }
+  
+  /* Document Section */
+  .docSection {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+  }
+
+  .docSection .inputField {
+    width: 100%;
   }
   
   /* Button Group */
@@ -56,7 +76,7 @@
     flex-direction: column;
   }
   
-  .formGroup {
+  .formBody .formGroup {
     margin-bottom: 20px;
   }
   
@@ -72,12 +92,18 @@
     display: block;
   }
   
-  .inputField {
+  .inputField {/* 
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
     width: 50%;
-    background-color: #fff;
+    background-color: #fff; */
+    
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 50%;
+    box-sizing: border-box;
   }
   
   /* Active status radio button group */
@@ -113,6 +139,10 @@
     }
   
     .formBody {
+      flex-direction: column;
+    }
+
+    .header{
       flex-direction: column;
     }
 
