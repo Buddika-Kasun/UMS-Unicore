@@ -86,27 +86,27 @@ const routeData = [
     },
     {
         path: "/Nexus/unicoreOpus/view-group",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreSpace/create-post",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreSpace/create-clubs-groups",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreAcademia/academia-folder",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreAcademia/academia",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreForums/create-and-participate",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/performanceInsight/masters",
@@ -183,15 +183,15 @@ const routeData = [
     },
     {
         path: "/api/pages/setup/createCostCenter",
-        permission: [""]
+        permission: ["System Admin"]
     },
     {
         path: "/api/pages/setup/createCostCenter",
-        permission: [""]
+        permission: ["System Admin"]
     },
     {
         path: "/api/pages/setup/createList",
-        permission: [""]
+        permission: ["System Admin"]
     }
 ];
 

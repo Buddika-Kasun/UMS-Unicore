@@ -23,22 +23,22 @@ const menuData = [
                     {
                         name: "Create Faculty",
                         path: "/setup/createFaculty",
-                        permission: ["Staff"]
+                        permission: ["System Admin"]
                     },
                     {
                         name: "Create Cost Center",
                         path: "/setup/createCostCenter",
-                        permission: ["Staff"]
+                        permission: ["System Admin"]
                     },
                     {
                         name: "Create Lists",
                         path: "/setup/createList",
-                        permission: ["Administrators"]
+                        permission: ["System Admin"]
                     },
                     {
                         name: "Pending Users",
                         path: "/setup/pendingUsers",
-                        permission: ["Administrators"]
+                        permission: ["System Admin"]
                     }
                 ]
             }
@@ -196,7 +196,7 @@ const menuData = [
                     {
                         name: "View Group",
                         path: "/Nexus/unicoreOpus/view-group",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -210,12 +210,12 @@ const menuData = [
                     {
                         name: "Create Post",
                         path: "/Nexus/unicoreSpace/create-post",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     },
                     {
                         name: "Create Clubs/Groups",
                         path: "/Nexus/unicoreSpace/create-clubs-groups",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -229,12 +229,12 @@ const menuData = [
                     {
                         name: "Academia Folder",
                         path: "/Nexus/unicoreAcademia/academia-folder",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     },
                     {
                         name: "Academia",
                         path: "/Nexus/unicoreAcademia/academia",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -248,7 +248,7 @@ const menuData = [
                     {
                         name: "Create and Participate",
                         path: "/Nexus/unicoreForums/create-and-participate",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             }
