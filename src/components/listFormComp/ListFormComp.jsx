@@ -29,14 +29,14 @@ const ListFormComp = ({data, method, user, facultys}) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-    
+
         const nameRegex = /^[.a-zA-Z0-9\s]*$/;
-    
+
         if((name === 'listCode' || name === 'listDscrp') && !nameRegex.test(value)) {
             toast.warning("Location name should only contain letters,numbers and spaces.");
             return;
         }
-    
+
         setFormData((prevData) => ({ ...prevData, [name]: value }));
       };
 
@@ -74,7 +74,7 @@ const ListFormComp = ({data, method, user, facultys}) => {
             const updatedDetails = formData.details.filter((_, i) => i !== index);
             setFormData((prevData) => ({ ...prevData, details: updatedDetails }));
         };
-    
+
       const formReset = (docID) => {
         setFormData({
           docID: docID,
@@ -91,6 +91,28 @@ const ListFormComp = ({data, method, user, facultys}) => {
         setFormData({
             details: [{ valueCode: '', valueDscrp: '' }]
         })
+      }
+
+      const goNew = async() => {
+
+        setIsLoading(true);
+
+        try {
+          const res = await axios.get('/api/pages/setup/createList', {params: {last: 'true'}});
+          formReset(res.data);
+        }
+        catch (error) {
+          setIsLoading(false);
+            toast.error('An unexpected error occurred while getting data.');
+        }
+
+        setIsLoading(false);
+        router.push('/setup/createList');
+      }
+
+      const visit = () => {
+        setIsLoading(true);
+        router.push('/setup/createList/listView');
       }
 
       const handleSave = async (e) => {
@@ -139,7 +161,7 @@ const ListFormComp = ({data, method, user, facultys}) => {
         } finally {
             setIsLoading(false);
         }
-    };    
+    };
 
   return (
     <>
@@ -147,7 +169,7 @@ const ListFormComp = ({data, method, user, facultys}) => {
       <div className={styles.header}>
 
         <h2 className={styles.title}>
-            {(method === "Update") && <button className={styles.backBtn} onClick={() => {router.push('/setup/createList/listView')}}><HiArrowLeft /></button>}
+            {(method === "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
             {(method === "Update") ? "Update" : "Create"} List
         </h2>
 
@@ -168,8 +190,9 @@ const ListFormComp = ({data, method, user, facultys}) => {
 
         <div className={styles.buttonRow}>
           <div className={styles.buttonGroup}>
-          {(method === "Create") && <button className={styles.button} onClick={() => {router.push('/setup/createList/listView')}}>List View</button>}
+          {(method === "Create") && <button className={styles.button} onClick={visit}>List View</button>}
           {(method === "Create") &&  <button className={styles.button} onClick={() => {formReset(formData.docID)}}>New</button>}
+          {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
           {(method === "Update") &&  <button className={styles.button} onClick={listReset}>Clear List</button>}
             <button className={styles.button} onClick={handleSave} >{(method === "Update") ? "Update" : "Save"}</button>
           </div>
