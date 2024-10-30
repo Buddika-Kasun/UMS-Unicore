@@ -21,27 +21,27 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
         return <div className={styles.container}>No data available</div>;
     }
 
-    const fetchLocations = async () => {
+    const fetchData = async () => {
         try {
             const res = await axios.get(`${reqPath}`);
             setData(res.data);
         } catch (error) {
-            toast.error('An unexpected error occurred while fetching locations.');
+            toast.error('An unexpected error occurred while fetching data.');
         }
     };
 
     useEffect(() => {
-        fetchLocations();
+        fetchData();
     },[]);
 
     useEffect(() => {
-        fetchLocations();
+        fetchData();
     },[initData]);
 
     const handleEdit = (docId) => {
-        //setIsLoading(true);
+        setIsLoading(true);
         router.push(`${updatePath}${docId}`);
-        setIsLoading(false);
+        //setIsLoading(false);
     }
 
     /* const handleDelete = async(docId) => {
@@ -53,7 +53,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
 
             if (res.status === 200) {
 
-                fetchLocations();
+                fetchData();
 
                 setIsLoading(false);
 
