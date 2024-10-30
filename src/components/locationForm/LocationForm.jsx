@@ -10,11 +10,11 @@ import SubLoading from '../loading/SubLoading';
 
 const LocationForm = (
   {
-    data, 
-    method, 
-    facultys, 
-    costCenters, 
-    buildings, 
+    data,
+    method,
+    facultys,
+    costCenters,
+    buildings,
     locationTypes,
     floors,
   }
@@ -190,7 +190,6 @@ const LocationForm = (
       {/* Form Fields Section */}
       <div className={styles.form}>
 
-        
         <div className={styles.formGroup}>
           <label>Location Name</label>
           <input type="text" className={styles.input} placeholder="Enater location name" name='locName' value={formData.locName} onChange={handleChange} />
