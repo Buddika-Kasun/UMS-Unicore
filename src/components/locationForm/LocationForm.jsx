@@ -131,7 +131,7 @@ const LocationForm = (
     setIsLoading(true);
 
     try {
-      const res = await axios.get('/api/pages/gestor/master', {params: {last: 'true'}});
+      const res = await axios.get('/api/pages/gestor/master/location', {params: {last: 'true'}});
       formReset(res.data);
     }
     catch (error) {
