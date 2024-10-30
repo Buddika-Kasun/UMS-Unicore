@@ -145,7 +145,15 @@ const routeData = [
         permission: ["System Admin"]
     },
     {
+        path: "/setup/createFaculty/listView",
+        permission: ["System Admin"]
+    },
+    {
         path: "/setup/createCostCenter",
+        permission: ["System Admin"]
+    },
+    {
+        path: "/setup/createCostCenter/listView",
         permission: ["System Admin"]
     },
     {
