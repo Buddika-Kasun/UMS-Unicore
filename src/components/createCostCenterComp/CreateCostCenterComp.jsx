@@ -1,26 +1,20 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './createCostCenterComp.module.css';
 import { useRouter } from 'next/navigation';
 import SubLoading from '../loading/SubLoading';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import ListView from '../listView/ListView';
+import { HiArrowLeft } from "react-icons/hi";
 
-const CreateCostCenterComp = ({data, method, list, facultys}) => {
-
-  useEffect(() =>{
-    setFormData(data);
-    formData.docDate = data.docDate || new Date(Date.now()).toLocaleString();
-  },[data]);
-
-  const [dataList, setDataList] = useState(list);
-
-  const fetchListData = async() => {
-    const res = await axios.get('/api/pages/setup/createCostCenter');
-    setDataList(res.data);
+const CreateCostCenterComp = (
+  {
+    data,
+    method,
+    facultys,
   }
+) => {
 
   const [isloading, setIsLoading] = useState(false);
 
@@ -32,6 +26,28 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
     costCenterName: data.costCenterName || '',
     active: data.active || '',
   });
+
+  const visit = () => {
+    setIsLoading(true);
+    router.push('/setup/createCostCenter/listView');
+  }
+
+  const goNew = async() => {
+
+    setIsLoading(true);
+
+    try {
+      const res = await axios.get('/api/pages/setup/createCostCenter', {params: {last: 'true'}});
+      formReset(res.data);
+    }
+    catch (error) {
+      setIsLoading(false);
+        toast.error('An unexpected error occurred while getting data.');
+    }
+
+    setIsLoading(false);
+    router.push('/setup/createCostCenter');
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -94,8 +110,6 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
             autoClose: 2000,
         });
 
-        fetchListData();
-
       }
       else {
         throw err;
@@ -111,22 +125,15 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
 
   const router = useRouter();
 
-  const header = [
-    "Doc ID",
-    "Doc Date",
-    "Faculty",
-    "CC Code",
-    "CC Name",
-    "Active",
-  ];
-
-
   return (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
 
-        <h2 className={styles.title}>{(method == 'Update')? "Update":"Create"} Cost Center</h2>
+        <h2 className={styles.title}>
+          {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
+          {(method == 'Update')? "Update":"Create"} Cost Center
+        </h2>
 
         <div className={styles.docInfo}>
           <div className={styles.formGroup}>
@@ -145,8 +152,9 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
 
         <div className={styles.buttonRow}>
           <div className={styles.buttonGroup}>
-            {(method == 'Update') && <button className={styles.button} onClick={() => router.push('/setup/createCostCenter')}>New</button>}
-            <button className={styles.button} onClick={() => formReset(formData.docID)}>{(method == 'Update')? "Clear All":"New"}</button>
+            {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
+            {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
+            <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
             <button className={styles.button} onClick={handleSave}>{(method == 'Update')? "Update":"Save"}</button>
           </div>
         </div>
@@ -187,7 +195,6 @@ const CreateCostCenterComp = ({data, method, list, facultys}) => {
           </div>
         </form>
 
-        <ListView initData={dataList} headers={header} updatePath={'/setup/createCostCenter?docID='} reqPath={'/api/pages/setup/createCostCenter'} />
       </div>
     </>
   );
