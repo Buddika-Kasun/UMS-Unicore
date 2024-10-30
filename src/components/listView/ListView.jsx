@@ -9,7 +9,16 @@ import { MdEdit, MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) => {
+const ListView = (
+    {
+        title,
+        headers,
+        initData,
+        updatePath,
+        reqPath,
+        backPath
+    }
+) => {
 
     const router = useRouter();
 
