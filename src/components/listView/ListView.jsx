@@ -83,6 +83,8 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
                 <button className={styles.backBtn} title="Create Location" onClick={goBack}><HiArrowLeft /></button>
                 {title}
             </h2>}
+
+            <div className={styles.tableContainer}>
             <table className={styles.table}>
             <thead>
                 <tr>
@@ -105,6 +107,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
                 ))}
             </tbody>
             </table>
+            </div>
         </div>
     );
 };

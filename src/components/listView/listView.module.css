@@ -1,6 +1,5 @@
 .container {
     width: 100%;
-    overflow: hidden;
   }
 
   .title {
@@ -13,16 +12,21 @@
     padding: 20px;
   }
 
-  .table {
-    max-width: calc(100% - 40px);
-    border-collapse: collapse;
+  .tableContainer{
     margin: 20px;
-    overflow-x: scroll;
+    width: calc(100% - 40px);
+    overflow-x: auto;
+    /* border: 1px solid red; */
+  }
+
+  .table {
+    border-collapse: collapse;
+    max-width: 95vw;
   }
   
   .table th,
   .table td {
-    padding: 10px 0;
+    padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
   }
@@ -96,4 +100,8 @@
   .table td {
     padding: 8px;
   }
+/* 
+  .tableContainer {
+    max-width: 100%;
+  } */
 }
