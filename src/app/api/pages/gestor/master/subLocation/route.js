@@ -76,7 +76,26 @@ export async function GET(req) {
             return NextResponse.json(newdocId, { status: 200 });
         }
         else{
-            const sublocations = await Sublocation.find({},{_id: 0, __v:0}).lean();
+            //const sublocations = await Sublocation.find({},{_id: 0, __v:0}).lean();
+
+            // Fetch data from MongoDB
+            const records = await Sublocation.find({}, { _id: 0, __v: 0 }).lean();
+
+            // Map data to match the headers
+            const sublocations = records.map((record) => [
+                record.docID,
+                record.docDate,
+                record.faculty,
+                record.locationName,
+                record.subLocationCode,
+                record.subLocationName,
+                record.stockLoc,
+                record.hallCap,
+                record.rackNo,
+                record.binNo,
+                record.departments, //? record.departments.join(", ") : "", // Join departments if it's an array
+                record.active,
+            ]);
 
             return NextResponse.json(sublocations, { status: 200 });
         }
