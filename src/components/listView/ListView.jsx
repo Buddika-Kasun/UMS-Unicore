@@ -109,7 +109,7 @@ const ListView = (
                     <td key={idx}>{value}</td>
                     ))}
                     <td className={styles.edit}>
-                        <button title="Edit" className={styles.editBtn} onClick={() => handleEdit(row.docID)}><MdEdit /></button>
+                        <button title="Edit" className={styles.editBtn} onClick={() => handleEdit(row.docID || row[0])}><MdEdit /></button>
                         {/* <button title="Delete" className={styles.deleteBtn} onClick={() => handleDelete(row.docID)}><MdDeleteForever /></button> */}
                     </td>
                 </tr>
