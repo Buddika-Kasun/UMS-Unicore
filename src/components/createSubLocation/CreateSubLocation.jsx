@@ -1,10 +1,12 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './SubLocation.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import SubLoading from '../loading/SubLoading';
+import { HiArrowLeft } from 'react-icons/hi';
+import { useRouter } from 'next/navigation';
 
 const CreateSubLocation = (
   {
@@ -19,6 +21,8 @@ const CreateSubLocation = (
   const [isloading, setIsLoading] = useState(false);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
 
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     docID: data.docID,
     docDate: data.docDate || new Date(Date.now()).toLocaleString(),
@@ -31,18 +35,33 @@ const CreateSubLocation = (
     rackNo: data.rackNo || '',
     binNo: data.binNo || '',
     active: data.active || '',
-    departments: data.departments || [],
+    departments: data.departments ? data.departments[0].split(',') : [],
   });
+
+  //console.log(formData)
+
+  useEffect(() => {
+    // Set initial departments for update
+    if (method === "Update" && data.faculty) {
+      const departments = deps
+        .filter(dep => dep.faculty === data.faculty)
+        .flatMap(dep => dep.details.map(detail => ({
+          valueCode: detail.valueCode,
+          valueDscrp: detail.valueDscrp,
+        })));
+      setSelectedDepartments(departments);
+    }
+  }, [method, data.faculty, deps]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     const nameRegex = /^[.a-zA-Z0-9\s]*$/;
 
     if (
-      (name === 'locationName' || 
-       name === 'subLocationName' || 
-       name === 'binNo' || 
-       name === 'rackNo') && 
+      (name === 'locationName' ||
+       name === 'subLocationName' ||
+       name === 'binNo' ||
+       name === 'rackNo') &&
       !nameRegex.test(value)
     ) {
       toast.warning("Name fields should only contain letters, numbers, and spaces.");
@@ -50,9 +69,9 @@ const CreateSubLocation = (
     }
 
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-  
+
     // When faculty is selected, update the departments
-    if (name === 'faculty') {
+    /*if (name === 'faculty') {
       const selectedFaculty = value;
       const departments = deps
         .filter(dep => (dep.faculty === selectedFaculty) || (selectedFaculty === 'All'))
@@ -62,8 +81,21 @@ const CreateSubLocation = (
         })));
 
       setSelectedDepartments(departments);
-    }
+    }*/
   };
+
+   // Update selectedDepartments when faculty changes
+  useEffect(() => {
+    const selectedFaculty = formData.faculty;
+    const departments = deps
+      .filter(dep => (dep.faculty === selectedFaculty) || (selectedFaculty === 'All'))
+      .flatMap(dep => dep.details.map(detail => ({
+        valueCode: detail.valueCode,
+        valueDscrp: detail.valueDscrp,
+      })));
+
+    setSelectedDepartments(departments);
+  }, [formData.faculty, deps]);
 
   const toggleDepartment = (department) => {
     setFormData((prevData) => {
@@ -92,47 +124,95 @@ const CreateSubLocation = (
     setSelectedDepartments([]);
   };
 
-  const filteredLocations = formData.faculty === 'All'
+    const filteredLocations = formData.faculty === 'All'
     ? locations
     : locations.filter(location => location.faculty === formData.faculty);
 
+    const visit = () => {
+      setIsLoading(true);
+      router.push('/gestor/master/createSubLocation/listView');
+    }
+
+    const goNew = async() => {
+
+      setIsLoading(true);
+
+      try {
+        const res = await axios.get('/api/pages/gestor/master/location', {params: {last: 'true'}});
+        formReset(res.data);
+      }
+      catch (error) {
+        setIsLoading(false);
+          toast.error('An unexpected error occurred while getting data.');
+      }
+
+      setIsLoading(false);
+      router.push('/gestor/master/createSubLocation');
+    }
+
     const handleSave = async(e) => {
       e.preventDefault();
-  
+
       try {
-        /* if(Object.values(formData).some(value => value === '' || value === null || value === undefined)){
-          toast.warning("All fields required");
+
+        // General required fields validation
+        const { stockLoc, hallCap, binNo, rackNo, departments, ...otherFields } = formData;
+        if (Object.values(otherFields).some(value => value === '' || value === null || value === undefined)) {
+          toast.warning("All fields are required.");
           return;
-        } */
+        }
+
+        // Conditional validation based on stockLoc value
+        if (stockLoc === "Yes" && (!binNo || !rackNo)) {
+          toast.warning("Bill Number and Rack Number are required when Stock Location is Yes.");
+          return;
+        } else if (stockLoc === "No" && !hallCap) {
+          toast.warning("Hall Capacity is required when Stock Location is No.");
+          return;
+        }
+
+        // Ensure at least one department is selected
+        if (departments.length === 0) {
+          toast.warning("At least one department must be selected.");
+          return;
+        }
         // console.log(formData);
-  
+
+        if (stockLoc === "No") {
+          formData.binNo = '';
+          formData.rackNo = '';
+        }
+        else {
+          formData.hallCap = '';
+        }
+
         setIsLoading(true);
-  
+
         let res;
-  
+
         if(method == 'Create') {
           res = await axios.post('/api/pages/gestor/master/subLocation', formData);
         }
-  
+
         if(method == 'Update') {
           res = await axios.put('/api/pages/gestor/master/subLocation', formData);
         }
-  
+
         if (res.status === 200) {
           //console.log(res.data.message);
-  
+
           // Update docID
           const x = formData.docID.split('/');
           const newDocId = `${x[0]}/${x[1]}/${parseInt(x[2])+1}`;
-  
+
           formReset(newDocId);
-  
+
           setIsLoading(false);
-  
+
           setTimeout(() => {
-            (method == 'Update') && router.push('/gestor/master/createLocation/listView');
+            (method == 'Update') && router.push('/gestor/master/createSubLocation/listView');
           }, 1000);
-  
+
           toast.success(res.data.message, {
               autoClose: 2000,
           });
@@ -140,7 +220,7 @@ const CreateSubLocation = (
         else {
           throw err;
         }
-  
+
       }
       catch(err) {
         //console.log(err);
@@ -153,7 +233,10 @@ const CreateSubLocation = (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
-        <h2 className={styles.title}>Create Sub Location</h2>
+        <h2 className={styles.title}>
+          {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
+          {(method == "Update")? "Update" : "Create"} Sub Location
+        </h2>
 
         <div className={styles.docInfo}>
           <div className={styles.formGroup}>
@@ -172,9 +255,10 @@ const CreateSubLocation = (
         {/* Button Group */}
         <div className={styles.buttonRow}>
           <div className={styles.buttonGroup}>
-            <button className={styles.button}>List View</button>
-            <button className={styles.button} onClick={() => formReset(formData.docID)}>New</button>
-            <button className={styles.button} onClick={handleSave}>Save</button>
+            {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
+            {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
+            <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
+            <button className={styles.button} onClick={handleSave}>{(method == "Update")? "Update" : "Save"}</button>
           </div>
         </div>
 
@@ -285,10 +369,10 @@ const CreateSubLocation = (
                   <tr key={index}>
                     <td>{department.valueDscrp}</td>
                     <td>
-                      <input 
-                        type="checkbox" 
-                        checked={formData.departments.includes(department.valueDscrp)} 
-                        onChange={() => toggleDepartment(department.valueDscrp)} 
+                      <input
+                        type="checkbox"
+                        checked={formData.departments.includes(department.valueDscrp)}
+                        onChange={() => toggleDepartment(department.valueDscrp)}
                       />
                     </td>
                   </tr>
