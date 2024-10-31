@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import styles from './locationForm.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
+//import styles from './locationForm.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -158,6 +159,7 @@ const LocationForm = (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
+        {/* Title */}
         <h2 className={styles.title}>
           {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
           {(method == "Update")? "Update" : "Create"} Location
@@ -167,19 +169,19 @@ const LocationForm = (
         <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" className={styles.input} value={formData.docID} disabled />
+            <input type="text" className={styles.inputField} value={formData.docID} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" className={styles.input} value={formData.docDate} disabled />
+            <input type="text" className={styles.inputField} value={formData.docDate} disabled />
           </div>
         </div>
       </div>
 
     <div className={styles.container}>
 
-      {/* Button Group Aligned to the Right */}
+      {/* Buttons Row */}
       <div className={styles.buttonGroup}>
         {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
         {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
@@ -187,22 +189,22 @@ const LocationForm = (
         <button className={styles.button} onClick={handleSave}>{(method == "Update")? "Update" : "Save"}</button>
       </div>
 
-      {/* Form Fields Section */}
-      <div className={styles.form}>
-
-        <div className={styles.formGroup}>
-          <label>Location Name</label>
-          <input type="text" className={styles.input} placeholder="Enater location name" name='locName' value={formData.locName} onChange={handleChange} />
-        </div>
+      {/* Form Field */}
+      <div className={styles.formBody}>
 
         <div className={styles.formGroup}>
           <label>Location Code</label>
-          <input type="text" className={styles.input} value={formData.locCode} disabled />
+          <input type="text" className={styles.inputField} value={formData.locCode} disabled />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Location Name</label>
+          <input type="text" className={styles.inputField} placeholder="Enater location name" name='locName' value={formData.locName} onChange={handleChange} />
         </div>
 
         <div className={styles.formGroup}>
           <label>Faculty</label>
-          <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} required>
+          <select className={styles.inputField} name='faculty' value={formData.faculty} onChange={handleChange} required>
             <option value="" disabled>Select Faculty</option>
             {facultys.map((faculty, index) => (
               <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
@@ -212,7 +214,7 @@ const LocationForm = (
 
         <div className={styles.formGroup}>
           <label>Building No</label>
-          <select className={styles.input} name='buildingNo' value={formData.buildingNo} onChange={handleChange}>
+          <select className={styles.inputField} name='buildingNo' value={formData.buildingNo} onChange={handleChange}>
             <option value="" disabled>Select building</option>
             {buildings.map((building, index) => (
               <option key={index} value={building.valueDscrp}>
@@ -224,7 +226,7 @@ const LocationForm = (
 
         <div className={styles.formGroup}>
           <label>Floor No</label>
-          <select className={styles.input} name='floorNo' value={formData.floorNo} onChange={handleChange}>
+          <select className={styles.inputField} name='floorNo' value={formData.floorNo} onChange={handleChange}>
             <option value="" disabled>Select floor</option>
             {floors.map((floor, index) => (
               <option key={index} value={floor.valueDscrp}>
@@ -236,7 +238,7 @@ const LocationForm = (
 
         <div className={styles.formGroup}>
           <label>Cost Center</label>
-          <select className={styles.input} name='cost' value={formData.cost} onChange={handleChange}>
+          <select className={styles.inputField} name='cost' value={formData.cost} onChange={handleChange}>
             <option value="" disabled>Select Cost Center</option>
             {costCenters.map((costCenter, index) => (
               <option key={index} value={costCenter}>{costCenter}</option>
@@ -246,7 +248,7 @@ const LocationForm = (
 
         <div className={styles.formGroup}>
           <label>Location Type</label>
-          <select className={styles.input} name='locationType' value={formData.locationType} onChange={handleChange}>
+          <select className={styles.inputField} name='locationType' value={formData.locationType} onChange={handleChange}>
             <option value="" disabled>Select location type</option>
             {locationTypes.map((locationType, index) => (
               <option key={index} value={locationType.valueDscrp}>
@@ -256,9 +258,10 @@ const LocationForm = (
           </select>
         </div>
 
-        <div className={styles.formGroup}>
+        {/* Active Status with Radio Buttons */}
+        <div className={styles.formGroupActive}>
           <label>Active?</label>
-          <div className={styles.radioGroup}>
+          <div className={styles.activeOptions}>
             <label>
               <input type="radio" name="active" value="Yes" checked={formData.active === 'Yes'} onChange={handleChange}/> Yes
             </label>
