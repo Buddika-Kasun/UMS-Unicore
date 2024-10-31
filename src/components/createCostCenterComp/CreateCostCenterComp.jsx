@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from 'react';
-import styles from './createCostCenterComp.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
+//import styles from './createCostCenterComp.module.css';
 import { useRouter } from 'next/navigation';
 import SubLoading from '../loading/SubLoading';
 import { toast } from 'react-toastify';
@@ -130,50 +131,51 @@ const CreateCostCenterComp = (
       {isloading && <SubLoading />}
       <div className={styles.header}>
 
+        {/*Title*/}
         <h2 className={styles.title}>
           {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
           {(method == 'Update')? "Update":"Create"} Cost Center
         </h2>
 
-        <div className={styles.docInfo}>
+        {/* Document Section */}
+        <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" name='docID' className={styles.input} value={formData.docID} disabled />
+            <input type="text" name='docID' className={styles.inputField} value={formData.docID} disabled />
           </div>
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" name='docDate' className={styles.input} value={formData.docDate} disabled/>
+            <input type="text" name='docDate' className={styles.inputField} value={formData.docDate} disabled/>
           </div>
         </div>
-
       </div>
 
       <div className={styles.container}>
 
-        <div className={styles.buttonRow}>
+        {/* Buttons Row */}
           <div className={styles.buttonGroup}>
             {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
             {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
             <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
             <button className={styles.button} onClick={handleSave}>{(method == 'Update')? "Update":"Save"}</button>
           </div>
-        </div>
 
-        <form className={styles.form}>
+        {/* Form Fields */}
+        <div className={styles.formBody}>
 
           <div className={styles.formGroup}>
             <label>Cost Center Code</label>
-            <input type="text" name='costCenterCode' className={styles.input} placeholder="Enter cost center code" value={formData.costCenterCode} onChange={handleChange} />
+            <input type="text" name='costCenterCode' className={styles.inputField} placeholder="Enter cost center code" value={formData.costCenterCode} onChange={handleChange} />
           </div>
 
           <div className={styles.formGroup}>
             <label>Cost Center Name</label>
-            <input type="text" name='costCenterName' className={styles.input} placeholder="Enter cost cenet name" value={formData.costCenterName} onChange={handleChange} />
+            <input type="text" name='costCenterName' className={styles.inputField} placeholder="Enter cost cenet name" value={formData.costCenterName} onChange={handleChange} />
           </div>
 
           <div className={styles.formGroup}>
             <label>Faculty</label>
-            <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange}>
+            <select className={styles.inputField} name='faculty' value={formData.faculty} onChange={handleChange}>
               <option value="" disabled>Select Faculty</option>
               <option key={'All'} value={'All'}>All</option>
               {facultys.map((faculty, index) => (
@@ -182,9 +184,10 @@ const CreateCostCenterComp = (
             </select>
           </div>
 
-          <div className={styles.formGroup}>
+          {/* Active Status with Radio Buttons */}
+          <div className={styles.formGroupActive}>
             <label>Active?</label>
-            <div className={styles.inlineGroup}>
+            <div className={styles.activeOptions}>
               <label className={styles.radio}>
                 <input type="radio" name="active" value="Yes" checked={formData.active === 'Yes'}  onChange={handleChange} /> Yes
               </label>
@@ -193,7 +196,7 @@ const CreateCostCenterComp = (
               </label>
             </div>
           </div>
-        </form>
+        </div>
 
       </div>
     </>
