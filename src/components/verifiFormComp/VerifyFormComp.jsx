@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from 'react';
-import styles from './verifyFormComp.module.css';
+//import styles from './verifyFormComp.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -68,6 +69,7 @@ const LocationForm = ({reqUser}) => {
   return (
     <>
       <div className={styles.header}>
+        {/* Title */}
         <h2 className={styles.title}>
           <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>
           Verify User
@@ -76,26 +78,26 @@ const LocationForm = ({reqUser}) => {
 
     <div className={styles.container}>
 
-      {/* Form Fields Section */}
-      <div className={styles.form}>
+      {/* Form Fields */}
+      <div className={styles.formBody}>
           <div className={styles.formGroup}>
             <label>Request on</label>
-            <input type="text" className={styles.input} value={new Date(reqUser.verification.createDate).toLocaleString()}  disabled />
+            <input type="text" className={styles.inputField} value={new Date(reqUser.verification.createDate).toLocaleString()}  disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Verification type</label>
-            <input type="text" className={styles.input} value={reqUser.verification.type} disabled />
+            <input type="text" className={styles.inputField} value={reqUser.verification.type} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Faculty</label>
-            <input type="text" className={styles.input} value={reqUser.faculty} disabled />
+            <input type="text" className={styles.inputField} value={reqUser.faculty} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Request role</label>
-              <select className={styles.input} value={role} onChange={handleChange}>
+              <select className={styles.inputField} value={role} onChange={handleChange}>
                 <option value="System Admin">System Admin</option>
                 <option value="Student">Student</option>
                 <option value="Staff">Staff</option>
@@ -107,13 +109,11 @@ const LocationForm = ({reqUser}) => {
 
           <div className={styles.formGroup}>
             <label>Name</label>
-            <input type="text" className={styles.input} value={reqUser.name} disabled />
+            <input type="text" className={styles.inputField} value={reqUser.name} disabled />
           </div>
 
-          <div className={styles.vfRight}>Add</div>
-
           <div className={styles.buttonGroup}>
-            <button className={styles.button1}>Reject</button>
+            <button className={styles.rejectBtn}>Reject</button>
             <button className={styles.button} onClick={approve}>Approve</button>
           </div>
 
