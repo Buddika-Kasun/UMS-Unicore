@@ -190,6 +190,37 @@ padding: 10px 0;
     cursor: pointer;
   }
 
+/* Table for pending requests */
+  .tableSection {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .pendingTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .pendingTable th, .pendingTable td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .pendingTable th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+  
+  .pendingTable td a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .pendingTable td a:hover {
+    text-decoration: underline;
+  }
+
 /* Responsive Styles */
 @media (max-width: 768px) {
 
@@ -214,6 +245,10 @@ padding: 10px 0;
     .table th,
     .table td {
       padding: 8px;
+    }
+
+    .pendingTable {
+        width: 100%;
     }
 
 }
