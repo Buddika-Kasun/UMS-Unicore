@@ -4,6 +4,7 @@ import LocationForm from '@/components/locationForm/LocationForm';
 import { dbConnect } from '@/lib/mongo';
 import { CostCenter } from '@/model/costCenter-model';
 import { Faculty } from '@/model/faculty-model';
+import { List } from '@/model/list-model';
 import { Location } from '@/model/location-model';
 
 const CreateLocationForm = async({ searchParams }) => {
@@ -55,13 +56,45 @@ const CreateLocationForm = async({ searchParams }) => {
     };
   }
 
-  const facultys = await Faculty.find({}, { facultyName: 1, _id: 0 }).lean();
-  const facultyNames = facultys.map(faculty => faculty.facultyName);
+  const facultys = await Faculty.find({}, { facultyName: 1, facultyCode:1, _id: 0 }).lean();
+  //const facultyNames = facultys.map(faculty => faculty.facultyName);
 
-  const costCenters = await CostCenter.find({}, { costCenterName:1, _id:0 }).lean();
+  const costCenters = await CostCenter.find({}, { costCenterName:1, costCenterCode:1, _id:0 }).lean();
   const costCenterNames = costCenters.map(costCenter => costCenter.costCenterName);
 
-  return <LocationForm data={formData} method={docID ? 'Update':'Create'} facultys={facultyNames} costCenters={costCenterNames} />;
+  //console.log(costCenterNames)
+   
+  const buildings = await List.findOne({ listCode: '001' }, { 'details.valueCode': 1, 'details.valueDscrp': 1, _id: 0 }).lean();
+  const buildingNames = buildings.details.map((detail) => ({
+    valueCode: detail.valueCode,
+    valueDscrp: detail.valueDscrp
+  }));
+
+  //console.log(buildingNames);
+
+  const locTypes = await List.findOne({ listCode: '003' }, { 'details.valueCode': 1, 'details.valueDscrp': 1, _id: 0 }).lean();
+  const locTypeNames = locTypes.details.map((detail) => ({
+    valueCode: detail.valueCode,
+    valueDscrp: detail.valueDscrp
+  }));
+
+  const floors = await List.findOne({ listCode: '002' }, { 'details.valueCode': 1, 'details.valueDscrp': 1, _id: 0 }).lean();
+  const floorNames = floors.details.map((detail) => ({
+    valueCode: detail.valueCode,
+    valueDscrp: detail.valueDscrp
+  }));
+
+  return (
+    <LocationForm
+      data={formData}
+      method={docID ? 'Update':'Create'}
+      facultys={facultys}
+      costCenters={costCenterNames}
+      buildings={buildingNames}
+      locationTypes={locTypeNames}
+      floors={floorNames} 
+    />
+  );
 }
 
 export default CreateLocationForm;

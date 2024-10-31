@@ -31,6 +31,15 @@ const ReservationForm = () => {
       </div>
 
       <form className={styles.form}>
+
+      <div className={styles.formGroup}>
+          <label>Faculty</label>
+          <select className={styles.input}>
+            <option>Faculty of Technology</option>
+            <option>Faculty of Arts</option>
+          </select>
+        </div>
+        
         {/* Booking Type */}
         <div className={styles.formGroup}>
           <label>Booking Type</label>
@@ -89,6 +98,20 @@ const ReservationForm = () => {
         <div className={styles.formGroup}>
           <label>Organizer</label>
           <input type="text" className={styles.input}  />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Reservation Remarks</label>
+          <input type="text" className={styles.input}  />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label>Repeat?</label>
+          <div className={styles.inlineGroup}>
+            <label className={styles.radio}>
+              <input type="checkbox"/> Yes
+            </label>
+          </div>
         </div>
 
         {/* Active */}

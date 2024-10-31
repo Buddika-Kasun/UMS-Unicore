@@ -19,8 +19,7 @@ const createCostCenter = async({ searchParams }) => {
   if(costCenters){
     formData = {
       docID: costCenters.docID,
-      createDate: costCenters.createDate, // when update use new date time
-      createBy: costCenters.createBy,
+      docDate: costCenters.createDate, // when update use new date time
       faculty: costCenters.faculty,
       costCenterCode: costCenters.costCenterCode,
       costCenterName: costCenters.costCenterName,
@@ -50,14 +49,16 @@ const createCostCenter = async({ searchParams }) => {
     };
   }
 
-  const listData = await CostCenter.find({},{_id: 0, __v:0,}).lean();
-
   const facultys = await Faculty.find({}, { facultyName: 1, _id: 0 }).lean();
   const facultyNames = facultys.map(faculty => faculty.facultyName);
 
   return (
-    <CreateCostCenterComp data={formData} method={docID ? 'Update':'Create'} list={listData} facultys={facultyNames} />
-   );
+    <CreateCostCenterComp
+      data={formData}
+      method={docID ? 'Update':'Create'}
+      facultys={facultyNames}
+    />
+  );
 }
 
 export default createCostCenter;

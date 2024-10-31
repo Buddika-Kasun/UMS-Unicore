@@ -4,16 +4,22 @@ import "server-only";
 import { dbConnect } from "@/lib/mongo";
 import { xssSanitize } from "@/security/purify";
 import { NextResponse } from "next/server";
-import { CostCenter } from "@/model/costCenter-model";
+import { Sublocation } from "@/model/subLocation-model";
 
 const sanitize = (value) => {
     const sanitizedData = {
         docID: xssSanitize(value.docID),
-        docDate: new Date(Date.now()).toLocaleString(), // when update use new date time
+        docDate: xssSanitize(value.docDate),
         faculty: xssSanitize(value.faculty),
-        costCenterCode: xssSanitize(value.costCenterCode),
-        costCenterName: xssSanitize(value.costCenterName),
+        locationName: xssSanitize(value.locationName),
+        subLocationName: xssSanitize(value.subLocationName),
+        subLocationCode: xssSanitize(value.subLocationCode),
+        hallCap: value.hallCap,
+        stockLoc: value.stockLoc,
+        rackNo: xssSanitize(value.rackNo),
+        binNo: xssSanitize(value.binNo),
         active: xssSanitize(value.active),
+        departments: xssSanitize(value.departments),
     };
 
         // Validate the email using a regular expression pattern
@@ -23,6 +29,8 @@ const sanitize = (value) => {
 
     return sanitizedData;
 }
+
+
 
 //  CREATE  //
 export async function POST(req) {
@@ -38,15 +46,17 @@ export async function POST(req) {
 
         await dbConnect();
 
-        await CostCenter.create(sanitizedData);
+        await Sublocation.create(sanitizedData);
 
     }
     catch(err) {
         return NextResponse.json({message: err.message}, { status: 500 });
     }
 
-    return NextResponse.json({message: "Saved Cost Center"}, { status: 200 });
+    return NextResponse.json({message: "Saved Sublocation"}, { status: 200 });
 }
+
+
 
 //  RAED    //
 export async function GET(req) {
@@ -59,16 +69,35 @@ export async function GET(req) {
         await dbConnect();
 
         if (fetchLast) {
-            const preDocID = await CostCenter.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+            const preDocID = await Sublocation.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
             const id = parseInt(preDocID.docID.split('/')[2]) + 1;
-            const newdocId = `${preDocID.docID.split('/')[0]}/CC/${id}`;
+            const newdocId = `${preDocID.docID.split('/')[0]}/SLOC/${id}`;
 
             return NextResponse.json(newdocId, { status: 200 });
         }
         else{
-            const costCenters = await CostCenter.find({},{_id: 0, __v:0}).lean();
+            //const sublocations = await Sublocation.find({},{_id: 0, __v:0}).lean();
 
-            return NextResponse.json(costCenters, { status: 200 });
+            // Fetch data from MongoDB
+            const records = await Sublocation.find({}, { _id: 0, __v: 0 }).lean();
+
+            // Map data to match the headers
+            const sublocations = records.map((record) => [
+                record.docID,
+                record.docDate,
+                record.faculty,
+                record.locationName,
+                record.subLocationCode,
+                record.subLocationName,
+                record.stockLoc,
+                record.hallCap,
+                record.rackNo,
+                record.binNo,
+                record.departments, //? record.departments.join(", ") : "", // Join departments if it's an array
+                record.active,
+            ]);
+
+            return NextResponse.json(sublocations, { status: 200 });
         }
 
     }
@@ -78,6 +107,7 @@ export async function GET(req) {
     }
 
 }
+
 
 //  UPDATE  //
 export async function PUT(req) {
@@ -93,7 +123,7 @@ export async function PUT(req) {
 
         await dbConnect();
 
-        const result = await CostCenter.updateOne({docID: sanitizedData.docID}, {$set: sanitizedData});
+        const result = await Sublocation.updateOne({docID: sanitizedData.docID}, {$set: sanitizedData});
 
         if (result.modifiedCount === 0) {
             return NextResponse.json({message: "No document was updated. Please check the Doc ID."}, { status: 500 });
@@ -104,8 +134,9 @@ export async function PUT(req) {
         return NextResponse.json({message: err.message}, { status: 500 });
     }
 
-    return NextResponse.json({message: "Updated Cost Center"}, { status: 200 });
+    return NextResponse.json({message: "Updated Sublocation"}, { status: 200 });
 }
+
 
 
 //  DELETE   //
@@ -118,7 +149,7 @@ export async function DELETE(req) {
 
         await dbConnect();
 
-        const result = await CostCenter.deleteOne({docID: data.docId});
+        const result = await Sublocation.deleteOne({docID: data.docId});
 
         if (result.deletedCount === 0) {
             return NextResponse.json({message: "No document found with the specified Doc ID."}, { status: 500 });
@@ -130,7 +161,6 @@ export async function DELETE(req) {
         return NextResponse.json({message: err.message}, { status: 500 });
     }
 
-    return NextResponse.json({message: "Deleted Cost Center"}, { status: 200 });
+    return NextResponse.json({message: "Deleted Sublocation"}, { status: 200 });
 
 }
-

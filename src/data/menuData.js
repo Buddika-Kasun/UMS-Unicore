@@ -11,7 +11,7 @@ const menuData = [
                 path: "/dashboard",
                 icon: HiOutlinePresentationChartBar,
                 haveSubmenu: false,
-                permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
+                permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
             },
             {
                 name: "Setup",
@@ -117,17 +117,17 @@ const menuData = [
                     {
                         name: "View Catalogs",
                         path: "/gestor/LibraryPro/view-catalogs",
-                        permission: ["Library Staff", "Students"]
+                        permission: ["Library Staff", "Student"]
                     },
                     {
                         name: "Reserve Items",
                         path: "/gestor/LibraryPro/reserve-items",
-                        permission: ["Students", "Staff"]
+                        permission: ["Student", "Staff"]
                     },
                     {
                         name: "Remove Reservation",
                         path: "/gestor/LibraryPro/remove-reservation",
-                        permission: ["Library Staff", "Students", "Staff"]
+                        permission: ["Library Staff", "Student", "Staff"]
                     },
                     {
                         name: "View Reservations",

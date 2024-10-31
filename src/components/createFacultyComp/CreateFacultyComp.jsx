@@ -1,37 +1,56 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
-import styles from './createFaculty.module.css';
-import ListView from '@/components/listView/ListView';
+import { useState } from 'react';
+// import styles from './createFaculty.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import SubLoading from '@/components/loading/SubLoading';
+import { HiArrowLeft } from "react-icons/hi";
 import { useRouter } from 'next/navigation';
 
-const CreateFacultyComp = ({data,method,list}) => {
-
-  useEffect (()=>{
-    setFormData(data);
-  },[data])
-  
-  const [dataList, setDataList] = useState(list);
-
-  const fetchListData = async() => {
-    const res = await axios.get('/api/pages/setup/createFaculty');
-    setDataList(res.data);
+const CreateFacultyComp = (
+  {
+    data,
+    method,
   }
-
+) => {
 
   const [isloading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     docID: data.docID,
+    docDate: data.docDate || new Date(Date.now()).toLocaleString(),
     facultyCode: data.facultyCode || '',
     facultyName: data.facultyName || '',
     Active: data.Active || '',
   });
 
+  //console.log(formData);
+
   const router = useRouter();
+
+  const visit = () => {
+    setIsLoading(true);
+    router.push('/setup/createFaculty/listView');
+  }
+
+  const goNew = async() => {
+
+    setIsLoading(true);
+
+    try {
+      const res = await axios.get('/api/pages/setup/createFaculty', {params: {last: 'true'}});
+      formReset(res.data);
+    }
+    catch (error) {
+      setIsLoading(false);
+        toast.error('An unexpected error occurred while getting data.');
+    }
+
+    setIsLoading(false);
+    router.push('/setup/createFaculty');
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +68,7 @@ const CreateFacultyComp = ({data,method,list}) => {
   const formReset = (docID) => {
     setFormData({
       docID: docID,
+      docDate: new Date(Date.now()).toLocaleString(),
       facultyCode:'',
       facultyName:'',
       Active:'',
@@ -63,7 +83,8 @@ const CreateFacultyComp = ({data,method,list}) => {
         toast.warning("All fields required");
         return;
       }
-      // console.log(formData);
+
+      //console.log(" ");
 
       setIsLoading(true);
 
@@ -86,15 +107,16 @@ const CreateFacultyComp = ({data,method,list}) => {
 
         formReset(newDocId);
 
-        fetchListData();
-
         setIsLoading(false);
+
+        setTimeout(() => {
+          (method == 'Update') && router.push('/setup/createFaculty/listView');
+        }, 1000);
 
         toast.success(res.data.message, {
             autoClose: 2000,
         });
 
-        router.push('/setup/createFaculty');
       }
       else {
         throw err;
@@ -102,39 +124,47 @@ const CreateFacultyComp = ({data,method,list}) => {
 
     }
     catch(err) {
-      //console.log(err);
+      console.log(err);
       setIsLoading(false);
       toast.error('An unexpected error occurred while processing.');
     }
   };
-  
-  const Header = [
-    "Doc ID",
-    "Faculty Code",
-    "Faculty Name",
-    "Active",
-  ];
-  
+
   return (
     <>
     {isloading && <SubLoading />}
+    <div className={styles.header}>
+        {/* Title */}
+        <h2 className={styles.title}>
+          {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
+          {(method === "Update") ? "Update" : "Create"} Faculty
+        </h2>
+
+        {/* Document Section */}
+        <div className={styles.docSection}>
+          <div className={styles.formGroup}>
+            <label>Doc ID</label>
+            <input type="text" name='docID' className={styles.inputField} value={formData.docID} disabled />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label>Doc Date</label>
+            <input type="text" name='docDate' className={styles.inputField} value={formData.docDate} disabled/>
+          </div>
+        </div>
+      </div>
     <div className={styles.container}>
-      {/* Title */}
-      <h2 className={styles.title}>{(method === "Update") ? "Update" : "Save"} Faculty</h2>
 
       {/* Buttons Row */}
       <div className={styles.buttonGroup}>
-        {(method == "Update") && <button className={styles.buttonNew} onClick={()=> router.push("/setup/createFaculty")}>New</button>}
-        <button className={styles.buttonNew} onClick={()=> formReset(formData.docID)}>{(method === "Update") ? "Clear All" : "New"}</button>
-        <button className={styles.buttonSave} onClick={handleSave}>{(method === "Update") ? "Update" : "Save"}</button>
+        {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
+        {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
+        <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
+        <button className={styles.button} onClick={handleSave}>{(method === "Update") ? "Update" : "Save"}</button>
       </div>
 
       {/* Form Fields */}
       <div className={styles.formBody}>
-        <div className={styles.formGroup}>
-          <label>Doc ID</label>
-          <input type="text" name='docID' className={styles.inputField} value={formData.docID} disabled />
-        </div>
 
         <div className={styles.formGroup}>
           <label>Faculty Code</label>
@@ -159,8 +189,7 @@ const CreateFacultyComp = ({data,method,list}) => {
           </div>
         </div>
       </div>
-      <ListView initData={dataList} headers={Header} updatePath={"/setup/createFaculty?docID="} reqPath={"/api/pages/setup/createFaculty"}/>
-    </div>
+      </div>
     </>
   );
 };

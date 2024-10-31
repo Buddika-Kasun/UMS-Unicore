@@ -9,7 +9,16 @@ import { MdEdit, MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) => {
+const ListView = (
+    {
+        title,
+        headers,
+        initData,
+        updatePath,
+        reqPath,
+        backPath
+    }
+) => {
 
     const router = useRouter();
 
@@ -21,30 +30,30 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
         return <div className={styles.container}>No data available</div>;
     }
 
-    const fetchLocations = async () => {
+    const fetchData = async () => {
         try {
             const res = await axios.get(`${reqPath}`);
             setData(res.data);
         } catch (error) {
-            toast.error('An unexpected error occurred while fetching locations.');
+            toast.error('An unexpected error occurred while fetching data.');
         }
     };
 
     useEffect(() => {
-        fetchLocations();
+        fetchData();
     },[]);
 
     useEffect(() => {
-        fetchLocations();
+        fetchData();
     },[initData]);
 
     const handleEdit = (docId) => {
-        //setIsLoading(true);
+        setIsLoading(true);
         router.push(`${updatePath}${docId}`);
-        setIsLoading(false);
+        //setIsLoading(false);
     }
 
-    const handleDelete = async(docId) => {
+    /* const handleDelete = async(docId) => {
         setIsLoading(true);
 
         try {
@@ -53,7 +62,7 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
 
             if (res.status === 200) {
 
-                fetchLocations();
+                fetchData();
 
                 setIsLoading(false);
 
@@ -62,14 +71,14 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
                 });
             }
             else {
-                throw err;
+                throw new Error;
             }
         }
         catch(err) {
             setIsLoading(false);
             toast.error('An unexpected error occurred while processing.');
         }
-    }
+    } */
 
     const goBack = () => {
         setIsLoading(true);
@@ -83,6 +92,8 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
                 <button className={styles.backBtn} title="Create Location" onClick={goBack}><HiArrowLeft /></button>
                 {title}
             </h2>}
+
+            <div className={styles.tableContainer}>
             <table className={styles.table}>
             <thead>
                 <tr>
@@ -98,13 +109,14 @@ const ListView = ({ title, headers, initData, updatePath, reqPath, backPath}) =>
                     <td key={idx}>{value}</td>
                     ))}
                     <td className={styles.edit}>
-                        <button title="Edit" className={styles.editBtn} onClick={() => handleEdit(row.docID)}><MdEdit /></button>
-                        <button title="Delete" className={styles.deleteBtn} onClick={() => handleDelete(row.docID)}><MdDeleteForever /></button>
+                        <button title="Edit" className={styles.editBtn} onClick={() => handleEdit(row.docID || row[0])}><MdEdit /></button>
+                        {/* <button title="Delete" className={styles.deleteBtn} onClick={() => handleDelete(row.docID)}><MdDeleteForever /></button> */}
                     </td>
                 </tr>
                 ))}
             </tbody>
             </table>
+            </div>
         </div>
     );
 };

@@ -5,6 +5,10 @@ const facultySchema = new Schema({
         required: true,
         type: String,
     },
+    docDate: {
+        required: true,
+        type: String,
+    },
     facultyCode: {
         required: true,
         type: String,

@@ -9,6 +9,7 @@ import { Faculty } from "@/model/faculty-model";
 const sanitize = (value) => {
     const sanitizedData = {
         docID: xssSanitize(value.docID),
+        docDate: xssSanitize(value.docDate),
         facultyCode: xssSanitize(value.facultyCode),
         facultyName: xssSanitize(value.facultyName),
         Active: xssSanitize(value.Active),
@@ -57,7 +58,7 @@ export async function GET(req) {
         await dbConnect();
 
         if (fetchLast) {
-            const preDocID = await Location.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+            const preDocID = await Faculty.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
             const id = parseInt(preDocID.docID.split('/')[2]) + 1;
             const newdocId = `${preDocID.docID.split('/')[0]}/FAC/${id}`;
 
