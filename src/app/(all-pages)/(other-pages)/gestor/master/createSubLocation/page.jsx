@@ -33,6 +33,7 @@ const SubLocationForm = async({ searchParams }) => {
       rackNo: subLocationData.rackNo,
       binNo: subLocationData.binNo,
       active: subLocationData.active,
+      departments: subLocationData.departments,
     };
 
   }
