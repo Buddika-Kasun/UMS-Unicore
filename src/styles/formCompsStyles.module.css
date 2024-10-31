@@ -53,8 +53,12 @@ border-radius: 4px;
 cursor: pointer;
 }
 
-.button:hover, .backBtn:hover {
+.button:hover, .backBtn:hover, .addBtn:hover {
 background-color: #0056b3;
+}
+
+.removeBtn:hover {
+background-color: #c9302c;
 }
 
 .backBtn {
@@ -126,13 +130,73 @@ font-weight: normal;
 margin-right: 5px;
 }
 
+/* Table */
+.tableContainer {
+margin-top: 20px;
+overflow-x: auto;
+margin-bottom: 40px;
+}
+
+.table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+.table th,
+.table td {
+padding: 10px;
+border: 1px solid #ddd;
+text-align: center;
+}
+
+.table th {
+padding: 12px;
+background-color: #f1f1f1;
+}
+
+.tableList {
+width: calc(100% - 16px);
+border: none;
+outline: none;
+margin: 0 4px;
+padding: 4px 2px;
+}
+
+.table .noTD {
+border: none;
+padding: 10px 0;
+}
+
+.addBtn{
+    width: 100%;
+    margin: 5px 0;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .removeBtn{
+    width: 25px;
+    color: #fff;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
 /* Responsive Styles */
 @media (max-width: 768px) {
 
     .buttonGroup {
-        flex-direction: row;
+        flex-direction: row;/* 
         align-items: flex-start;
-        width: 50%;
+        width: 50%; */
     }
 
     .formBody {
@@ -145,6 +209,11 @@ margin-right: 5px;
 
     .inputField{
         width: 100%;
+    }
+
+    .table th,
+    .table td {
+      padding: 8px;
     }
 
 }
