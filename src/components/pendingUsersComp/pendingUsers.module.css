@@ -48,11 +48,13 @@
   }
   
   /* Table Section */
+
+  
+  /* Table for pending requests */
   .tableSection {
     margin-top: 20px;
   }
   
-  /* Table for pending requests */
   .pendingTable {
     width: 100%;
     border-collapse: collapse;
