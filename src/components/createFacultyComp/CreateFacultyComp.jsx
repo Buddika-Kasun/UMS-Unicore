@@ -189,8 +189,8 @@ const CreateFacultyComp = (
           </div>
         </div>
       </div>
-      </div>
-    </>
+    </div>
+  </>
   );
 };
 
