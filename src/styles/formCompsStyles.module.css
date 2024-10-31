@@ -44,7 +44,7 @@ gap: 10px;
 margin-bottom: 20px;
 }
 
-.button, .backBtn {
+.button, .backBtn, .rejectBtn {
 padding: 10px 20px;
 background-color: #007bff;
 color: white;
@@ -53,11 +53,16 @@ border-radius: 4px;
 cursor: pointer;
 }
 
+.rejectBtn {
+background-color: #d9534f;
+color: white;
+}
+
 .button:hover, .backBtn:hover, .addBtn:hover {
 background-color: #0056b3;
 }
 
-.removeBtn:hover {
+.removeBtn:hover, .rejectBtn:hover {
 background-color: #c9302c;
 }
 
