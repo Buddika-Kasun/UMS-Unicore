@@ -149,13 +149,16 @@ margin-top: 20px;
 }
 
 .table th,
-.table td {
+.table td,
+.pendingTable th,
+.pendingTable td {
 padding: 10px;
 border: 1px solid #ddd;
 text-align: center;
 }
 
-.table th {
+.table th,
+.pendingTable th {
 padding: 12px;
 background-color: #f1f1f1;
 }
@@ -206,7 +209,7 @@ padding: 10px 0;
     border-collapse: collapse;
   }
   
-  .pendingTable th, .pendingTable td {
+/*   .pendingTable th, .pendingTable td {
     border: 1px solid #ccc;
     padding: 12px;
     text-align: left;
@@ -215,7 +218,7 @@ padding: 10px 0;
   .pendingTable th {
     background-color: #e0e0e0;
     font-weight: bold;
-  }
+  } */
   
   .pendingTable td a {
     color: #007bff;
