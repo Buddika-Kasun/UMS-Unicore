@@ -1,0 +1,122 @@
+"use server";
+import "server-only";
+
+import { dbConnect } from "@/lib/mongo";
+import { xssSanitize } from "@/security/purify";
+import { NextResponse } from "next/server";
+import { Reservation } from "@/model/reservation-model";
+
+const sanitize = (value) => {
+    return {
+        docID: xssSanitize(value.docID),
+        docDate: xssSanitize(value.docDate),
+        reservedBy: xssSanitize(value.reservedBy),
+        faculty: xssSanitize(value.faculty),
+        bookTyp: xssSanitize(value.bookTyp),
+        title: xssSanitize(value.title),
+        location: xssSanitize(value.location),
+        fromDate: xssSanitize(value.fromDate),
+        toDate: xssSanitize(value.toDate),
+        fromTime: xssSanitize(value.fromTime),
+        toTime: xssSanitize(value.toTime),
+        organizer: xssSanitize(value.organizer),
+        remark: xssSanitize(value.remark),
+        repeat: xssSanitize(value.repeat),
+        active: xssSanitize(value.active),
+        cancel: xssSanitize(value.cancel),
+    };
+};
+
+// CREATE
+export async function POST(req) {
+    try {
+        const data = await req.json();
+        const sanitizedData = sanitize(data);
+
+        await dbConnect();
+        await Reservation.create(sanitizedData);
+
+        return NextResponse.json({ message: "Saved Reservation" }, { status: 200 });
+    } catch (err) {
+        return NextResponse.json({ message: err.message }, { status: 500 });
+    }
+}
+
+// READ
+export async function GET(req) {
+    try {
+        const url = new URL(req.url);
+        const fetchLast = url.searchParams.get('last');
+
+        await dbConnect();
+
+        if (fetchLast) {
+            const preDocID = await Reservation.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
+            const id = parseInt(preDocID.docID.split('/')[2]) + 1;
+            const newDocId = `${preDocID.docID.split('/')[0]}/RVC/${id}`;
+
+            return NextResponse.json(newDocId, { status: 200 });
+        } else {
+            const records = await Reservation.find({}, { _id: 0, __v: 0 }).lean();
+            const reservations = records.map(record => [
+                record.docID,
+                record.docDate,
+                record.faculty,
+                record.bookTyp,
+                record.title,
+                record.location,
+                record.fromDate + ' ' + record.fromTime,
+                record.toDate + ' ' + record.toTime,
+                record.organizer,
+                record.remark,
+                record.repeat,
+                record.reservedBy,
+                record.active,
+                record.cancel
+            ]);
+
+            return NextResponse.json(reservations, { status: 200 });
+        }
+    } catch (err) {
+        console.error("error =", err);
+        return NextResponse.json({ message: err.message }, { status: 500 });
+    }
+}
+
+// UPDATE
+export async function PUT(req) {
+    try {
+        const data = await req.json();
+        const sanitizedData = sanitize(data);
+
+        await dbConnect();
+        const result = await Reservation.updateOne({ docID: sanitizedData.docID }, { $set: sanitizedData });
+
+        if (result.modifiedCount === 0) {
+            return NextResponse.json({ message: "No document was updated. Please check the Doc ID." }, { status: 500 });
+        }
+
+        return NextResponse.json({ message: "Updated Reservation" }, { status: 200 });
+    } catch (err) {
+        return NextResponse.json({ message: err.message }, { status: 500 });
+    }
+}
+
+// DELETE
+export async function DELETE(req) {
+    try {
+        const data = await req.json();
+
+        await dbConnect();
+        const result = await Reservation.deleteOne({ docID: data.docID });
+
+        if (result.deletedCount === 0) {
+            return NextResponse.json({ message: "No document found with the specified Doc ID." }, { status: 500 });
+        }
+
+        return NextResponse.json({ message: "Deleted Reservation" }, { status: 200 });
+    } catch (err) {
+        console.error(err);
+        return NextResponse.json({ message: err.message }, { status: 500 });
+    }
+}
