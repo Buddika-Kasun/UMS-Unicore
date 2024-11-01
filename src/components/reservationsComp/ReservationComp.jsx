@@ -381,7 +381,6 @@ const ReservationComp = (
       <table className={styles.table}>
           <thead>
             <tr>
-              <th>Location Name</th>
               <th>Hall No</th>
               <th>Hall Capacity</th>
               <th>Status</th>
@@ -393,24 +392,22 @@ const ReservationComp = (
           </thead>
           <tbody>
             <tr>
-              <td>Building 1</td>
               <td>LGF 05</td>
               <td>150</td>
               <td>Free</td>
-              <td>Event 1</td>
-              <td>Admin</td>
-              <td>06/06/2024 12.00 PM</td>
-              <td>06/06/2024 12.00 PM</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type='checkbox' /></td>
             </tr>
             <tr>
-              <td>Building 2</td>
               <td>SF 01</td>
               <td>75</td>
               <td>Reserved</td>
               <td>Event 2</td>
               <td>Admin</td>
               <td>06/06/2024 12.00 PM</td>
-              <td>06/06/2024 12.00 PM</td>
+              <td><input type='checkbox' checked disabled/></td>
             </tr>
             {/* Add more rows as needed */}
           </tbody>
