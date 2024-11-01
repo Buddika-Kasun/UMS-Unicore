@@ -1,5 +1,6 @@
 "use server"
 
+import { auth } from "@/app/api/auth/auth";
 import ReservationComp from "@/components/reservationsComp/ReservationComp";
 import { dbConnect } from "@/lib/mongo";
 import { Faculty } from "@/model/faculty-model";
@@ -9,6 +10,9 @@ import { Reservation } from "@/model/reservation-model";
 const ReservationForm = async({searchParams}) => {
 
   const { docID, method } = searchParams || {};
+
+  const session = await auth();
+  const userName = session.user.name;
 
   const currentMethod = method ? 'Cancel': docID ? 'Update': 'Create';
 
@@ -24,15 +28,19 @@ const ReservationForm = async({searchParams}) => {
       docID: reservationData.docID,
       docDate: reservationData.docDate,
       faculty: reservationData.faculty,
-      locationName: reservationData.locationName,
-      reservationName: reservationData.reservationName,
-      reservationCode: reservationData.reservationCode,
-      hallCap: reservationData.hallCap,
-      stockLoc: reservationData.stockLoc,
-      rackNo: reservationData.rackNo,
-      binNo: reservationData.binNo,
+      bookTyp: reservationData.bookTyp,
+      title: reservationData.title,
+      location: reservationData.location,
+      fromDate: reservationData.fromDate,
+      toDate: reservationData.toDate,
+      fromTime: reservationData.fromTime,
+      toTime: reservationData.toTime,
+      organizer: reservationData.organizer,
+      remark: reservationData.remark,
+      repeat: reservationData.repeat,
+      reservedBy: reservationData.reservedBy,
       active: reservationData.active,
-      departments: reservationData.departments,
+      cancel: reservationData.cancel,
     };
 
   }
@@ -68,6 +76,7 @@ const ReservationForm = async({searchParams}) => {
       data = {formData}
       locations = {locations}
       method={currentMethod}
+      user={userName}
     />
   );
 };

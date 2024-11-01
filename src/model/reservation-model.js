@@ -9,11 +9,15 @@ const reservationSchema = new Schema({
         required: true,
         type: String,
     },
+    reservedBy: {
+        required: true,
+        type: String,
+    },
     faculty: {
         required: true,
         type: String,
     },
-    booktyp: {
+    bookTyp: {
         required: true,
         type: String,
     },

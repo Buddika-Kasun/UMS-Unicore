@@ -1,10 +1,12 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './reservation.module.css';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import SubLoading from '../loading/SubLoading';
+import axios from 'axios';
+import { HiArrowLeft } from 'react-icons/hi';
 
 const ReservationComp = (
   {
@@ -12,6 +14,7 @@ const ReservationComp = (
     data,
     locations,
     method,
+    user,
   }
 ) => {
 
@@ -33,6 +36,7 @@ const ReservationComp = (
     organizer: data.organizer || '',
     remark: data.remark || '',
     repeat: data.repeat || '',
+    reservedBy: data.reservedBy || user,
     active: data.active || '',
     cancel: data.cancel || 'No',
   });
@@ -42,6 +46,50 @@ const ReservationComp = (
   const handleChange = (e) => {
     const { name, value } = e.target;
     const nameRegex = /^[.a-zA-Z0-9\s]*$/;
+
+    if (name === 'fromDate' && formData.toDate !== '' && value > formData.toDate) {
+      toast.warning("From Date cannot be after to Date.");
+      return;
+    }
+
+    if (name === 'fromDate' && value == '') {
+      formData.toDate = '';
+      formData.fromTime = '';
+      formData.toTime = '';
+    }
+
+    if (name === 'toDate' && value < formData.fromDate && value !== '') {
+      toast.warning("To Date cannot be before From Date.");
+      return;
+    }
+
+    if (name === 'toDate' && value == '') {
+      formData.fromTime = '';
+      formData.toTime = '';
+    }
+
+    if (name === 'fromTime') {
+      const fromDateTime = new Date(`${formData.fromDate}T${value}`);
+      const toDateTime = new Date(`${formData.fromDate}T${formData.toTime}`);
+      if (formData.fromDate === formData.toDate && toDateTime <= fromDateTime) {
+        toast.warning("From Time cannot be after To Time.");
+        return;
+      }
+    }
+
+    if (name === 'fromTime' && value == '') {
+      formData.toTime = '';
+    }
+
+    if (name === 'toTime') {
+      const fromDateTime = new Date(`${formData.fromDate}T${formData.fromTime}`);
+      const toDateTime = new Date(`${formData.fromDate}T${value}`);
+      if (formData.fromDate === formData.toDate && toDateTime <= fromDateTime) {
+        toast.warning("To Time cannot be before From Time.");
+        return;
+      }
+    }
+
 
     if (
       (name === 'title' ||
@@ -72,6 +120,7 @@ const ReservationComp = (
       organizer: '',
       remark: '',
       repeat: '',
+      reservedBy: data.reservedBy,
       active: '',
       cancel: 'No',
     });
@@ -86,7 +135,7 @@ const ReservationComp = (
 
     setIsLoading(true);
 
-    try {
+    /*try {
       const res = await axios.get('/api/pages/gestor/InfraGestor/reservations', {params: {last: 'true'}});
       formReset(res.data);
     }
@@ -95,15 +144,90 @@ const ReservationComp = (
         toast.error('An unexpected error occurred while getting data.');
     }
 
-    setIsLoading(false);
+    setIsLoading(false);*/ //replace 1
     router.push('/gestor/InfraGestor/reservations');
   }
+
+  //replace 1
+  useEffect(() => {
+    const fetchData = async () => {
+      if (method === 'Create') {
+        setIsLoading(true);
+        try {
+          const res = await axios.get('/api/pages/gestor/InfraGestor/reservations', { params: { last: 'true' } });
+          formReset(res.data);
+        } catch (error) {
+          console.error("Error fetching reservation data:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+  }, [method]);
+
+  const handleSave = async(e) => {
+    e.preventDefault();
+
+    try {
+
+      if(Object.values(formData).some(value => value === '' || value === null || value === undefined)){
+        toast.warning("All fields required");
+        return;
+      }
+
+      setIsLoading(true);
+
+      let res;
+
+      if(method == 'Create') {
+        res = await axios.post('/api/pages/gestor/InfraGestor/reservations', formData);
+      }
+
+      if(method == 'Update') {
+        res = await axios.put('/api/pages/gestor/InfraGestor/reservations', formData);
+      }
+
+      if (res.status === 200) {
+        //console.log(res.data.message);
+
+        // Update docID
+        const x = formData.docID.split('/');
+        const newDocId = `${x[0]}/${x[1]}/${parseInt(x[2])+1}`;
+
+        formReset(newDocId);
+
+        setIsLoading(false);
+
+        setTimeout(() => {
+          (method == 'Update') && router.push('/gestor/InfraGestor/reservations/listView');
+        }, 1000);
+
+        toast.success(res.data.message, {
+            autoClose: 2000,
+        });
+      }
+      else {
+        throw err;
+      }
+
+    }
+    catch(err) {
+      //console.log(err);
+      setIsLoading(false);
+      toast.error('An unexpected error occurred while processing.');
+    }
+  };
 
   return (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
-        <h2 className={styles.title}>Reservations</h2>
+        <h2 className={styles.title}>
+          {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
+          {(method == "Update")? "Update" : "Create"} Reservation
+        </h2>
 
         <div className={styles.docInfo}>
           <div className={styles.formGroup}>
@@ -125,7 +249,7 @@ const ReservationComp = (
           {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
           {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
           <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
-          <button className={styles.button} onClick={''}>{(method !== "Create")? "Update" : "Save"}</button>
+          <button className={styles.button} onClick={handleSave}>{(method !== "Create")? "Update" : "Save"}</button>
         </div>
       </div>
 
@@ -134,7 +258,7 @@ const ReservationComp = (
       <div className={styles.formGroup}>
           <label>Faculty</label>
           <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method !== 'Create'} >
-              <option value="" disabled>Select Faculty</option>
+              <option value="" disabled>Select faculty</option>
               {facultys.map((faculty, index) => (
                 <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
               ))}
@@ -160,10 +284,10 @@ const ReservationComp = (
         {/* Location Name */}
         <div className={styles.formGroup}>
           <label>Location Name</label>
-          <select className={styles.input} name='location' value={formData.location} onChange={handleChange} disabled={method !== 'Create'} >
+          <select className={styles.input} name='location' value={formData.location} onChange={handleChange} disabled={(method !== 'Create') || (formData.faculty === '')} >
               {filteredLocations.length > 0 ? (
                 <>
-                  <option value="" disabled>Select Location</option>
+                  <option value="" disabled>Select location</option>
                   {filteredLocations.map((location, index) => (
                     <option key={index} value={location.locName}>
                       {location.locName}
@@ -172,7 +296,7 @@ const ReservationComp = (
                 </>
               ) : (
                 <option value="" disabled>
-                  No locations available. Please select a faculty.
+                  {formData.faculty === '' ? 'Select Faculty first' : 'No locations available.'}
                 </option>
               )}
             </select>
@@ -181,25 +305,25 @@ const ReservationComp = (
         {/* From Date */}
         <div className={styles.formGroup}>
           <label>From Date</label>
-          <input type="date" className={styles.input} placeholder="dd/mm/yyyy" name='fromDate' value={formData.fromDate} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type="date" className={styles.input} name='fromDate' value={formData.fromDate} onChange={handleChange} disabled={method !== 'Create'} />
         </div>
 
         {/* To Date */}
         <div className={styles.formGroup}>
           <label>To Date</label>
-          <input type="date" className={styles.input} placeholder="dd/mm/yyyy" name='toDate' value={formData.toDate} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type={(formData.fromDate === '') ? "text" : "date"} placeholder='Add From Date first' className={styles.input} name='toDate' value={formData.toDate} onChange={handleChange} disabled={(method !== 'Create') || (formData.fromDate === '')} />
         </div>
 
         {/* From Time */}
         <div className={styles.formGroup}>
           <label>From Time</label>
-          <input type="time" className={styles.input} name='fromTime' value={formData.fromTime} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type={(formData.toDate === '') ? "text" : "time"} placeholder='Add To Date first' className={styles.input} name='fromTime' value={formData.fromTime} onChange={handleChange} disabled={(method !== 'Create') || (formData.toDate === '')} />
         </div>
 
         {/* To Time */}
         <div className={styles.formGroup}>
           <label>To Time</label>
-          <input type="time" className={styles.input} name='toTime' value={formData.toTime} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type={(formData.fromTime === '') ? "text" : "time"} placeholder='Add From Time first' className={styles.input} name='toTime' value={formData.toTime} onChange={handleChange} disabled={(method !== 'Create') || (formData.fromTime === '')} />
         </div>
 
         {/* Organizer */}
@@ -257,36 +381,33 @@ const ReservationComp = (
       <table className={styles.table}>
           <thead>
             <tr>
-              <th>Location Name</th>
               <th>Hall No</th>
+              <th>Hall Capacity</th>
               <th>Status</th>
               <th>Latest Reservation</th>
               <th>Reserved By</th>
               <th>Reserved Until</th>
-              <th>Hall Capacity</th>
               <th>Reserve</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Building 1</td>
               <td>LGF 05</td>
-              <td>✔️</td>
-              <td>Event 1</td>
-              <td>Admin</td>
-              <td>06/06/2024 12.00 PM</td>
-              <td>06/06/2024 12.00 PM</td>
-              <td>06/06/2024 12.00 PM</td>
+              <td>150</td>
+              <td>Free</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type='checkbox' /></td>
             </tr>
             <tr>
-              <td>Building 2</td>
               <td>SF 01</td>
-              <td>❌</td>
+              <td>75</td>
+              <td>Reserved</td>
               <td>Event 2</td>
               <td>Admin</td>
               <td>06/06/2024 12.00 PM</td>
-              <td>06/06/2024 12.00 PM</td>
-              <td>06/06/2024 12.00 PM</td>
+              <td><input type='checkbox' checked disabled/></td>
             </tr>
             {/* Add more rows as needed */}
           </tbody>
