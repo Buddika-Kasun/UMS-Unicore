@@ -52,6 +52,17 @@ const ReservationComp = (
       return;
     }
 
+    if (name === 'fromDate') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Set time to midnight for today's date
+
+      if (new Date(value) < today) {
+        toast.warning("From Date cannot be before today.");
+        return;
+      }
+    }
+
+
     if (name === 'fromDate' && value == '') {
       formData.toDate = '';
       formData.fromTime = '';
@@ -67,6 +78,18 @@ const ReservationComp = (
       formData.fromTime = '';
       formData.toTime = '';
     }
+
+    if (name === 'fromTime') {
+      const fromDateTime = new Date(`${formData.fromDate}T${value}`);
+      const now = new Date();
+      const thirtyMinutesLater = new Date(now.getTime() + 30 * 60 * 1000); // Adds 30 minutes
+
+      if (fromDateTime < thirtyMinutesLater) {
+        toast.warning("From Time must be at least 30 minutes from now.");
+        return;
+      }
+    }
+
 
     if (name === 'fromTime') {
       const fromDateTime = new Date(`${formData.fromDate}T${value}`);
@@ -176,7 +199,7 @@ const ReservationComp = (
       const res = await axios.get(`/api/pages/gestor/master/subLocation?location=${formData.location}`)
 
       if (res.status === 200){
-        setHalls(res.data); console.log(halls);
+        setHalls(res.data); //console.log(halls);
       }
       else{
         throw new Error;
@@ -230,13 +253,30 @@ const ReservationComp = (
         console.error("Error fetching reservations:", err);
       }
     }
+    else {
+
+      const displayHalls = halls.map((hall) => {
+
+        return {
+          hallNo: hall.subLocationCode,
+          hallCap: hall.hallCap,
+          status: '',
+          title: '',
+          reservedBy: '',
+          dateTime: '',
+        };
+
+      });
+
+      setDisplayHalls(displayHalls);
+    }
   };
 
   useEffect(() => {
 
-    fetchFilteredReservations(); console.log(filteredReservations);
+    fetchFilteredReservations(); console.log("filtereedReservation = ", filteredReservations);
 
-  }, [formData.fromDate, formData.toDate, formData.fromTime, formData.toTime, formData.location]);
+  }, [ halls, formData.fromDate, formData.toDate, formData.fromTime, formData.toTime]);
 
   const handleSave = async(e) => {
     e.preventDefault();
@@ -507,11 +547,12 @@ const ReservationComp = (
                   <td>{hall.title}</td>
                   <td>{hall.reservedBy}</td>
                   <td>{hall.dateTime}</td>
+                  <td>{(hall.status !== '') ? (hall.status === 'Free') ? <input type='checkbox' /> : <input type='checkbox' checked disabled /> : ''}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6" style={{ textAlign: 'center' }}>No data available</td>
+                <td colSpan="7" style={{ textAlign: 'center' }}>...</td>
               </tr>
             )}
           </tbody>
