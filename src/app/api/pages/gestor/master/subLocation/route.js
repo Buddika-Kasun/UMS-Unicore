@@ -64,7 +64,10 @@ export async function GET(req) {
     try {
 
         const url = new URL(req.url);
+
         const fetchLast = url.searchParams.get('last');
+
+        const location = url.searchParams.get('location'); // Fetch the 'location' query parameter
 
         await dbConnect();
 
@@ -74,6 +77,21 @@ export async function GET(req) {
             const newdocId = `${preDocID.docID.split('/')[0]}/SLOC/${id}`;
 
             return NextResponse.json(newdocId, { status: 200 });
+        }
+        else if(location) {
+            // Define query conditions based on the presence of 'location'
+            const query = { locationName: location, active: 'Yes' } ;
+
+            // Fetch sublocations from MongoDB based on the query
+            const records = await Sublocation.find(query, { _id: 0, __v: 0 }).lean();
+
+            // Map data to match the headers if needed
+            const sublocations = records.map((record) => ({
+                subLocationCode: record.subLocationCode,
+                hallCap: record.hallCap,
+            }));
+
+            return NextResponse.json(sublocations, { status: 200 });
         }
         else{
             //const sublocations = await Sublocation.find({},{_id: 0, __v:0}).lean();
