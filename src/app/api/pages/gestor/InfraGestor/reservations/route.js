@@ -24,6 +24,7 @@ const sanitize = (value) => {
         repeat: xssSanitize(value.repeat),
         active: xssSanitize(value.active),
         cancel: xssSanitize(value.cancel),
+        hallStatusPairs: value.hallStatusPairs,
     };
 };
 
@@ -58,8 +59,17 @@ export async function GET(req) {
         if (fetchLast) {
 
             const preDocID = await Reservation.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
-            const id = parseInt(preDocID.docID.split('/')[2]) + 1;
-            const newDocId = `${preDocID.docID.split('/')[0]}/RVC/${id}`;
+
+            let newDocId;
+
+            if (preDocID) {
+                const id = parseInt(preDocID.docID.split('/')[2]) + 1;
+                newDocId = `${preDocID.docID.split('/')[0]}/RVC/${id}`;
+            }
+            else{
+                const currentYear = (new Date().getFullYear()) % 100;
+                newDocId = `${currentYear}/RVC/1`;
+            }
 
             return NextResponse.json(newDocId, { status: 200 });
         }
@@ -73,21 +83,31 @@ export async function GET(req) {
 
             const records = await Reservation.find(query, {
                 "hallStatusPairs.hallNo": 1,
+                "hallStatusPairs.hallCap": 1,
                 "hallStatusPairs.status": 1,
                 title: 1,
                 toDate: 1,
                 toTime: 1,
+                fromDate: 1,
+                fromTime:1,
                 reservedBy: 1,
                 _id: 0, // Exclude the MongoDB ID from the response
             }).lean();
 
+            //console.log(records);
+
             const reservations = records.map(record => {
                 return record.hallStatusPairs.map(pair => ({
                     hallNo: pair.hallNo,
+                    hallCap: pair.hallCap,
                     status: pair.status,
                     title: record.title,
                     dateTime: record.toDate + ' ' + record.toTime,
                     reservedBy: record.reservedBy,
+                    toTime: record.toTime,
+                    toDate: record.toDate,
+                    fromTime: record.fromTime,
+                    fromDate: record.fromDate,
                 }));
             }).flat();
 
