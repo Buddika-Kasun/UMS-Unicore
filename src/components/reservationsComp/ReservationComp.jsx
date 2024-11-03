@@ -326,6 +326,12 @@ const ReservationComp = (
             });
           }
 
+          if (method === "Cancel") {
+            filtered = filtered.filter(reservation => {
+              return reservation.docID === formData.docID;
+            });
+          }
+
           setFilteredReservations(filtered);
 
       } catch (err) {
@@ -344,15 +350,19 @@ const ReservationComp = (
     const updatedDisplayHalls = halls.map((hall) => {
       const reservation = filteredReservations.find(res => res.hallNo === hall.subLocationCode);
 
+      if (method === 'Cancel' && !reservation) {
+        return null;
+      }
+
       return {
         hallNo: hall.subLocationCode,
         hallCap: hall.hallCap,
-        status: reservation ? reservation.status : (formData.fromTime === '' || formData.toTime === '') ? '' : 'Free',
+        status: reservation ? reservation.status : (formData.fromTime === '' || formData.toTime === '') ? '' : (method === 'Cancel') ? '' : 'Free',
         title: reservation ? reservation.title : '',
         reservedBy: reservation ? reservation.reservedBy : '',
         dateTime: reservation ? reservation.dateTime : '',
       };
-    });
+    }).filter(Boolean);
 
     setDisplayHalls(updatedDisplayHalls);
   }, [halls, filteredReservations, formData.fromTime, formData.toTime]);
@@ -396,6 +406,11 @@ const ReservationComp = (
         res = await axios.put('/api/pages/gestor/InfraGestor/reservations', saveData);
       }
 
+      if (method == 'Cancel') {
+        const cancelData = {docID: formData.docID, cancel: "Yes"}
+        res = await axios.put('/api/pages/gestor/InfraGestor/reservations', cancelData);
+      }
+
       if (res.status === 200) {
         //console.log(res.data.message);
 
@@ -405,10 +420,11 @@ const ReservationComp = (
 
         formReset(newDocId);
 
-        setIsLoading(false);
+        (method == 'Create') && setIsLoading(false);
 
         setTimeout(() => {
           (method == 'Update') && router.push('/gestor/InfraGestor/reservations/listView');
+          (method == 'Cancel') && router.push('/gestor/InfraGestor/cancel-reservation');
         }, 1000);
 
         toast.success(res.data.message, {
@@ -456,7 +472,7 @@ const ReservationComp = (
           {(method == "Create") && <button className={styles.button} onClick={() => visit('Update')}>List View</button>}
           {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
           {(method != "Cancel") && <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>}
-          <button className={styles.button} onClick={handleSave}>{(method !== "Create")? "Update" : "Save"}</button>
+          <button className={styles.button} onClick={handleSave}>{(method !== "Create")? (method === "Cancel")? "Cancel" : "Update" : "Save"}</button>
         </div>
       </div>
 
@@ -570,7 +586,7 @@ const ReservationComp = (
         </div>
 
         {/* Canceled */}
-        {(method === 'Cancel') && <div className={styles.formGroup}>
+        {/*(method === 'Cancel') && <div className={styles.formGroup}>
           <label>Canceled?</label>
           <div className={styles.inlineGroup}>
             <label className={styles.radio}>
@@ -580,7 +596,7 @@ const ReservationComp = (
               <input type="radio" name="cancel" value="No" checked={formData.cancel === 'No'} onChange={handleChange} /> No
             </label>
           </div>
-        </div>}
+        </div>*/}
       </form>
 
       {/* Table */}
@@ -608,13 +624,13 @@ const ReservationComp = (
                   <td>{hall.reservedBy}</td>
                   <td>{hall.dateTime}</td>
                   <td>{(hall.status !== '') ? (hall.status === 'Free') ?
-                    (method === 'Cancel') ?
-                      <input type='checkbox' disabled />
-                    :
-                    <input type='checkbox' onChange={(e) => handleCheckboxChange(hall.hallNo, hall.hallCap, e.target.checked)} checked={selectedHalls.some((selected) => selected.hallNo === hall.hallNo)} />
+                    /* (method === 'Cancel') ?
+                      ''
+                    : */
+                      <input type='checkbox' onChange={(e) => handleCheckboxChange(hall.hallNo, hall.hallCap, e.target.checked)} checked={selectedHalls.some((selected) => selected.hallNo === hall.hallNo)} />
                     :
                     (method === 'Update') ?
-                      <input type='checkbox' onChange={(e) => handleCheckboxChange(hall.hallNo, hall.hallCap, e.target.checked)} checked={selectedHalls.some((selected) => selected.hallNo === hall.hallNo)} />
+                      <input type='checkbox' onChange={(e) => handleCheckboxChange(hall.hallNo, hall.hallCap, e.target.checked)} checked={selectedHalls.some((selected) => selected.hallNo === hall.hallNo) || hall.title !== formData.title} disabled={hall.title !== formData.title} />
                     :
                       <input type='checkbox' checked disabled /> : ''}
                   </td>
