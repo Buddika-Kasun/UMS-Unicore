@@ -70,6 +70,10 @@ const reservationSchema = new Schema({
             type: String,
             required: true,
         },
+        hallCap: {
+            type: String,
+            required: true,
+        },
         status: {
             type: String,
             required: true,
