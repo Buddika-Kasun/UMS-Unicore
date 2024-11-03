@@ -162,9 +162,14 @@ const ReservationComp = (
     setSelectedHalls([]);
   };
 
-  const visit = () => {
+  const visit = (value) => {
     setIsLoading(true);
-    router.push('/gestor/InfraGestor/reservations/listView');
+    if (value == "Update") {
+      router.push('/gestor/InfraGestor/reservations/listView');
+    }
+    else if (value == "Cancel") {
+      router.push('/gestor/InfraGestor/cancel-reservation');
+    }
   }
 
   const goNew = async() => {
@@ -427,8 +432,8 @@ const ReservationComp = (
       {isloading && <SubLoading />}
       <div className={styles.header}>
         <h2 className={styles.title}>
-          {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
-          {(method == "Update")? "Update" : "Create"} Reservation
+          {(method == "Update" || method == "Cancel") && <button className={styles.backBtn} onClick={() => visit(method)}><HiArrowLeft /></button>}
+          {(method == "Update")? "Update" : (method == "Cancel")? "Cancel" : "Create"} Reservation
         </h2>
 
         <div className={styles.docInfo}>
@@ -448,9 +453,9 @@ const ReservationComp = (
       {/* Button Group now in a new row */}
       <div className={styles.buttonRow}>
         <div className={styles.buttonGroup}>
-          {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
+          {(method == "Create") && <button className={styles.button} onClick={() => visit('Update')}>List View</button>}
           {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
-          <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
+          {(method != "Cancel") && <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>}
           <button className={styles.button} onClick={handleSave}>{(method !== "Create")? "Update" : "Save"}</button>
         </div>
       </div>
@@ -603,6 +608,9 @@ const ReservationComp = (
                   <td>{hall.reservedBy}</td>
                   <td>{hall.dateTime}</td>
                   <td>{(hall.status !== '') ? (hall.status === 'Free') ?
+                    (method === 'Cancel') ?
+                      <input type='checkbox' disabled />
+                    :
                     <input type='checkbox' onChange={(e) => handleCheckboxChange(hall.hallNo, hall.hallCap, e.target.checked)} checked={selectedHalls.some((selected) => selected.hallNo === hall.hallNo)} />
                     :
                     (method === 'Update') ?
