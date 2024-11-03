@@ -190,21 +190,16 @@ const LocationForm = (
       </div>
 
       {/* Form Field */}
-      <div className={styles.formBody}>
+      <div className={styles.formBody2}>
 
         <div className={styles.formGroup}>
           <label>Location Code</label>
-          <input type="text" className={styles.inputField} value={formData.locCode} disabled />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label>Location Name</label>
-          <input type="text" className={styles.inputField} placeholder="Enater location name" name='locName' value={formData.locName} onChange={handleChange} />
+          <input type="text" className={styles.inputField2} value={formData.locCode} disabled />
         </div>
 
         <div className={styles.formGroup}>
           <label>Faculty</label>
-          <select className={styles.inputField} name='faculty' value={formData.faculty} onChange={handleChange} required>
+          <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} required>
             <option value="" disabled>Select Faculty</option>
             {facultys.map((faculty, index) => (
               <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
@@ -214,7 +209,7 @@ const LocationForm = (
 
         <div className={styles.formGroup}>
           <label>Building No</label>
-          <select className={styles.inputField} name='buildingNo' value={formData.buildingNo} onChange={handleChange}>
+          <select className={styles.inputField2} name='buildingNo' value={formData.buildingNo} onChange={handleChange}>
             <option value="" disabled>Select building</option>
             {buildings.map((building, index) => (
               <option key={index} value={building.valueDscrp}>
@@ -226,7 +221,7 @@ const LocationForm = (
 
         <div className={styles.formGroup}>
           <label>Floor No</label>
-          <select className={styles.inputField} name='floorNo' value={formData.floorNo} onChange={handleChange}>
+          <select className={styles.inputField2} name='floorNo' value={formData.floorNo} onChange={handleChange}>
             <option value="" disabled>Select floor</option>
             {floors.map((floor, index) => (
               <option key={index} value={floor.valueDscrp}>
@@ -237,8 +232,13 @@ const LocationForm = (
         </div>
 
         <div className={styles.formGroup}>
+          <label>Location Name</label>
+          <input type="text" className={styles.inputField2} placeholder="Enater location name" name='locName' value={formData.locName} onChange={handleChange} />
+        </div>
+
+        <div className={styles.formGroup}>
           <label>Cost Center</label>
-          <select className={styles.inputField} name='cost' value={formData.cost} onChange={handleChange}>
+          <select className={styles.inputField2} name='cost' value={formData.cost} onChange={handleChange}>
             <option value="" disabled>Select Cost Center</option>
             {costCenters.map((costCenter, index) => (
               <option key={index} value={costCenter}>{costCenter}</option>
@@ -248,7 +248,7 @@ const LocationForm = (
 
         <div className={styles.formGroup}>
           <label>Location Type</label>
-          <select className={styles.inputField} name='locationType' value={formData.locationType} onChange={handleChange}>
+          <select className={styles.inputField2} name='locationType' value={formData.locationType} onChange={handleChange}>
             <option value="" disabled>Select location type</option>
             {locationTypes.map((locationType, index) => (
               <option key={index} value={locationType.valueDscrp}>
