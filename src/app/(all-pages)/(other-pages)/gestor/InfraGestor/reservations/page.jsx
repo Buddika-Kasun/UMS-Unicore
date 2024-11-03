@@ -22,6 +22,8 @@ const ReservationForm = async({searchParams}) => {
 
   const reservationData = docID ? await Reservation.findOne({ docID }) : null;
 
+  //console.log(reservationData)
+
   if(reservationData){
 
     formData = {
@@ -41,8 +43,14 @@ const ReservationForm = async({searchParams}) => {
       reservedBy: reservationData.reservedBy,
       active: reservationData.active,
       cancel: reservationData.cancel,
+      //hallStatusPairs: reservationData.hallStatusPairs,
+      hallStatusPairs: reservationData.hallStatusPairs.map(({ hallNo, hallCap, status }) => ({
+        hallNo,
+        hallCap,
+        status
+      }))
     };
-
+    console.log(formData);
   }
   else {
 
@@ -63,6 +71,7 @@ const ReservationForm = async({searchParams}) => {
 
     formData = {
       docID: newdocId,
+      reservedBy: userName,
     };
   }
 
