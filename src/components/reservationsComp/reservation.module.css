@@ -121,6 +121,18 @@
   margin-right: 10px;
 }
 
+.green {
+  color: rgb(9, 227, 9);
+}
+
+.red {
+  color: red;
+}
+
+.red, .green {
+  font-weight: bold;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .form {
