@@ -244,11 +244,11 @@ const CreateSubLocation = (
         <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" className={styles.inputField} value={formData.docID} disabled  />
+            <input type="text" className={styles.inputField2} value={formData.docID} disabled  />
           </div>
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" className={styles.inputField} value={formData.docDate} disabled/>
+            <input type="text" className={styles.inputField2} value={formData.docDate} disabled/>
           </div>
         </div>
       </div>
@@ -264,11 +264,11 @@ const CreateSubLocation = (
         </div>
 
         {/* Form Fields */}
-        <form className={styles.formBody}>
+        <form className={styles.formBody2}>
           
           <div className={styles.formGroup}>
             <label>Faculty</label>
-            <select className={styles.inputField} name='faculty' value={formData.faculty} onChange={handleChange} >
+            <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} >
               <option value="" disabled>Select Faculty</option>
               <option value="All">All</option>
               {facultys.map((faculty, index) => (
@@ -279,7 +279,7 @@ const CreateSubLocation = (
 
           <div className={styles.formGroup}>
             <label>Location Name</label>
-            <select className={styles.inputField} name='locationName' value={formData.locationName} onChange={handleChange}>
+            <select className={styles.inputField2} name='locationName' value={formData.locationName} onChange={handleChange}>
               {filteredLocations.length > 0 ? (
                 <>
                   <option value="" disabled>Select Location</option>
@@ -299,12 +299,12 @@ const CreateSubLocation = (
 
           <div className={styles.formGroup}>
             <label>Sublocation Name</label>
-            <input type="text" className={styles.inputField} placeholder='Enter sublocation name' name='subLocationName' value={formData.subLocationName} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter sublocation name' name='subLocationName' value={formData.subLocationName} onChange={handleChange} />
           </div>
 
           <div className={styles.formGroup}>
             <label>Sublocation Code</label>
-            <input type="text" className={styles.inputField} placeholder='Enter sublocation code' name='subLocationCode' value={formData.subLocationCode} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter sublocation code' name='subLocationCode' value={formData.subLocationCode} onChange={handleChange} />
           </div>
 
           {/* Stock Location */}
@@ -322,17 +322,17 @@ const CreateSubLocation = (
 
           {(formData.stockLoc === 'No') && <div className={styles.formGroup}>
             <label>Hall Capacity</label>
-            <input type="text" className={styles.inputField} placeholder='Enter hall capacity' name='hallCap' value={formData.hallCap} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter hall capacity' name='hallCap' value={formData.hallCap} onChange={handleChange} />
           </div>}
 
           {(formData.stockLoc === 'Yes') && <><div className={styles.formGroup}>
             <label>Rack No</label>
-            <input type="text" className={styles.inputField} placeholder='Enter rack number' name='rackNo' value={formData.rackNo} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter rack number' name='rackNo' value={formData.rackNo} onChange={handleChange} />
           </div>
 
           <div className={styles.formGroup}>
             <label>Bin No</label>
-            <input type="text" className={styles.inputField} placeholder='Enter bin number' name='binNo' value={formData.binNo} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter bin number' name='binNo' value={formData.binNo} onChange={handleChange} />
           </div>
           </>}
 
