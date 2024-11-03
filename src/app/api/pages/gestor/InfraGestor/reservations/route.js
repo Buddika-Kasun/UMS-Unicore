@@ -91,6 +91,7 @@ export async function GET(req) {
                 fromDate: 1,
                 fromTime:1,
                 reservedBy: 1,
+                docID: 1,
                 _id: 0, // Exclude the MongoDB ID from the response
             }).lean();
 
@@ -108,6 +109,7 @@ export async function GET(req) {
                     toDate: record.toDate,
                     fromTime: record.fromTime,
                     fromDate: record.fromDate,
+                    docID: record.docID,
                 }));
             }).flat();
 
@@ -146,9 +148,16 @@ export async function GET(req) {
 export async function PUT(req) {
     try {
         const data = await req.json();
-        const sanitizedData = sanitize(data);
 
         await dbConnect();
+
+        if (data.cancel === 'Yes') {
+            const result = await Reservation.updateOne({ docID: data.docID }, { $set: {cancel: 'Yes' }});
+            return NextResponse.json({ message: "Canceled Reservation" }, { status: 200 });
+        }
+
+        const sanitizedData = sanitize(data);
+
         const result = await Reservation.updateOne({ docID: sanitizedData.docID }, { $set: sanitizedData });
 
         if (result.modifiedCount === 0) {
