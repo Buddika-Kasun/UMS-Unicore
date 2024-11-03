@@ -1,7 +1,14 @@
-const ViewResUti = () => {
-    return (
-      <div>Resorce view page</div>
-    );
-  };
+"use server"
 
-  export default ViewResUti;
+import ViewResourceUtilization from '@/components/viewResourceUtilization/ViewResourceUtilization';
+import React from 'react';
+
+function App() {
+  return (
+    <div className="App">
+      <ViewResourceUtilization />
+    </div>
+  );
+}
+
+export default App;
