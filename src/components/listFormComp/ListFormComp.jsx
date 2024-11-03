@@ -177,11 +177,11 @@ const ListFormComp = ({data, method, user, facultys}) => {
         <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" className={styles.inputField} value={formData.docID} disabled/>
+            <input type="text" className={styles.inputField2} value={formData.docID} disabled/>
           </div>
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" className={styles.inputField} value={formData.docDate} disabled/>
+            <input type="text" className={styles.inputField2} value={formData.docDate} disabled/>
           </div>
         </div>
       </div>
@@ -198,11 +198,21 @@ const ListFormComp = ({data, method, user, facultys}) => {
         </div>
 
         {/* Form Fields */}
-        <div className={styles.formBody}>
+        <div className={styles.formBody2}>
+        
+          <div className={styles.formGroup}>
+            <label>List Code</label>
+            <input type="text" className={styles.inputField2} placeholder="Type list code here" name='listCode' value={formData.listCode} onChange={handleChange} disabled={method === "Update"}/>
+          </div>
 
           <div className={styles.formGroup}>
+            <label>List Description</label>
+            <input type="text" className={styles.inputField2} placeholder="Type list description here" name='listDscrp' value={formData.listDscrp} onChange={handleChange} disabled={method === "Update"} />
+          </div>
+          
+          <div className={styles.formGroup}>
             <label>Faculty</label>
-            <select className={styles.inputField} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === "Update"} >
+            <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === "Update"} >
             <option value="" disabled>Select Faculty</option>
             <option value="All">All</option>
               {facultys.map((faculty, index) => (
@@ -211,24 +221,14 @@ const ListFormComp = ({data, method, user, facultys}) => {
             </select>
           </div>
         
-          <div className={styles.formGroup}>
-            <label>List Code</label>
-            <input type="text" className={styles.inputField} placeholder="Type list code here" name='listCode' value={formData.listCode} onChange={handleChange} disabled={method === "Update"}/>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>List Description</label>
-            <input type="text" className={styles.inputField} placeholder="Type list description here" name='listDscrp' value={formData.listDscrp} onChange={handleChange} disabled={method === "Update"} />
-          </div>
-        
           {(method === "Update") && <><div className={styles.formGroup}>
             <label>Modified By</label>
-            <input type="text" className={styles.inputField} name='modifiedBy' value={formData.modifiedBy} disabled />
+            <input type="text" className={styles.inputField2} name='modifiedBy' value={formData.modifiedBy} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Modified Date</label>
-            <input type="text" className={styles.inputField} name='modifiedDate' value={formData.modifiedDate} disabled />
+            <input type="text" className={styles.inputField2} name='modifiedDate' value={formData.modifiedDate} disabled />
           </div></>}
 
           {/* Active Status with Radio Buttons */}
