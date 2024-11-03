@@ -26,9 +26,9 @@ const ListView = (
     const [isloading, setIsLoading] = useState(false);
 
     // Check if there's data to display
-    if (!data || data.length === 0) {
+    /*if (!data || data.length === 0) {
         return <div className={styles.container}>No data available</div>;
-    }
+    }*/
 
     const fetchData = async () => {
         try {
@@ -103,17 +103,23 @@ const ListView = (
                 </tr>
             </thead>
             <tbody>
-                {data.map((row, index) => (
-                <tr key={index}>
-                    {Object.values(row).map((value, idx) => (
-                    <td key={idx}>{value}</td>
-                    ))}
-                    <td className={styles.edit}>
-                        <button title="Edit" className={styles.editBtn} onClick={() => handleEdit(row.docID || row[0])}><MdEdit /></button>
-                        {/* <button title="Delete" className={styles.deleteBtn} onClick={() => handleDelete(row.docID)}><MdDeleteForever /></button> */}
-                    </td>
-                </tr>
-                ))}
+                {(!data || data.length === 0) ? (
+                    <tr>
+                        <td colSpan={headers.length}>No data available</td>
+                    </tr>
+                ) : (
+                    data.map((row, index) => (
+                    <tr key={index}>
+                        {Object.values(row).map((value, idx) => (
+                        <td key={idx}>{value}</td>
+                        ))}
+                        <td className={styles.edit}>
+                            <button title="Edit" className={styles.editBtn} onClick={() => handleEdit(row.docID || row[0])}><MdEdit /></button>
+                            {/* <button title="Delete" className={styles.deleteBtn} onClick={() => handleDelete(row.docID)}><MdDeleteForever /></button> */}
+                        </td>
+                    </tr>
+                    ))
+                )}
             </tbody>
             </table>
             </div>
