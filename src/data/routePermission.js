@@ -191,7 +191,15 @@ const routeData = [
     },
     {
         path: "/api/pages/setup/createList",
+<<<<<<< HEAD
         permission: ["System Admin"]
+=======
+        permission: [""]
+    },
+    {
+        path: "/api/pages/gestor/InfraGestor/cancelRes",
+        permission: [""]
+>>>>>>> f818b9c9ae84b99b527b5db65615ef336a16c631
     }
 ];
 
