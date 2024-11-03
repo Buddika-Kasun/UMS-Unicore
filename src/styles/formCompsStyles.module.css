@@ -249,6 +249,22 @@ padding: 10px 0;
     text-decoration: underline;
   }
 
+  /*Charts*/
+  .chartsSection {
+    margin-top: 30px;
+  }
+  
+  .chartsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .chart {
+    width: 80%;
+  }
+
 /* Responsive Styles */
 @media (max-width: 768px) {
 
@@ -285,6 +301,14 @@ padding: 10px 0;
 
     .pendingTable {
         width: 100%;
+    }
+
+    .chartsContainer {
+      flex-direction: row;
+    }
+  
+    .chart {
+      width: 45%;
     }
 
 }
