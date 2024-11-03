@@ -587,11 +587,7 @@ const ReservationComp = (
         </div>
 
         {/* Canceled */}
-<<<<<<< HEAD
-        {(method === 'Cancel') && <div className={styles.formGroupActive}>
-=======
         {/*(method === 'Cancel') && <div className={styles.formGroup}>
->>>>>>> f818b9c9ae84b99b527b5db65615ef336a16c631
           <label>Canceled?</label>
           <div className={styles.activeOptions}>
             <label>
@@ -601,13 +597,8 @@ const ReservationComp = (
               <input type="radio" name="cancel" value="No" checked={formData.cancel === 'No'} onChange={handleChange} /> No
             </label>
           </div>
-<<<<<<< HEAD
-        </div>}
-      </div>
-=======
         </div>*/}
-      </form>
->>>>>>> f818b9c9ae84b99b527b5db65615ef336a16c631
+      </div>
 
       {/* Table */}
       <div className={styles.tableContainer}>
