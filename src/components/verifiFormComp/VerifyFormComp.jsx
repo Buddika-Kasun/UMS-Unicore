@@ -79,25 +79,25 @@ const LocationForm = ({reqUser}) => {
     <div className={styles.container}>
 
       {/* Form Fields */}
-      <div className={styles.formBody}>
+      <div className={styles.formBody2}>
           <div className={styles.formGroup}>
             <label>Request on</label>
-            <input type="text" className={styles.inputField} value={new Date(reqUser.verification.createDate).toLocaleString()}  disabled />
+            <input type="text" className={styles.inputField2} value={new Date(reqUser.verification.createDate).toLocaleString()}  disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Verification type</label>
-            <input type="text" className={styles.inputField} value={reqUser.verification.type} disabled />
+            <input type="text" className={styles.inputField2} value={reqUser.verification.type} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Faculty</label>
-            <input type="text" className={styles.inputField} value={reqUser.faculty} disabled />
+            <input type="text" className={styles.inputField2} value={reqUser.faculty} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Request role</label>
-              <select className={styles.inputField} value={role} onChange={handleChange}>
+              <select className={styles.inputField2} value={role} onChange={handleChange}>
                 <option value="System Admin">System Admin</option>
                 <option value="Student">Student</option>
                 <option value="Staff">Staff</option>
@@ -109,8 +109,10 @@ const LocationForm = ({reqUser}) => {
 
           <div className={styles.formGroup}>
             <label>Name</label>
-            <input type="text" className={styles.inputField} value={reqUser.name} disabled />
+            <input type="text" className={styles.inputField2} value={reqUser.name} disabled />
           </div>
+
+          <div></div>
 
           <div className={styles.buttonGroup}>
             <button className={styles.rejectBtn}>Reject</button>
