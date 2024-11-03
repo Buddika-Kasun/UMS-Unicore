@@ -87,6 +87,12 @@ flex-direction: column;
   gap: 20px;
 }
 
+.formBody3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
 .formBody .formGroup {
 margin-bottom: 20px;
 }
@@ -257,6 +263,10 @@ padding: 10px 0;
     }
 
     .formBody2 {
+      grid-template-columns: 1fr;
+    }
+
+    .formBody3 {
       grid-template-columns: 1fr;
     }
 
