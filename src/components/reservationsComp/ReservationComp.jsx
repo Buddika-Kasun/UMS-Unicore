@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import styles from './reservation.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import SubLoading from '../loading/SubLoading';
@@ -426,40 +426,41 @@ const ReservationComp = (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
+        {/* Title */}
         <h2 className={styles.title}>
           {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
           {(method == "Update")? "Update" : "Create"} Reservation
         </h2>
 
-        <div className={styles.docInfo}>
+        {/* Document Section */}
+        <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" className={styles.input} name='docID' value={formData.docID} disabled/>
+            <input type="text" className={styles.inputField} name='docID' value={formData.docID} disabled/>
           </div>
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" className={styles.input} name='docDate' value={formData.docDate} disabled/>
+            <input type="text" className={styles.inputField} name='docDate' value={formData.docDate} disabled/>
           </div>
         </div>
       </div>
 
     <div className={styles.container}>
 
-      {/* Button Group now in a new row */}
-      <div className={styles.buttonRow}>
+      {/* Button Row */}
         <div className={styles.buttonGroup}>
           {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
           {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
           <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
           <button className={styles.button} onClick={handleSave}>{(method !== "Create")? "Update" : "Save"}</button>
         </div>
-      </div>
 
-      <form className={styles.form}>
+       {/* Form Fields */}
+      <div className={styles.formBody3}>
 
       <div className={styles.formGroup}>
           <label>Faculty</label>
-          <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === 'Cancel'} >
+          <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === 'Cancel'} >
               <option value="" disabled>Select faculty</option>
               {facultys.map((faculty, index) => (
                 <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
@@ -470,7 +471,7 @@ const ReservationComp = (
         {/* Booking Type */}
         <div className={styles.formGroup}>
           <label>Booking Type</label>
-          <select className={styles.input} name='bookTyp' value={formData.bookTyp} onChange={handleChange} disabled={method === 'Cancel'} >
+          <select className={styles.inputField2} name='bookTyp' value={formData.bookTyp} onChange={handleChange} disabled={method === 'Cancel'} >
             <option value='' disabled>Select booking type</option>
             <option value='Internal use'>Internal use</option>
             <option value='External use'>External use</option>
@@ -480,13 +481,13 @@ const ReservationComp = (
         {/* Event Title */}
         <div className={styles.formGroup}>
           <label>Event Title</label>
-          <input type="text" className={styles.input} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} disabled={method === 'Cancel'} />
+          <input type="text" className={styles.inputField2} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         {/* Location Name */}
         <div className={styles.formGroup}>
           <label>Location Name</label>
-          <select className={styles.input} name='location' value={formData.location} onChange={handleChange} disabled={(method === 'Cancel') || (formData.faculty === '')} >
+          <select className={styles.inputField2} name='location' value={formData.location} onChange={handleChange} disabled={(method === 'Cancel') || (formData.faculty === '')} >
               {filteredLocations.length > 0 ? (
                 <>
                   <option value="" disabled>Select location</option>
@@ -507,41 +508,41 @@ const ReservationComp = (
         {/* From Date */}
         <div className={styles.formGroup}>
           <label>From Date</label>
-          <input type="date" className={styles.input} name='fromDate' value={formData.fromDate} onChange={handleChange} disabled={method === 'Cancel'} />
+          <input type="date" className={styles.inputField2} name='fromDate' value={formData.fromDate} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         {/* To Date */}
         <div className={styles.formGroup}>
           <label>To Date</label>
-          <input type={(formData.fromDate === '') ? "text" : "date"} placeholder='Add From Date first' className={styles.input} name='toDate' value={formData.toDate} onChange={handleChange} disabled={(method === 'Cancel') || (formData.fromDate === '')} />
+          <input type={(formData.fromDate === '') ? "text" : "date"} placeholder='Add From Date first' className={styles.inputField2} name='toDate' value={formData.toDate} onChange={handleChange} disabled={(method === 'Cancel') || (formData.fromDate === '')} />
         </div>
 
         {/* From Time */}
         <div className={styles.formGroup}>
           <label>From Time</label>
-          <input type={(formData.toDate === '') ? "text" : "time"} placeholder='Add To Date first' className={styles.input} name='fromTime' value={formData.fromTime} onChange={handleChange} disabled={(method === 'Cancel') || (formData.toDate === '')} />
+          <input type={(formData.toDate === '') ? "text" : "time"} placeholder='Add To Date first' className={styles.inputField2} name='fromTime' value={formData.fromTime} onChange={handleChange} disabled={(method === 'Cancel') || (formData.toDate === '')} />
         </div>
 
         {/* To Time */}
         <div className={styles.formGroup}>
           <label>To Time</label>
-          <input type={(formData.fromTime === '') ? "text" : "time"} placeholder='Add From Time first' className={styles.input} name='toTime' value={formData.toTime} onChange={handleChange} disabled={(method === 'Cancel') || (formData.fromTime === '')} />
+          <input type={(formData.fromTime === '') ? "text" : "time"} placeholder='Add From Time first' className={styles.inputField2} name='toTime' value={formData.toTime} onChange={handleChange} disabled={(method === 'Cancel') || (formData.fromTime === '')} />
         </div>
 
         {/* Organizer */}
         <div className={styles.formGroup}>
           <label>Organizer</label>
-          <input type="text" className={styles.input} placeholder='Enter organizer name here' name='organizer' value={formData.organizer} onChange={handleChange} disabled={method === 'Cancel'} />
+          <input type="text" className={styles.inputField2} placeholder='Enter organizer name here' name='organizer' value={formData.organizer} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         <div className={styles.formGroup}>
           <label>Reservation Remarks</label>
-          <input type="text" className={styles.input} placeholder='Enter remarks here' name='remark' value={formData.remark} onChange={handleChange} disabled={method === 'Cancel'} />
+          <input type="text" className={styles.inputField2} placeholder='Enter remarks here' name='remark' value={formData.remark} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         <div className={styles.formGroup}>
           <label>Repeat</label>
-          <select className={styles.input} name='repeat' value={formData.repeat} onChange={handleChange} disabled={method === 'Cancel'} >
+          <select className={styles.inputField2} name='repeat' value={formData.repeat} onChange={handleChange} disabled={method === 'Cancel'} >
             <option value='' disabled>Select repeat</option>
             <option value='None'>None</option>
             <option value='Daily'>Daily</option>
@@ -551,32 +552,32 @@ const ReservationComp = (
           </select>
         </div>
 
-        {/* Active */}
-        <div className={styles.formGroup}>
+        {/* Active Status with Radio Buttons */}
+        <div className={styles.formGroupActive}>
           <label>Active?</label>
-          <div className={styles.inlineGroup}>
-            <label className={styles.radio}>
+          <div className={styles.activeOptions}>
+            <label>
               <input type="radio" name="active" value="Yes" checked={formData.active === 'Yes'} onChange={handleChange} disabled={method === 'Cancel'} /> Yes
             </label>
-            <label className={styles.radio}>
+            <label>
               <input type="radio" name="active" value="No" checked={formData.active === 'No'} onChange={handleChange} disabled={method === 'Cancel'} /> No
             </label>
           </div>
         </div>
 
         {/* Canceled */}
-        {(method === 'Cancel') && <div className={styles.formGroup}>
+        {(method === 'Cancel') && <div className={styles.formGroupActive}>
           <label>Canceled?</label>
-          <div className={styles.inlineGroup}>
-            <label className={styles.radio}>
+          <div className={styles.activeOptions}>
+            <label>
               <input type="radio" name="cancel" value="Yes" checked={formData.cancel === 'Yes'} onChange={handleChange} /> Yes
             </label>
-            <label className={styles.radio}>
+            <label>
               <input type="radio" name="cancel" value="No" checked={formData.cancel === 'No'} onChange={handleChange} /> No
             </label>
           </div>
         </div>}
-      </form>
+      </div>
 
       {/* Table */}
       <div className={styles.tableContainer}>
