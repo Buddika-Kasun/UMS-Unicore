@@ -65,6 +65,16 @@ const reservationSchema = new Schema({
         type: String,
         default: "",
     },
+    hallStatusPairs: [{
+        hallNo: {
+            type: String,
+            required: true,
+        },
+        status: {
+            type: String,
+            required: true,
+        }
+    }]
 });
 
 export const Reservation = models.Reservation || model("Reservation", reservationSchema);

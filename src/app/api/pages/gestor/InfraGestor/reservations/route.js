@@ -46,17 +46,56 @@ export async function POST(req) {
 export async function GET(req) {
     try {
         const url = new URL(req.url);
+
         const fetchLast = url.searchParams.get('last');
+
+        const location = url.searchParams.get('location');
+        const fromDate = url.searchParams.get('fromDate');
+        const toDate = url.searchParams.get('toDate');
 
         await dbConnect();
 
         if (fetchLast) {
+
             const preDocID = await Reservation.findOne({}, { docID: 1, _id: 0 }).sort({ _id: -1 });
             const id = parseInt(preDocID.docID.split('/')[2]) + 1;
             const newDocId = `${preDocID.docID.split('/')[0]}/RVC/${id}`;
 
             return NextResponse.json(newDocId, { status: 200 });
-        } else {
+        }
+        else if(location && fromDate && toDate) {
+
+            const query = {
+                location: location,
+                fromDate: { $lte: toDate },
+                toDate: { $gte: fromDate }
+            };
+
+            const records = await Reservation.find(query, {
+                "hallStatusPairs.hallNo": 1,
+                "hallStatusPairs.status": 1,
+                title: 1,
+                toDate: 1,
+                toTime: 1,
+                reservedBy: 1,
+                _id: 0, // Exclude the MongoDB ID from the response
+            }).lean();
+
+            const reservations = records.map(record => {
+                return record.hallStatusPairs.map(pair => ({
+                    hallNo: pair.hallNo,
+                    status: pair.status,
+                    title: record.title,
+                    dateTime: record.toDate + ' ' + record.toTime,
+                    reservedBy: record.reservedBy,
+                }));
+            }).flat();
+
+            return NextResponse.json(reservations, { status: 200 });
+
+        }
+        else {
+
             const records = await Reservation.find({}, { _id: 0, __v: 0 }).lean();
             const reservations = records.map(record => [
                 record.docID,

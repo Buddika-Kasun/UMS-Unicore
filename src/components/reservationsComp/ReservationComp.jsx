@@ -52,6 +52,17 @@ const ReservationComp = (
       return;
     }
 
+    if (name === 'fromDate') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Set time to midnight for today's date
+
+      if (new Date(value) < today) {
+        toast.warning("From Date cannot be before today.");
+        return;
+      }
+    }
+
+
     if (name === 'fromDate' && value == '') {
       formData.toDate = '';
       formData.fromTime = '';
@@ -67,6 +78,18 @@ const ReservationComp = (
       formData.fromTime = '';
       formData.toTime = '';
     }
+
+    if (name === 'fromTime') {
+      const fromDateTime = new Date(`${formData.fromDate}T${value}`);
+      const now = new Date();
+      const thirtyMinutesLater = new Date(now.getTime() + 30 * 60 * 1000); // Adds 30 minutes
+
+      if (fromDateTime < thirtyMinutesLater) {
+        toast.warning("From Time must be at least 30 minutes from now.");
+        return;
+      }
+    }
+
 
     if (name === 'fromTime') {
       const fromDateTime = new Date(`${formData.fromDate}T${value}`);
@@ -166,6 +189,94 @@ const ReservationComp = (
 
     fetchData();
   }, [method]);
+
+  const [halls, setHalls] = useState([]);
+  const [filteredReservations, setFilteredReservations] = useState([]);
+  const [displayHalls, setDisplayHalls] = useState([]);
+
+  const fetchSublocations = async() => {
+    try {
+      const res = await axios.get(`/api/pages/gestor/master/subLocation?location=${formData.location}`)
+
+      if (res.status === 200){
+        setHalls(res.data); //console.log(halls);
+      }
+      else{
+        throw new Error;
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+
+    if(formData.location !== '') fetchSublocations();
+
+  }, [formData.location]);
+
+  const fetchFilteredReservations = async () => {
+    if (formData.location && formData.fromDate && formData.toDate) {
+      try {
+        const res = await axios.get(`/api/pages/gestor/InfraGestor/reservations?location=${formData.location}&fromDate=${formData.fromDate}&toDate=${formData.toDate}`);
+        const reservations = res.data; console.log(reservations);
+        if (formData.fromTime && formData.toTime) {
+          // Filter reservations by time
+          const filtered = reservations.filter(reservation =>
+            new Date(`${formData.fromDate}T${reservation.fromTime}`) <= new Date(`${formData.toDate}T${formData.toTime}`) &&
+            new Date(`${formData.toDate}T${reservation.toTime}`) >= new Date(`${formData.fromDate}T${formData.fromTime}`)
+          );
+          setFilteredReservations(filtered);
+        } else {
+          setFilteredReservations(reservations);
+        }
+
+        const displayHalls = halls.map((hall) => {
+          const reservation = filteredReservations.find(res => res.hallNo === hall.subLocationCode);
+
+          return {
+            hallNo: hall.subLocationCode,
+            hallCap: hall.hallCap,
+            status: reservation ? reservation.status : (formData.fromTime === '' || formData.toTime === '') ? '' : 'Free',
+            title: reservation ? reservation.title : '',
+            reservedBy: reservation ? reservation.reservedBy : '',
+            dateTime: reservation ? reservation.dateTime : '',
+          };
+
+        });
+
+        setDisplayHalls(displayHalls);
+        console.log(displayHalls);
+
+      } catch (err) {
+        console.error("Error fetching reservations:", err);
+      }
+    }
+    else {
+
+      const displayHalls = halls.map((hall) => {
+
+        return {
+          hallNo: hall.subLocationCode,
+          hallCap: hall.hallCap,
+          status: '',
+          title: '',
+          reservedBy: '',
+          dateTime: '',
+        };
+
+      });
+
+      setDisplayHalls(displayHalls);
+    }
+  };
+
+  useEffect(() => {
+
+    fetchFilteredReservations(); console.log("filtereedReservation = ", filteredReservations);
+
+  }, [ halls, formData.fromDate, formData.toDate, formData.fromTime, formData.toTime]);
 
   const handleSave = async(e) => {
     e.preventDefault();
@@ -410,6 +521,40 @@ const ReservationComp = (
               <td><input type='checkbox' checked disabled/></td>
             </tr>
             {/* Add more rows as needed */}
+            {/*halls.length > 0 ? (
+              halls.map((hall, index) => (
+                <tr key={index}>
+                  <td>{hall.hallNo}</td>
+                  <td>{hall.hallCap}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" style={{ textAlign: 'center' }}>...</td>
+              </tr>
+            )*/}
+            {displayHalls.length > 0 ? (
+              displayHalls.map((hall, index) => (
+                <tr key={index}>
+                  <td>{hall.hallNo}</td>
+                  <td>{hall.hallCap}</td>
+                  <td>{hall.status}</td>
+                  <td>{hall.title}</td>
+                  <td>{hall.reservedBy}</td>
+                  <td>{hall.dateTime}</td>
+                  <td>{(hall.status !== '') ? (hall.status === 'Free') ? <input type='checkbox' /> : <input type='checkbox' checked disabled /> : ''}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" style={{ textAlign: 'center' }}>...</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
