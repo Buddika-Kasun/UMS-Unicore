@@ -192,6 +192,10 @@ const routeData = [
     {
         path: "/api/pages/setup/createList",
         permission: [""]
+    },
+    {
+        path: "/api/pages/gestor/InfraGestor/cancelRes",
+        permission: [""]
     }
 ];
 
