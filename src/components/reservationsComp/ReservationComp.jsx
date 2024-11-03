@@ -19,6 +19,10 @@ const ReservationComp = (
 ) => {
 
   const [isloading, setIsLoading] = useState(false);
+  const [halls, setHalls] = useState([]);
+  const [filteredReservations, setFilteredReservations] = useState([]);
+  const [displayHalls, setDisplayHalls] = useState([]);
+  const [selectedHalls, setSelectedHalls] = useState(data.hallStatusPairs || []);
 
   const router = useRouter();
 
@@ -39,7 +43,12 @@ const ReservationComp = (
     reservedBy: data.reservedBy || user,
     active: data.active || '',
     cancel: data.cancel || 'No',
+    //hallStatusPairs: data.hallStatusPairs || [],
   });
+
+  //console.log(formData)
+
+  //setDisplayHalls(data.hallStatusPairs);
 
   const filteredLocations = locations.filter(location => location.faculty === formData.faculty);
 
@@ -147,6 +156,10 @@ const ReservationComp = (
       active: '',
       cancel: 'No',
     });
+
+    setDisplayHalls([]);
+    setHalls([]);
+    setSelectedHalls([]);
   };
 
   const visit = () => {
@@ -188,11 +201,8 @@ const ReservationComp = (
     };
 
     fetchData();
-  }, [method]);
 
-  const [halls, setHalls] = useState([]);
-  const [filteredReservations, setFilteredReservations] = useState([]);
-  const [displayHalls, setDisplayHalls] = useState([]);
+  }, [method]);
 
   const fetchSublocations = async() => {
     try {
@@ -216,11 +226,12 @@ const ReservationComp = (
 
   }, [formData.location]);
 
-  const fetchFilteredReservations = async () => {
+  /*const fetchFilteredReservations = async () => {
     if (formData.location && formData.fromDate && formData.toDate) {
       try {
         const res = await axios.get(`/api/pages/gestor/InfraGestor/reservations?location=${formData.location}&fromDate=${formData.fromDate}&toDate=${formData.toDate}`);
-        const reservations = res.data; console.log(reservations);
+        const reservations = res.data;
+        //console.log("234.reservations = ",reservations);
         if (formData.fromTime && formData.toTime) {
           // Filter reservations by time
           const filtered = reservations.filter(reservation =>
@@ -229,9 +240,15 @@ const ReservationComp = (
           );
           setFilteredReservations(filtered);
         } else {
+          console.log("243.reservations = ",reservations);
           setFilteredReservations(reservations);
+          console.log("245.filteredReservations = ",filteredReservations)
         }
-
+        console.log("247.filteredReservations = ",filteredReservations)
+      } catch (err) {
+        console.error("Error fetching reservations:", err);
+      }
+      finally {
         const displayHalls = halls.map((hall) => {
           const reservation = filteredReservations.find(res => res.hallNo === hall.subLocationCode);
 
@@ -247,10 +264,7 @@ const ReservationComp = (
         });
 
         setDisplayHalls(displayHalls);
-        console.log(displayHalls);
-
-      } catch (err) {
-        console.error("Error fetching reservations:", err);
+        console.log("displayHalls = ",displayHalls);
       }
     }
     else {
@@ -270,13 +284,83 @@ const ReservationComp = (
 
       setDisplayHalls(displayHalls);
     }
+  };*/
+
+  const fetchFilteredReservations = async () => {
+    if (formData.location && formData.fromDate && formData.toDate) {
+      try {
+        const res = await axios.get(`/api/pages/gestor/InfraGestor/reservations?location=${formData.location}&fromDate=${formData.fromDate}&toDate=${formData.toDate}`);
+        const reservations = res.data;
+
+        // Filter reservations by time if fromTime and toTime are set
+        /* if (formData.fromTime && formData.toTime) {
+          const filtered = reservations.filter(reservation =>
+            new Date(`${formData.fromDate}T${reservation.fromTime}`) <= new Date(`${formData.toDate}T${formData.toTime}`) &&
+            new Date(`${formData.toDate}T${reservation.toTime}`) >= new Date(`${formData.fromDate}T${formData.fromTime}`)
+          );
+          setFilteredReservations(filtered);
+        } else {
+          setFilteredReservations(reservations);
+        }*/
+
+          let filtered = reservations;
+
+          if (formData.fromTime) {
+            const fromDateTime = new Date(`${formData.fromDate}T${formData.fromTime}`);
+            filtered = filtered.filter(reservation => {
+              const reservationEndTime = new Date(`${reservation.fromDate}T${reservation.toTime}`);
+              return reservationEndTime >= fromDateTime;
+            });
+          }
+
+          if (formData.toTime) {
+            const toDateTime = new Date(`${formData.toDate}T${formData.toTime}`);
+            filtered = filtered.filter(reservation => {
+              const reservationStartTime = new Date(`${reservation.toDate}T${reservation.fromTime}`);
+              return reservationStartTime <= toDateTime;
+            });
+          }
+
+          setFilteredReservations(filtered);
+
+      } catch (err) {
+        console.error("Error fetching reservations:", err);
+      }
+    }
   };
 
   useEffect(() => {
 
-    fetchFilteredReservations(); console.log("filtereedReservation = ", filteredReservations);
+    fetchFilteredReservations(); //dconsole.log("filtereedReservation = ", filteredReservations);
 
-  }, [ halls, formData.fromDate, formData.toDate, formData.fromTime, formData.toTime]);
+  }, [halls, formData.fromDate, formData.toDate, formData.fromTime, formData.toTime]);
+
+  useEffect(() => {
+    const updatedDisplayHalls = halls.map((hall) => {
+      const reservation = filteredReservations.find(res => res.hallNo === hall.subLocationCode);
+
+      return {
+        hallNo: hall.subLocationCode,
+        hallCap: hall.hallCap,
+        status: reservation ? reservation.status : (formData.fromTime === '' || formData.toTime === '') ? '' : 'Free',
+        title: reservation ? reservation.title : '',
+        reservedBy: reservation ? reservation.reservedBy : '',
+        dateTime: reservation ? reservation.dateTime : '',
+      };
+    });
+
+    setDisplayHalls(updatedDisplayHalls);
+  }, [halls, filteredReservations, formData.fromTime, formData.toTime]);
+
+  const handleCheckboxChange = (hallNo, hallCap, isChecked) => {
+    setSelectedHalls((prev) => {
+      if (isChecked) {
+        return [...prev, { hallNo, hallCap, status: 'Reserved'}];
+      } else {
+        return prev.filter((hall) => hall.hallNo !== hallNo);
+      }
+    });
+  };
 
   const handleSave = async(e) => {
     e.preventDefault();
@@ -290,14 +374,21 @@ const ReservationComp = (
 
       setIsLoading(true);
 
+      const saveData = {
+        ...formData,
+        hallStatusPairs: selectedHalls,
+      };
+
+      //console.log(saveData);
+
       let res;
 
       if(method == 'Create') {
-        res = await axios.post('/api/pages/gestor/InfraGestor/reservations', formData);
+        res = await axios.post('/api/pages/gestor/InfraGestor/reservations', saveData);
       }
 
       if(method == 'Update') {
-        res = await axios.put('/api/pages/gestor/InfraGestor/reservations', formData);
+        res = await axios.put('/api/pages/gestor/InfraGestor/reservations', saveData);
       }
 
       if (res.status === 200) {
@@ -368,7 +459,7 @@ const ReservationComp = (
 
       <div className={styles.formGroup}>
           <label>Faculty</label>
-          <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method !== 'Create'} >
+          <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === 'Cancel'} >
               <option value="" disabled>Select faculty</option>
               {facultys.map((faculty, index) => (
                 <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
@@ -379,7 +470,7 @@ const ReservationComp = (
         {/* Booking Type */}
         <div className={styles.formGroup}>
           <label>Booking Type</label>
-          <select className={styles.input} name='bookTyp' value={formData.bookTyp} onChange={handleChange} disabled={method !== 'Create'} >
+          <select className={styles.input} name='bookTyp' value={formData.bookTyp} onChange={handleChange} disabled={method === 'Cancel'} >
             <option value='' disabled>Select booking type</option>
             <option value='Internal use'>Internal use</option>
             <option value='External use'>External use</option>
@@ -389,13 +480,13 @@ const ReservationComp = (
         {/* Event Title */}
         <div className={styles.formGroup}>
           <label>Event Title</label>
-          <input type="text" className={styles.input} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type="text" className={styles.input} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         {/* Location Name */}
         <div className={styles.formGroup}>
           <label>Location Name</label>
-          <select className={styles.input} name='location' value={formData.location} onChange={handleChange} disabled={(method !== 'Create') || (formData.faculty === '')} >
+          <select className={styles.input} name='location' value={formData.location} onChange={handleChange} disabled={(method === 'Cancel') || (formData.faculty === '')} >
               {filteredLocations.length > 0 ? (
                 <>
                   <option value="" disabled>Select location</option>
@@ -416,41 +507,41 @@ const ReservationComp = (
         {/* From Date */}
         <div className={styles.formGroup}>
           <label>From Date</label>
-          <input type="date" className={styles.input} name='fromDate' value={formData.fromDate} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type="date" className={styles.input} name='fromDate' value={formData.fromDate} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         {/* To Date */}
         <div className={styles.formGroup}>
           <label>To Date</label>
-          <input type={(formData.fromDate === '') ? "text" : "date"} placeholder='Add From Date first' className={styles.input} name='toDate' value={formData.toDate} onChange={handleChange} disabled={(method !== 'Create') || (formData.fromDate === '')} />
+          <input type={(formData.fromDate === '') ? "text" : "date"} placeholder='Add From Date first' className={styles.input} name='toDate' value={formData.toDate} onChange={handleChange} disabled={(method === 'Cancel') || (formData.fromDate === '')} />
         </div>
 
         {/* From Time */}
         <div className={styles.formGroup}>
           <label>From Time</label>
-          <input type={(formData.toDate === '') ? "text" : "time"} placeholder='Add To Date first' className={styles.input} name='fromTime' value={formData.fromTime} onChange={handleChange} disabled={(method !== 'Create') || (formData.toDate === '')} />
+          <input type={(formData.toDate === '') ? "text" : "time"} placeholder='Add To Date first' className={styles.input} name='fromTime' value={formData.fromTime} onChange={handleChange} disabled={(method === 'Cancel') || (formData.toDate === '')} />
         </div>
 
         {/* To Time */}
         <div className={styles.formGroup}>
           <label>To Time</label>
-          <input type={(formData.fromTime === '') ? "text" : "time"} placeholder='Add From Time first' className={styles.input} name='toTime' value={formData.toTime} onChange={handleChange} disabled={(method !== 'Create') || (formData.fromTime === '')} />
+          <input type={(formData.fromTime === '') ? "text" : "time"} placeholder='Add From Time first' className={styles.input} name='toTime' value={formData.toTime} onChange={handleChange} disabled={(method === 'Cancel') || (formData.fromTime === '')} />
         </div>
 
         {/* Organizer */}
         <div className={styles.formGroup}>
           <label>Organizer</label>
-          <input type="text" className={styles.input} placeholder='Enter organizer name here' name='organizer' value={formData.organizer} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type="text" className={styles.input} placeholder='Enter organizer name here' name='organizer' value={formData.organizer} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         <div className={styles.formGroup}>
           <label>Reservation Remarks</label>
-          <input type="text" className={styles.input} placeholder='Enter remarks here' name='remark' value={formData.remark} onChange={handleChange} disabled={method !== 'Create'} />
+          <input type="text" className={styles.input} placeholder='Enter remarks here' name='remark' value={formData.remark} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         <div className={styles.formGroup}>
           <label>Repeat</label>
-          <select className={styles.input} name='repeat' value={formData.repeat} onChange={handleChange} disabled={method !== 'Create'} >
+          <select className={styles.input} name='repeat' value={formData.repeat} onChange={handleChange} disabled={method === 'Cancel'} >
             <option value='' disabled>Select repeat</option>
             <option value='None'>None</option>
             <option value='Daily'>Daily</option>
@@ -502,52 +593,23 @@ const ReservationComp = (
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>LGF 05</td>
-              <td>150</td>
-              <td>Free</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><input type='checkbox' /></td>
-            </tr>
-            <tr>
-              <td>SF 01</td>
-              <td>75</td>
-              <td>Reserved</td>
-              <td>Event 2</td>
-              <td>Admin</td>
-              <td>06/06/2024 12.00 PM</td>
-              <td><input type='checkbox' checked disabled/></td>
-            </tr>
-            {/* Add more rows as needed */}
-            {/*halls.length > 0 ? (
-              halls.map((hall, index) => (
-                <tr key={index}>
-                  <td>{hall.hallNo}</td>
-                  <td>{hall.hallCap}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="7" style={{ textAlign: 'center' }}>...</td>
-              </tr>
-            )*/}
             {displayHalls.length > 0 ? (
               displayHalls.map((hall, index) => (
                 <tr key={index}>
                   <td>{hall.hallNo}</td>
                   <td>{hall.hallCap}</td>
-                  <td>{hall.status}</td>
+                  <td className={hall.status === "Free" ? styles.green : styles.red}>{hall.status}</td>
                   <td>{hall.title}</td>
                   <td>{hall.reservedBy}</td>
                   <td>{hall.dateTime}</td>
-                  <td>{(hall.status !== '') ? (hall.status === 'Free') ? <input type='checkbox' /> : <input type='checkbox' checked disabled /> : ''}</td>
+                  <td>{(hall.status !== '') ? (hall.status === 'Free') ?
+                    <input type='checkbox' onChange={(e) => handleCheckboxChange(hall.hallNo, hall.hallCap, e.target.checked)} checked={selectedHalls.some((selected) => selected.hallNo === hall.hallNo)} />
+                    :
+                    (method === 'Update') ?
+                      <input type='checkbox' onChange={(e) => handleCheckboxChange(hall.hallNo, hall.hallCap, e.target.checked)} checked={selectedHalls.some((selected) => selected.hallNo === hall.hallNo)} />
+                    :
+                      <input type='checkbox' checked disabled /> : ''}
+                  </td>
                 </tr>
               ))
             ) : (
