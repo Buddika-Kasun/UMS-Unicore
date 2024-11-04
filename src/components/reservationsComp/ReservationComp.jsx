@@ -489,22 +489,6 @@ const ReservationComp = (
             </select>
         </div>
 
-        {/* Booking Type */}
-        <div className={styles.formGroup}>
-          <label>Booking Type</label>
-          <select className={styles.inputField2} name='bookTyp' value={formData.bookTyp} onChange={handleChange} disabled={method === 'Cancel'} >
-            <option value='' disabled>Select booking type</option>
-            <option value='Internal use'>Internal use</option>
-            <option value='External use'>External use</option>
-          </select>
-        </div>
-
-        {/* Event Title */}
-        <div className={styles.formGroup}>
-          <label>Event Title</label>
-          <input type="text" className={styles.inputField2} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} disabled={method === 'Cancel'} />
-        </div>
-
         {/* Location Name */}
         <div className={styles.formGroup}>
           <label>Location Name</label>
@@ -548,6 +532,22 @@ const ReservationComp = (
         <div className={styles.formGroup}>
           <label>To Time</label>
           <input type={(formData.fromTime === '') ? "text" : "time"} placeholder='Add From Time first' className={styles.inputField2} name='toTime' value={formData.toTime} onChange={handleChange} disabled={(method === 'Cancel') || (formData.fromTime === '')} />
+        </div>
+
+        {/* Booking Type */}
+        <div className={styles.formGroup}>
+          <label>Booking Type</label>
+          <select className={styles.inputField2} name='bookTyp' value={formData.bookTyp} onChange={handleChange} disabled={method === 'Cancel'} >
+            <option value='' disabled>Select booking type</option>
+            <option value='Internal use'>Internal use</option>
+            <option value='External use'>External use</option>
+          </select>
+        </div>
+
+        {/* Event Title */}
+        <div className={styles.formGroup}>
+          <label>Event Title</label>
+          <input type="text" className={styles.inputField2} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} disabled={method === 'Cancel'} />
         </div>
 
         {/* Organizer */}
