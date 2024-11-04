@@ -1,18 +1,39 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import 'chart.js/auto'; // Needed for Chart.js 3+
 import styles from '@/styles/formCompsStyles.module.css';
+import axios from 'axios';
 
-function ViewResourceUtilization() {
-  const [month, setMonth] = useState('');
-  const [location, setLocation] = useState('');
-  const [isUtilized, setIsUtilized] = useState(false);
+const ViewResourceUtilization = (
+  {
+    locations,
+    facultys,
+  }
+) => {
+
   const [showCharts, setShowCharts] = useState(false);
+  const [pieChartData, setPieChartData] = useState(null);
+  const [barChartData, setBarChartData] = useState(null);
+
+  const [formData, setFormData] = useState({
+    faculty: '',
+    location: '',
+    month: '00',
+    utilize: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
 
   // Sample data for charts (replace with real data logic as needed)
-  const pieData = {
+  /*const pieData = {
     labels: ['Utilized', 'Unutilized'],
     datasets: [
       {
@@ -26,26 +47,69 @@ function ViewResourceUtilization() {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [
       {
-        label: 'Reservations',
+        label: 'All Reservations',
         data: [12, 19, 3, 5, 2, 3, 8, 15, 10, 7, 13, 9], // Sample data; update based on inputs if needed
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
       },
     ],
+  };*/
+
+  const filteredLocations = locations.filter(location => location.faculty === formData.faculty);
+
+  const fetchReservationData = async () => {
+    const { faculty, location, month } = formData;
+
+    if (faculty) {
+      try {
+        const { data } = await axios.get(`/api/pages/gestor/InfraGestor/utilization`, {
+          params: { faculty, location, month },
+        });
+
+        //console.log(data)
+
+        // Prepare data for pie chart (by location or sublocation)
+        const pieLabels = data.locationData.map((item) => item.sublocationCode || item._id);
+        const pieCounts = data.locationData.map((item) => item.count);
+
+        setPieChartData({
+          labels: pieLabels,
+          datasets: [
+            {
+              data: pieCounts,
+              backgroundColor: pieLabels.map(
+                (_, i) => `hsl(${(i * 360) / pieLabels.length}, 70%, 70%)`
+              ),
+            },
+          ],
+        });
+
+        // Prepare data for bar chart (monthly reservation counts)
+        const barLabels = data.monthlyCounts.map(item => item.month);
+        const barCounts = data.monthlyCounts.map(item => item.count);
+
+        setBarChartData({
+          labels: barLabels.map(month => new Date(0, month - 1).toLocaleString('default', { month: 'short' })),
+          datasets: [
+            {
+              label: 'Monthly Reservations',
+              data: barCounts,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            },
+          ],
+        });
+
+        setShowCharts(true);
+      } catch (error) {
+        console.error('Error fetching reservation data:', error);
+      }
+    }
   };
 
-  const handleMonthChange = (e) => {
-    setMonth(e.target.value);
-    setShowCharts(true);
-  };
+  useEffect(() => {
+    fetchReservationData();
+  }, [formData.faculty, formData.location, formData.month]);
 
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-    setShowCharts(true);
-  };
 
-  const handleUtilizedChange = (e) => {
-    setIsUtilized(e.target.checked);
-  };
 
   return (
     <>
@@ -60,41 +124,73 @@ function ViewResourceUtilization() {
       <div className={styles.formBody2}>
 
         <div className={styles.formGroup}>
-          <label>
-            Month:
-          </label>
-            <input
-              type="text"
-              value={month}
-              onChange={handleMonthChange}
-              placeholder="Enter Month"
-              className={styles.inputField2}
-            />
+          <label>Faculty</label>
+          <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} >
+              <option value="" disabled>Select faculty</option>
+              {facultys.map((faculty, index) => (
+                <option key={index} value={faculty.facultyName}>{faculty.facultyName}</option>
+              ))}
+            </select>
         </div>
 
-        <div className={styles.formGroup}>  
-          <label>
-            Location:
-          </label>
-            <input
-              type="text"
-              value={location}
-              onChange={handleLocationChange}
-              placeholder="Enter Location"
-              className={styles.inputField2}
-            />
+        {/* Location Name */}
+        <div className={styles.formGroup}>
+          <label>Location Name</label>
+          <select className={styles.inputField2} name='location' value={formData.location} onChange={handleChange} disabled={(formData.faculty === '')} >
+              {filteredLocations.length > 0 ? (
+                <>
+                  <option value="" >All</option>
+                  {filteredLocations.map((location, index) => (
+                    <option key={index} value={location.locName}>
+                      {location.locName}
+                    </option>
+                  ))}
+                </>
+              ) : (
+                <option value="" disabled>
+                  {formData.faculty === '' ? 'Select Faculty first' : 'No locations available.'}
+                </option>
+              )}
+            </select>
         </div>
 
-        <div className={styles.formGroupActive}>    
-          <label>Utilized?</label>
+        <div className={styles.formGroup}>
+          <label>
+            Month
+          </label>
+            <select
+              name='month'
+              value={formData.month}
+              onChange={handleChange}
+              className={styles.inputField2}
+            >
+              <option value='00'>All</option>
+              <option value='01'>Jan</option>
+              <option value='02'>feb</option>
+              <option value='03'>march</option>
+              <option value='04'>apr</option>
+              <option value='05'>may</option>
+              <option value='06'>jun</option>
+              <option value='07'>jul</option>
+              <option value='08'>agu</option>
+              <option value='09'>sep</option>
+              <option value='10'>oct</option>
+              <option value='11'>nov</option>
+              <option value='12'>des</option>
+            </select>
+        </div>
+
+        {/* <div className={styles.formGroupActive}>
+          <label>Utilized ?</label>
           <div className={styles.activeOptions}>
             <input
               type="checkbox"
-              checked={isUtilized}
-              onChange={handleUtilizedChange}
+              name='utilize'
+              checked={formData.utilize}
+              onChange={handleChange}
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       {showCharts && (
@@ -102,23 +198,15 @@ function ViewResourceUtilization() {
           <h3>Charts</h3>
           <div className={styles.chartsContainer}>
             <div className={styles.chart}>
-              <h4>Pie Chart</h4>
-              <Pie data={pieData} />
+              <Pie data={pieChartData} />
             </div>
             <div className={styles.chart}>
-              <h4>Bar Chart</h4>
-              <Bar data={barData} />
+              <Bar data={barChartData} />
             </div>
           </div>
         </div>
       )}
 
-      {isUtilized && (
-        <div className={styles.reservationDetails}>
-          <h3>Reservations for {location} in {month}</h3>
-          <p>(Data will be shown here based on Month and Location)</p>
-        </div>
-      )}
     </div>
   </>
   );
