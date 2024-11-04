@@ -8,6 +8,20 @@
     margin: auto;
 }
 
+.statsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.chartContainer {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
 .header {
 display: flex;
 justify-content: space-between;
@@ -207,6 +221,19 @@ padding: 10px 0;
     cursor: pointer;
   }
 
+.resIdBtn{
+  padding: 10px 20px;
+  text-decoration: underline;
+  background-color: white;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+}
+
+.resIdBtn:hover{
+  color: #0056b3;
+}
+
   .removeBtn{
     width: 25px;
     color: #fff;
@@ -267,6 +294,9 @@ padding: 10px 0;
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+    .statsContainer {
+      flex-direction: column;
+    }
 
     .buttonGroup {
         flex-direction: row;/* 
