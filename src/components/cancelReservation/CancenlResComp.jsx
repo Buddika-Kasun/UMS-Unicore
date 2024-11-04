@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import styles from './canReserv.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -116,22 +116,23 @@ const CancelResComp = (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
+        {/* Title */}
         <h2 className={styles.title}>Cancel Reservation</h2>
       </div>
 
     <div className={styles.container}>
 
       {/* Parameters Section */}
-      <div className={styles.form}>
+      <div className={styles.formBody2}>
 
         <div className={styles.formGroup}>
             <label>Event Title</label>
-            <input type="text" className={styles.input} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter event title here' name='title' value={formData.title} onChange={handleChange} />
         </div>
 
         <div className={styles.formGroup}>
           <label>Booking Type</label>
-          <select className={styles.input} name='bookTyp' value={formData.bookTyp} onChange={handleChange} >
+          <select className={styles.inputField2} name='bookTyp' value={formData.bookTyp} onChange={handleChange} >
             <option value='' disabled>Select booking type</option>
             <option value='All'>All</option>
             <option value='Internal use'>Internal use</option>
@@ -141,7 +142,7 @@ const CancelResComp = (
 
         <div className={styles.formGroup}>
           <label>Faculty</label>
-          <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} >
+          <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} >
               <option value="" disabled>Select faculty</option>
               <option value="All">All</option>
               {facultys.map((faculty, index) => (
@@ -152,7 +153,7 @@ const CancelResComp = (
 
         <div className={styles.formGroup}>
           <label>Location Name</label>
-          <select className={styles.input} name='location' value={formData.location} onChange={handleChange} disabled={(formData.faculty === '') || (formData.faculty === 'All')} >
+          <select className={styles.inputField2} name='location' value={formData.location} onChange={handleChange} disabled={(formData.faculty === '') || (formData.faculty === 'All')} >
               {filteredLocations.length > 0 ? (
                 <>
                   <option value="" disabled>Select location</option>
@@ -173,13 +174,13 @@ const CancelResComp = (
 
         <div className={styles.formGroup}>
           <label>From</label>
-          <input type="datetime-local" className={styles.input} name='from' value={formData.from} onChange={handleChange} />
+          <input type="datetime-local" className={styles.inputField2} name='from' value={formData.from} onChange={handleChange} />
         </div>
 
         {/* To Date */}
         <div className={styles.formGroup}>
           <label>To</label>
-          <input type={(formData.from === '') ? "text" : "datetime-local"} placeholder='Add From Date first' className={styles.input} name='to' value={formData.to} onChange={handleChange} disabled={(formData.from === '')} />
+          <input type={(formData.from === '') ? "text" : "datetime-local"} placeholder='Add From Date first' className={styles.inputField2} name='to' value={formData.to} onChange={handleChange} disabled={(formData.from === '')} />
         </div>
 
       </div>
@@ -205,7 +206,7 @@ const CancelResComp = (
                     filteredReservations.map((reservation, index) => (
                         <tr key={index}>
                             <td>{new Date(reservation.docDate).toLocaleDateString()}</td>
-                            <td><button onClick={() => visit(reservation.docID)}>{reservation.docID}</button></td>
+                            <td><button className={styles.resIdBtn} onClick={() => visit(reservation.docID)}>{reservation.docID}</button></td>
                             <td>{reservation.reservedBy}</td>
                             <td>{reservation.bookTyp}</td>
                             <td>{reservation.title}</td>
