@@ -13,6 +13,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .chartContainer {
@@ -123,13 +124,7 @@ margin-bottom: 8px;
 display: block;
 }
 
-.inputField {/*
-padding: 10px;
-border-radius: 4px;
-border: 1px solid #ccc;
-width: 50%;
-background-color: #fff; */
-
+.inputField {
 padding: 8px;
 border-radius: 4px;
 border: 1px solid #ccc;
@@ -256,17 +251,6 @@ padding: 10px 0;
     border-collapse: collapse;
   }
   
-/*   .pendingTable th, .pendingTable td {
-    border: 1px solid #ccc;
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .pendingTable th {
-    background-color: #e0e0e0;
-    font-weight: bold;
-  } */
-  
   .pendingTable td a {
     color: #007bff;
     text-decoration: none;
@@ -279,6 +263,7 @@ padding: 10px 0;
   /*Charts*/
   .chartsSection {
     margin-top: 30px;
+    margin-bottom: 30px;
   }
   
   .chartsContainer {
@@ -289,7 +274,12 @@ padding: 10px 0;
   }
   
   .chart {
-    width: 80%;
+    width: 63%;
+  }
+
+  .chart2 {
+    margin-top: 60px;
+    width: 100%;
   }
 
 /* Responsive Styles */
