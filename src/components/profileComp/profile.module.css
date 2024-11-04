@@ -69,6 +69,7 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
+    position: relative;
 }
 
 .dp {
@@ -80,9 +81,33 @@
     justify-content: center;
     overflow: hidden;
     margin: 10% 0 5% 0;
-    border: 2px solid black;
+    border: 2px solid rgba(128, 128, 128, 0.15);
     cursor: pointer;
     position: relative;
+}
+
+.con {
+    position: relative;
+}
+
+.edit {
+    width: 15px;
+    aspect-ratio: 1/1;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
 }
 
 .previewImage {
@@ -99,13 +124,14 @@
     margin: 5% 0 0 0;
     padding: 5px 15px;
     border-radius: 10px;
-    background-color: black;
+    background-color: #007bff;
     color: white;
     cursor: pointer;
+    border: none;
 }
 
-.dpBtn:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+.dpBtn:hover, .editBtn:hover, .uploadBtn:hover {
+    background-color: #0056b3;
 }
 
 .accessContainer {
@@ -117,10 +143,6 @@
 
 .accessBox {
     padding: 10px 10%;
-}
-
-.right *{
-    /* border: 1px solid red; */
 }
 
 .right {
@@ -173,13 +195,9 @@
 .editBtn {
     padding: 5px 15px;
     border-radius: 10px;
-    background-color: black;
+    background-color: #007bff;
     color: white;
     cursor: pointer;
-}
-
-.editBtn:hover {
-    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .form1 .allow {
@@ -196,10 +214,6 @@
 .verificationContainer {
     width: 100;
     height: 40%;
-}
-
-.verificationContainer * {
-    /* border: 1px solid red; */
 }
 
 .form2 {
@@ -266,13 +280,9 @@
 .uploadBtn {
     padding: 5px 15px;
     border-radius: 10px;
-    background-color: black;
+    background-color: #007bff;
     color: white;
     cursor: pointer;
-}
-
-.uploadBtn:hover {
-    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .hide {

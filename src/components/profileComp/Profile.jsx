@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./profile.module.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { MdEdit } from "react-icons/md";
 
 const Profile = ({ user: initialUser, saveVerify }) => {
 
@@ -46,22 +47,29 @@ const Profile = ({ user: initialUser, saveVerify }) => {
     }
   }
 
-  const optionsDate = {
-    weekday: 'long',    // Full day name (e.g., Sunday)
-    year: 'numeric',    // Full year (e.g., 2024)
-    month: 'long',      // Full month name (e.g., May)
-    day: 'numeric',     // Day of the month (e.g., 8)
-  };
-  const formattedDateF = new Date(user.createdDate).toLocaleDateString('en-GB', optionsDate);
-  const formattedDateL = new Date(user.loginDate).toLocaleDateString('en-GB', optionsDate);
+  const [formattedDateF, setFormattedDateF] = useState("");
+  const [formattedDateL, setFormattedDateL] = useState("");
+  const [formattedTimeF, setFormattedTimeF] = useState("");
+  const [formattedTimeL, setFormattedTimeL] = useState("");
 
-  const optionsTime = {
-    hour: '2-digit',    // Two-digit hour (e.g., 08)
-    minute: '2-digit',  // Two-digit minute (e.g., 30)
-    hour12: true,      // Use 12-hour format
-  };
-  const formattedTimeF = new Date(user.createdDate).toLocaleTimeString('en-GB', optionsTime);
-  const formattedTimeL = new Date(user.loginDate).toLocaleTimeString('en-GB', optionsTime);
+  useEffect(() => {
+    const optionsDate = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    const optionsTime = {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    };
+
+    setFormattedDateF(new Date(user.createdDate).toLocaleDateString('en-GB', optionsDate));
+    setFormattedDateL(new Date(user.loginDate).toLocaleDateString('en-GB', optionsDate));
+    setFormattedTimeF(new Date(user.createdDate).toLocaleTimeString('en-GB', optionsTime));
+    setFormattedTimeL(new Date(user.loginDate).toLocaleTimeString('en-GB', optionsTime));
+  }, []);
 
   async function uploadAvatar(e) {
     const file = e.target.files[0];
@@ -128,11 +136,14 @@ const Profile = ({ user: initialUser, saveVerify }) => {
       <div className={style.bodyContainer}>
         <div className={style.left}>
           <div className={style.dpContainer}>
+            <div className={style.con}>
             <label className={style.dp}>
               {!preview && "Profile Picture"}
               <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>
               {preview && <img src={preview} alt="Profile Preview" className={style.previewImage} />}
             </label>
+            <div className={style.edit}><MdEdit/></div>
+            </div>
             <div className={style.nameContainer}>
               <div className={style.nameMain}>{user.firstName} {user.lastName}</div>
               <div className={style.roleMain}>{user.role}</div>
