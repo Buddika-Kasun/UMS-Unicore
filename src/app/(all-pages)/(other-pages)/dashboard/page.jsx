@@ -1,7 +1,7 @@
 "use server"
 
-import UserTable from "@/components/userTableComp/UserTable";
-import styles from "./dashboard.module.css";
+import Dashboard from "@/components/dashboard/Dashboard";
+import UserTable from "@/components/dashboard/UserTable";
 import { dbConnect } from "@/lib/mongo";
 import { User } from "@/model/user-model";
 
@@ -21,9 +21,10 @@ const dashboard = async() => {
 
   return (
     <>
-    <div>dashboard</div>
+    {/* <div>dashboard</div>
 
-    <UserTable users1={user}/>
+    <UserTable users1={user}/> */}
+    <Dashboard user={user}/>
 
     </>
   );
