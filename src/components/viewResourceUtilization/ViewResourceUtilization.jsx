@@ -165,18 +165,18 @@ const ViewResourceUtilization = (
               className={styles.inputField2}
             >
               <option value='00'>All</option>
-              <option value='01'>Jan</option>
-              <option value='02'>feb</option>
-              <option value='03'>march</option>
-              <option value='04'>apr</option>
-              <option value='05'>may</option>
-              <option value='06'>jun</option>
-              <option value='07'>jul</option>
-              <option value='08'>agu</option>
-              <option value='09'>sep</option>
-              <option value='10'>oct</option>
-              <option value='11'>nov</option>
-              <option value='12'>des</option>
+              <option value='01'>January</option>
+              <option value='02'>February</option>
+              <option value='03'>March</option>
+              <option value='04'>April</option>
+              <option value='05'>May</option>
+              <option value='06'>June</option>
+              <option value='07'>July</option>
+              <option value='08'>August</option>
+              <option value='09'>September</option>
+              <option value='10'>October</option>
+              <option value='11'>November</option>
+              <option value='12'>December</option>
             </select>
         </div>
 
@@ -200,7 +200,7 @@ const ViewResourceUtilization = (
             <div className={styles.chart}>
               <Pie data={pieChartData} />
             </div>
-            <div className={styles.chart}>
+            <div className={styles.chart2}>
               <Bar data={barChartData} />
             </div>
           </div>
