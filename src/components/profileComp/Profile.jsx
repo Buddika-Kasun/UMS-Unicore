@@ -5,7 +5,7 @@ import style from "./profile.module.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Profile = ({ user: initialUser, saveVerify }) => {
+const Profile = ({ user: initialUser, }) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [user, setUser] = useState(initialUser);
@@ -24,6 +24,8 @@ const Profile = ({ user: initialUser, saveVerify }) => {
 
   const handleUpload = async(e) => {
     e.preventDefault();
+
+    handleUploadVF();
 
     try {
       const data = {type, verifyType, email: user.email, createdDate: Date.now()};
@@ -63,29 +65,6 @@ const Profile = ({ user: initialUser, saveVerify }) => {
   const formattedTimeF = new Date(user.createdDate).toLocaleTimeString('en-GB', optionsTime);
   const formattedTimeL = new Date(user.loginDate).toLocaleTimeString('en-GB', optionsTime);
 
-  async function uploadAvatar(e) {
-    const file = e.target.files[0];
-    if (file) {
-        const formData = new FormData();
-        formData.append("avatar", file); // "avatar" is the key expected on the backend
-
-        try {
-            const res = await axios.post('/api/upload-avatar', formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            if (res.data && res.data.link) {
-                setUser((prevUser) => ({ ...prevUser, avatar: res.data.link })); // Update avatar link
-                toast.success("Profile picture uploaded successfully!", { autoClose: 2000 });
-            }
-        } catch (error) {
-            console.error("Error uploading avatar:", error);
-            toast.error("Failed to upload avatar. Please try again.", { autoClose: 2000 });
-        }
-    }
-  }
-
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(user.dp || null);
 
@@ -117,8 +96,44 @@ const Profile = ({ user: initialUser, saveVerify }) => {
         toast.success("Profile picture uploaded successfully!", { autoClose: 2000 });
       }
     } catch (error) {
-      console.error("Error uploading avatar:", error);
+      //console.error("Error uploading avatar:", error);
       toast.error("Failed to upload avatar. Please try again.", { autoClose: 2000 });
+    }
+  };
+
+  const [selectedFileVF, setSelectedFileVF] = useState(null);
+  const [previewVF, setPreviewVF] = useState(user.vf || null);
+
+  const handleFileChangeVF = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFileVF(file);
+      setPreviewVF(URL.createObjectURL(file));  // Create a preview URL for the selected image
+    }
+  };
+
+  const handleUploadVF = async () => {
+    if (!selectedFileVF) {
+      toast.warning("Please select a photo");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("vrfyImg", selectedFileVF);  // Match the key used in backend
+    formData.append("userEmail", user.email); // Include user email to identify in backend
+
+    try {
+      const response = await axios.put("/api/pages/profile/dp", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });//console.log(response.data.url)
+
+      if (response.data && response.data.url) {
+        setUser((prevUser) => ({ ...prevUser, profilePicUrl: response.data.url }));  //
+        //toast.success("Profile picture uploaded successfully!", { autoClose: 2000 });
+      }
+    } catch (error) {
+      //console.error("Error uploading avatar:", error);
+      toast.error("Failed to upload verify photo. Please try again.", { autoClose: 2000 });
     }
   };
 
@@ -130,7 +145,7 @@ const Profile = ({ user: initialUser, saveVerify }) => {
           <div className={style.dpContainer}>
             <label className={style.dp}>
               {!preview && "Profile Picture"}
-              <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>
+              {!preview && <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>}
               {preview && <img src={preview} alt="Profile Preview" className={style.previewImage} />}
             </label>
             <div className={style.nameContainer}>
@@ -238,11 +253,9 @@ const Profile = ({ user: initialUser, saveVerify }) => {
                   </div>
                 </div>
                 <label className={style.vfRight}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={style.ico}>
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-                  </svg>
-                  Add image
-                  <input type="file" className={style.hide} /* onChange={uploadImages}*//>
+                  {!previewVF && 'Add image'}
+                  {!previewVF && <input type="file" accept="image/*" onChange={handleFileChangeVF} className={style.hide}/>}
+                  {previewVF && <img src={previewVF} alt="Preview Image" className={style.previewImageVF} />}
                 </label>
                 {/* <div className={style.vfRight}>Add</div> */}
               </div>
