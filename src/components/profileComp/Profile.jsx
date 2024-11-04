@@ -63,18 +63,83 @@ const Profile = ({ user: initialUser, saveVerify }) => {
   const formattedTimeF = new Date(user.createdDate).toLocaleTimeString('en-GB', optionsTime);
   const formattedTimeL = new Date(user.loginDate).toLocaleTimeString('en-GB', optionsTime);
 
+  async function uploadAvatar(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append("avatar", file); // "avatar" is the key expected on the backend
+
+        try {
+            const res = await axios.post('/api/upload-avatar', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            if (res.data && res.data.link) {
+                setUser((prevUser) => ({ ...prevUser, avatar: res.data.link })); // Update avatar link
+                toast.success("Profile picture uploaded successfully!", { autoClose: 2000 });
+            }
+        } catch (error) {
+            console.error("Error uploading avatar:", error);
+            toast.error("Failed to upload avatar. Please try again.", { autoClose: 2000 });
+        }
+    }
+  }
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(user.dp || null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file));  // Create a preview URL for the selected image
+    }
+  };
+
+  const handleUploadDP = async () => {
+    if (!selectedFile) {
+      toast.warning("Please select a photo");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", selectedFile);  // Match the key used in backend
+    formData.append("userEmail", user.email); // Include user email to identify in backend
+
+    try {
+      const response = await axios.post("/api/pages/profile/dp", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });//console.log(response.data.url)
+
+      if (response.data && response.data.url) {
+        setUser((prevUser) => ({ ...prevUser, profilePicUrl: response.data.url }));
+        toast.success("Profile picture uploaded successfully!", { autoClose: 2000 });
+      }
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
+      toast.error("Failed to upload avatar. Please try again.", { autoClose: 2000 });
+    }
+  };
+
   return (
     <div className={style.container}>
       <div className={style.title}>Profile</div>
       <div className={style.bodyContainer}>
         <div className={style.left}>
           <div className={style.dpContainer}>
-            <div className={style.dp}>Profile Picture</div>
+            <label className={style.dp}>
+              {!preview && "Profile Picture"}
+              <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>
+              {preview && <img src={preview} alt="Profile Preview" className={style.previewImage} />}
+            </label>
             <div className={style.nameContainer}>
               <div className={style.nameMain}>{user.firstName} {user.lastName}</div>
               <div className={style.roleMain}>{user.role}</div>
             </div>
-            <div className={style.dpBtn}>Upload avatar</div>
+            <button className={style.dpBtn} onClick={handleUploadDP}>
+              Upload avatar
+            </button>
           </div>
           <div className={style.accessContainer}>
             <div className={style.accessBox}>
@@ -172,7 +237,14 @@ const Profile = ({ user: initialUser, saveVerify }) => {
                     <div className={style.uploadBtn} onClick={handleUpload}>Upload</div>
                   </div>
                 </div>
-                <div className={style.vfRight}>Add</div>
+                <label className={style.vfRight}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={style.ico}>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                  </svg>
+                  Add image
+                  <input type="file" className={style.hide} /* onChange={uploadImages}*//>
+                </label>
+                {/* <div className={style.vfRight}>Add</div> */}
               </div>
             </form>
           </div>
