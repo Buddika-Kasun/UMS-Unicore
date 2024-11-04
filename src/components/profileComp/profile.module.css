@@ -245,8 +245,8 @@
 }
 
 .vfRight {
-    width: 38%;
-    height: 80%;
+    width: 30%;
+    aspect-ratio: 2/1;
     border: 1px solid rgba(128, 128, 128, 0.3);
     background-color: rgba(128, 128, 128, 0.05);
     color: rgba(0, 0, 0, 0.7);
@@ -259,8 +259,9 @@
     padding: 0;
 }
 
-.ico {
-    height: 20%;
+.previewImageVF {
+    max-width: 100%;
+    aspect-ratio: 2/1;
 }
 
 .uploadBtn {
