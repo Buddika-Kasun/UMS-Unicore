@@ -8,11 +8,11 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const LineChart = () => {
   const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels: ['Aug', 'Sep', 'Oct', 'Nov'],
     datasets: [
       {
         label: 'Users',
-        data: [100, 200, 150, 300, 250, 400],
+        data: [1, 2, 4, 5, 6],
         borderColor: '#007bff',
         pointBackgroundColor: '#FFFFFF',
       },

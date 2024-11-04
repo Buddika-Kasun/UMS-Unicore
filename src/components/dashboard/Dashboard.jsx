@@ -16,10 +16,10 @@ const Dashboard = ({user}) => {
         </div>
         <div className={styles.container}>
         <div className={styles.statsContainer}>
-            <StatCard title="Views" value="7,265" change="+11.01%" />
-            <StatCard title="Visits" value="3,671" change="-0.03%" />
-            <StatCard title="New Users" value="256" change="+15.03%" />
-            <StatCard title="Active Users" value="2,318" change="+6.08%" />
+            {/* <StatCard title="Views" value="5" change="+11.01%" /> */}
+            <StatCard title="Visits" value="5" change="-0.03%" />
+            <StatCard title="New Users" value="1" change="+15.03%" />
+            <StatCard title="Active Users" value="6" change="+6.08%" />
         </div>
         <div className={styles.chartContainer}>
             <LineChart />

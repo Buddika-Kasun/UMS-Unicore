@@ -1,5 +1,5 @@
 .card {
-  background-color: #02081C;
+  background-color: #006BFF;
   color: #ffffff;
   padding: 1rem;
   border-radius: 8px;
@@ -19,5 +19,5 @@
 
 .cardChange {
   font-size: 0.875rem;
-  color: #007bff;
+  color: #ffffff;
 }
