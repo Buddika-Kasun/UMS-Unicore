@@ -51,6 +51,9 @@ const userSchema = new Schema({
         createDate: {
             type: Date,
             default: Date.now,
+        },
+        verifyImgUrl: {
+            type: String,
         }
     },
 });
