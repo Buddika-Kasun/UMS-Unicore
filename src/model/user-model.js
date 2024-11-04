@@ -34,6 +34,9 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    profilePicUrl: {
+        type: String,
+    },
     verification: {
         state: {
             type: String,

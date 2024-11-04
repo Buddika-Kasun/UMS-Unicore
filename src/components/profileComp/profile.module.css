@@ -81,6 +81,13 @@
     overflow: hidden;
     margin: 10% 0 5% 0;
     border: 2px solid black;
+    cursor: pointer;
+    position: relative;
+}
+
+.previewImage {
+    max-width: 100%;
+    aspect-ratio: 1/1;
 }
 
 .nameContainer div {
@@ -234,19 +241,26 @@
 
 .uploadBtnContainer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .vfRight {
     width: 38%;
+    height: 80%;
     border: 1px solid rgba(128, 128, 128, 0.3);
     background-color: rgba(128, 128, 128, 0.05);
     color: rgba(0, 0, 0, 0.7);
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    padding: 0;
+}
+
+.ico {
+    height: 20%;
 }
 
 .uploadBtn {
@@ -259,6 +273,11 @@
 
 .uploadBtn:hover {
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+.hide {
+    display: none;
+    height: 0;
 }
 
 
