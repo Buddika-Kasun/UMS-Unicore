@@ -32,7 +32,7 @@ const dashboard = async() => {
 
     <UserTable users1={user}/> */}
     {(role === 'Test' || role === 'System Admin') && <Dashboard user={user}/>}
-    <div> No Dashboard yet</div>
+    <div>Please verify you user role in the profile page</div>
 
     </>
   );
