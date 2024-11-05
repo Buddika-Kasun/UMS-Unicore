@@ -32,7 +32,8 @@ const dashboard = async() => {
 
     <UserTable users1={user}/> */}
     {(role === 'Test' || role === 'System Admin') && <Dashboard user={user}/>}
-    <div>Please verify you user role in the profile page</div>
+    {(role === 'guest') && <div>Please verify your user role in the profile page</div>}
+    {!(role === 'Test' || role === 'System Admin') && <div>Your are verified {role}, Dashboard are under maintain...</div>}
 
     </>
   );

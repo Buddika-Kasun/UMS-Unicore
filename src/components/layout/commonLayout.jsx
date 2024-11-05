@@ -13,8 +13,8 @@ import { toast } from "react-toastify";
 import { BiSolidLock, BiSolidLockOpen } from "react-icons/bi";
 import handleMiddlewareMsg from "@/util/handleMiddlewareMsg";
 
-const CommonLayout = ({children, sessionData, sessionExpiry}) => {
-    //console.log(sessionData,sessionExpiry);
+const CommonLayout = ({children, sessionData, sessionExpiry, userPic}) => {
+    //console.log(userPic.profilePicUrl);
 
     const currentPath = usePathname();
 
@@ -93,7 +93,7 @@ const CommonLayout = ({children, sessionData, sessionExpiry}) => {
             }
 
             <div className={style.header}>
-                <Header hamClick={hamClick} setHamClick={setHamClick} sessionData={sessionData} clickedPath={handleClickedPath}/>
+                <Header hamClick={hamClick} setHamClick={setHamClick} sessionData={sessionData} clickedPath={handleClickedPath} userPic={userPic.profilePicUrl} />
             </div>
 
             <div

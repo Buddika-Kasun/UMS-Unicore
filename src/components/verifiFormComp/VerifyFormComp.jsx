@@ -29,7 +29,7 @@ const LocationForm = ({reqUser}) => {
       _id:reqUser._id,
       role:role,
       type:role,
-      verification: { state: "approved" }
+      "verification.state": "approved",
     }
 
     try{
