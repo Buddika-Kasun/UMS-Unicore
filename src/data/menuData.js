@@ -11,7 +11,36 @@ const menuData = [
                 path: "/dashboard",
                 icon: HiOutlinePresentationChartBar,
                 haveSubmenu: false,
-                permission: ["System Admin", "Staff", "Library Staff", "Students", "Administrators", "User"]  // Assuming all roles can access Dashboard
+                permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators", "Guest"]  // Assuming all roles can access Dashboard
+            },
+            {
+                name: "Setup",
+                description: "Setup",
+                path: "/setup",
+                icon: HiOutlineCog,
+                haveSubmenu: true,
+                submenu: [
+                    {
+                        name: "Create Faculty",
+                        path: "/setup/createFaculty",
+                        permission: ["System Admin"]
+                    },
+                    {
+                        name: "Create Cost Center",
+                        path: "/setup/createCostCenter",
+                        permission: ["System Admin"]
+                    },
+                    {
+                        name: "Create Lists",
+                        path: "/setup/createList",
+                        permission: ["System Admin"]
+                    },
+                    {
+                        name: "Pending Users",
+                        path: "/setup/pendingUsers",
+                        permission: ["System Admin"]
+                    }
+                ]
             }
         ]
     },
@@ -25,8 +54,19 @@ const menuData = [
                 description: "General Administration Masters",
                 path: "/gestor/master",
                 icon: HiOutlineCog,
-                haveSubmenu: false,
-                permission: ["System Admin"]
+                haveSubmenu: true,
+                submenu: [
+                    {
+                        name: "Create Locations",
+                        path: "/gestor/master/createLocation",
+                        permission: ["System Admin"]
+                    },
+                    {
+                        name: "Create Sub Locations",
+                        path: "/gestor/master/createSubLocation",
+                        permission: ["System Admin"]
+                    },
+                ]
             },
             {
                 name: "InfraGestor",
@@ -77,17 +117,17 @@ const menuData = [
                     {
                         name: "View Catalogs",
                         path: "/gestor/LibraryPro/view-catalogs",
-                        permission: ["Library Staff", "Students"]
+                        permission: ["Library Staff", "Student"]
                     },
                     {
                         name: "Reserve Items",
                         path: "/gestor/LibraryPro/reserve-items",
-                        permission: ["Students", "Staff"]
+                        permission: ["Student", "Staff"]
                     },
                     {
                         name: "Remove Reservation",
                         path: "/gestor/LibraryPro/remove-reservation",
-                        permission: ["Library Staff", "Students", "Staff"]
+                        permission: ["Library Staff", "Student", "Staff"]
                     },
                     {
                         name: "View Reservations",
@@ -156,7 +196,7 @@ const menuData = [
                     {
                         name: "View Group",
                         path: "/Nexus/unicoreOpus/view-group",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -170,12 +210,12 @@ const menuData = [
                     {
                         name: "Create Post",
                         path: "/Nexus/unicoreSpace/create-post",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     },
                     {
                         name: "Create Clubs/Groups",
                         path: "/Nexus/unicoreSpace/create-clubs-groups",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -189,12 +229,12 @@ const menuData = [
                     {
                         name: "Academia Folder",
                         path: "/Nexus/unicoreAcademia/academia-folder",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     },
                     {
                         name: "Academia",
                         path: "/Nexus/unicoreAcademia/academia",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -208,7 +248,7 @@ const menuData = [
                     {
                         name: "Create and Participate",
                         path: "/Nexus/unicoreForums/create-and-participate",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             }

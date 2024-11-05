@@ -15,7 +15,7 @@ const profile = async() => {
 
   const existingUser = await findUserByEmail(email);
 
-   console.log(existingUser);
+  //console.log(existingUser);
 
   const user = {
     firstName: existingUser.name,
@@ -26,10 +26,13 @@ const profile = async() => {
     role: existingUser.role,
     createdDate: existingUser.createdDate,
     loginDate: existingUser.loginDate,
-    profilePicture: "Profile Picture", // You can replace this with an image URL
+    dp: existingUser.profilePicUrl,
+    //vf: existingUser.verification.verifyImgUrl
+    ...(existingUser.verification?.verifyImgUrl && { vf: existingUser.verification.verifyImgUrl })
   };
 
-  return <Profile user={user} />;
+  return <Profile user={user}/>;
+
 }
 
 export default profile;

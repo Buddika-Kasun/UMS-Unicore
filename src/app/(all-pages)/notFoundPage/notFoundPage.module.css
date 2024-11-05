@@ -9,6 +9,10 @@
     height: 100vh; /* Make sure the height is 100% of the viewport height */
 }
 
+.container * {
+    /* border: 1px solid red; */
+}
+
 .four_zero_four_bg {
     background: url(../../../../public/404.gif) no-repeat center center;
     background-size: contain; /* Adjust to 'cover' if you want the gif to cover the container */
@@ -17,17 +21,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    margin-top: 100px;
+    z-index: 0;
 }
 
 .four_zero_four_bg h1 {
     font-size: 80px;
     text-align: center;
-    margin-top: 80px; /* Adjust margin to align text properly */
+    margin-top: 80px; 
+    position: absolute;
+    top: -70px;
 }
 
 .content_box_404 {
     text-align: center;
     margin-top: -100px;
+    z-index: 2;
+    position: relative;
 }
 
 .content_box_404 h3 {

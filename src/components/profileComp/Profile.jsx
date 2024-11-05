@@ -1,9 +1,12 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./profile.module.css";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { MdEdit } from "react-icons/md";
 
-const Profile = ({ user: initialUser }) => {
+const Profile = ({ user: initialUser, }) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const [user, setUser] = useState(initialUser);
@@ -17,22 +20,130 @@ const Profile = ({ user: initialUser }) => {
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
-  const optionsDate = {
-    weekday: 'long',    // Full day name (e.g., Sunday)
-    year: 'numeric',    // Full year (e.g., 2024)
-    month: 'long',      // Full month name (e.g., May)
-    day: 'numeric',     // Day of the month (e.g., 8)
-  };
-  const formattedDateF = new Date(user.createdDate).toLocaleDateString('en-GB', optionsDate);
-  const formattedDateL = new Date(user.loginDate).toLocaleDateString('en-GB', optionsDate);
+  const [type, setType] = useState(user.type);
+  const [verifyType, setVerifyType] = useState("NIC");
 
-  const optionsTime = {
-    hour: '2-digit',    // Two-digit hour (e.g., 08)
-    minute: '2-digit',  // Two-digit minute (e.g., 30)
-    hour12: true,      // Use 12-hour format
+  const handleUpload = async(e) => {
+    e.preventDefault();
+
+    handleUploadVF();
+
+    try {
+      const data = {type, verifyType, email: user.email, createdDate: Date.now()};
+
+      const res = await axios.post('/api/pages/profile', data);
+
+      if (res.status === 201) {
+        //console.log(res.data.message);//
+        // setIsLoading(false);
+        toast.success(res.data.message, {
+            autoClose: 2000,
+            //onClose: () => {
+            //    route.push('/profile');
+            //}
+        });
+      }
+    }
+    catch(err) {
+      console.log(err);
+    }
+  }
+
+  const [formattedDateF, setFormattedDateF] = useState("");
+  const [formattedDateL, setFormattedDateL] = useState("");
+  const [formattedTimeF, setFormattedTimeF] = useState("");
+  const [formattedTimeL, setFormattedTimeL] = useState("");
+
+  useEffect(() => {
+    const optionsDate = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    const optionsTime = {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    };
+
+    setFormattedDateF(new Date(user.createdDate).toLocaleDateString('en-GB', optionsDate));
+    setFormattedDateL(new Date(user.loginDate).toLocaleDateString('en-GB', optionsDate));
+    setFormattedTimeF(new Date(user.createdDate).toLocaleTimeString('en-GB', optionsTime));
+    setFormattedTimeL(new Date(user.loginDate).toLocaleTimeString('en-GB', optionsTime));
+  }, []);
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(user.dp || null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file));  // Create a preview URL for the selected image
+    }
   };
-  const formattedTimeF = new Date(user.createdDate).toLocaleTimeString('en-GB', optionsTime);
-  const formattedTimeL = new Date(user.loginDate).toLocaleTimeString('en-GB', optionsTime);
+
+  const handleUploadDP = async () => {
+    if (!selectedFile) {
+      toast.warning("Please select a photo");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", selectedFile);  // Match the key used in backend
+    formData.append("userEmail", user.email); // Include user email to identify in backend
+
+    try {
+      const response = await axios.post("/api/pages/profile/dp", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });//console.log(response.data.url)
+
+      if (response.data && response.data.url) {
+        setUser((prevUser) => ({ ...prevUser, profilePicUrl: response.data.url }));
+        toast.success("Profile picture uploaded successfully!", { autoClose: 2000 });
+      }
+    } catch (error) {
+      //console.error("Error uploading avatar:", error);
+      toast.error("Failed to upload avatar. Please try again.", { autoClose: 2000 });
+    }
+  };
+
+  const [selectedFileVF, setSelectedFileVF] = useState(null);
+  const [previewVF, setPreviewVF] = useState(user.vf || null);
+
+  const handleFileChangeVF = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFileVF(file);
+      setPreviewVF(URL.createObjectURL(file));  // Create a preview URL for the selected image
+    }
+  };
+
+  const handleUploadVF = async () => {
+    if (!selectedFileVF) {
+      toast.warning("Please select a photo");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("vrfyImg", selectedFileVF);  // Match the key used in backend
+    formData.append("userEmail", user.email); // Include user email to identify in backend
+
+    try {
+      const response = await axios.put("/api/pages/profile/dp", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });//console.log(response.data.url)
+
+      if (response.data && response.data.url) {
+        setUser((prevUser) => ({ ...prevUser, profilePicUrl: response.data.url }));  //
+        //toast.success("Profile picture uploaded successfully!", { autoClose: 2000 });
+      }
+    } catch (error) {
+      //console.error("Error uploading avatar:", error);
+      toast.error("Failed to upload verify photo. Please try again.", { autoClose: 2000 });
+    }
+  };
 
   return (
     <div className={style.container}>
@@ -40,12 +151,24 @@ const Profile = ({ user: initialUser }) => {
       <div className={style.bodyContainer}>
         <div className={style.left}>
           <div className={style.dpContainer}>
-            <div className={style.dp}>Profile Picture</div>
+            <div className={style.con}>
+            <label className={style.dp}>
+              {!preview && "Click to add"}
+              {!preview && <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>}
+              {preview && <img src={preview} alt="Profile Preview" className={style.previewImage} />}
+            </label>
+            {preview && <label className={style.edit}>
+                <MdEdit/>
+                <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>
+              </label>}
+            </div>
             <div className={style.nameContainer}>
               <div className={style.nameMain}>{user.firstName} {user.lastName}</div>
               <div className={style.roleMain}>{user.role}</div>
             </div>
-            <div className={style.dpBtn}>Upload avatar</div>
+            <button className={style.dpBtn} onClick={handleUploadDP}>
+              Upload avatar
+            </button>
           </div>
           <div className={style.accessContainer}>
             <div className={style.accessBox}>
@@ -122,7 +245,7 @@ const Profile = ({ user: initialUser }) => {
                 <div className={style.vfLeft}>
                   <div className={style.formGroup4}>
                     <label htmlFor="role">Role</label>
-                    <select>
+                    <select value={type} onChange={(e) => setType(e.target.value)}>
                         <option value="System Admin">System Admin</option>
                         <option value="Student">Student</option>
                         <option value="Staff">Staff</option>
@@ -133,17 +256,28 @@ const Profile = ({ user: initialUser }) => {
                   </div>
                   <div className={style.formGroup4}>
                     <label htmlFor="vrify">Verify from</label>
-                    <select>
-                      <option>Student ID</option>
-                      <option>NIC</option>
-                      <option>Driving licence</option>
+                    <select value={verifyType || ''} onChange={(e) => setVerifyType(e.target.value)}>
+                      <option value="Student ID">Student ID</option>
+                      <option value="NIC">NIC</option>
+                      <option value="Driving licence">Driving licence</option>
                     </select>
                   </div>
                   <div className={style.uploadBtnContainer}>
-                    <div className={style.uploadBtn}>Upload</div>
+                    <div className={style.uploadBtn} onClick={handleUpload}>Upload</div>
                   </div>
                 </div>
-                <div className={style.vfRight}>Add</div>
+                <div className={style.conVF}>
+                <label className={style.vfRight}>
+                  {!previewVF && 'Click to add'}
+                  {!previewVF && <input type="file" accept="image/*" onChange={handleFileChangeVF} className={style.hide}/>}
+                  {previewVF && <img src={previewVF} alt="Preview Image" className={style.previewImageVF} />}
+                </label>
+                {previewVF && <label className={style.editVF}>
+                    <MdEdit/>
+                    <input type="file" accept="image/*" onChange={handleFileChangeVF} className={style.hide}/>
+                  </label>}
+                </div>
+                {/* <div className={style.vfRight}>Add</div> */}
               </div>
             </form>
           </div>

@@ -24,7 +24,7 @@ const userSchema = new Schema({
     role: {
         // required: true,
         type: String,
-        default: "guest", // Assign default value
+        default: "Guest", // Assign default value
     },
     createdDate: {
         type: Date,
@@ -33,7 +33,29 @@ const userSchema = new Schema({
     loginDate: {
         type: Date,
         default: Date.now,
-    }
+    },
+    profilePicUrl: {
+        type: String,
+    },
+    verification: {
+        state: {
+            type: String,
+            default: "none",
+        },
+        type: {
+            type: String,
+        },
+        image: {
+            type: String,
+        },
+        createDate: {
+            type: Date,
+            default: Date.now,
+        },
+        verifyImgUrl: {
+            type: String,
+        }
+    },
 });
 
 export const User = models.User || model("User", userSchema);
