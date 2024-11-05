@@ -282,6 +282,13 @@ padding: 10px 0;
     width: 100%;
   }
 
+  .image {
+    width: 400px;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .statsContainer {
