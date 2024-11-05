@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import styles from './reserItem.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
 import { toast } from 'react-toastify';
 import SubLoading from '../loading/SubLoading';
 import axios from 'axios';
@@ -167,43 +167,52 @@ const ListFormComp = ({data, method, user, facultys}) => {
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
-
+        {/* Title */}
         <h2 className={styles.title}>
             {(method === "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
             {(method === "Update") ? "Update" : "Create"} List
         </h2>
 
-        <div className={styles.docInfo}>
+        {/* Document Section */}
+        <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" className={styles.input} value={formData.docID} disabled/>
+            <input type="text" className={styles.inputField2} value={formData.docID} disabled/>
           </div>
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" className={styles.input} value={formData.docDate} disabled/>
+            <input type="text" className={styles.inputField2} value={formData.docDate} disabled/>
           </div>
         </div>
-
       </div>
 
       <div className={styles.container}>
 
-        <div className={styles.buttonRow}>
-          <div className={styles.buttonGroup}>
+        {/* Buttons Row */}
+        <div className={styles.buttonGroup}>
           {(method === "Create") && <button className={styles.button} onClick={visit}>List View</button>}
-          {(method === "Create") &&  <button className={styles.button} onClick={() => {formReset(formData.docID)}}>New</button>}
+          {(method === "Create") &&  <button className={styles.button} onClick={() => {formReset(formData.docID)}}>Clear all</button>}
           {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
           {(method === "Update") &&  <button className={styles.button} onClick={listReset}>Clear List</button>}
-            <button className={styles.button} onClick={handleSave} >{(method === "Update") ? "Update" : "Save"}</button>
-          </div>
+          <button className={styles.button} onClick={handleSave} >{(method === "Update") ? "Update" : "Save"}</button>
         </div>
 
-        <form className={styles.form}>
-          {/* Left side inputs */}
+        {/* Form Fields */}
+        <div className={styles.formBody2}>
+        
+          <div className={styles.formGroup}>
+            <label>List Code</label>
+            <input type="text" className={styles.inputField2} placeholder="Type list code here" name='listCode' value={formData.listCode} onChange={handleChange} disabled={method === "Update"}/>
+          </div>
 
           <div className={styles.formGroup}>
+            <label>List Description</label>
+            <input type="text" className={styles.inputField2} placeholder="Type list description here" name='listDscrp' value={formData.listDscrp} onChange={handleChange} disabled={method === "Update"} />
+          </div>
+          
+          <div className={styles.formGroup}>
             <label>Faculty</label>
-            <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === "Update"} >
+            <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} disabled={method === "Update"} >
             <option value="" disabled>Select Faculty</option>
             <option value="All">All</option>
               {facultys.map((faculty, index) => (
@@ -211,40 +220,30 @@ const ListFormComp = ({data, method, user, facultys}) => {
               ))}
             </select>
           </div>
-
-          <div className={styles.formGroup}>
-            <label>List Code</label>
-            <input type="text" className={styles.input} placeholder="Type list code here" name='listCode' value={formData.listCode} onChange={handleChange} disabled={method === "Update"}/>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label>List Description</label>
-            <input type="text" className={styles.input} placeholder="Type list description here" name='listDscrp' value={formData.listDscrp} onChange={handleChange} disabled={method === "Update"} />
-          </div>
-
-          {/* Right side inputs */}
+        
           {(method === "Update") && <><div className={styles.formGroup}>
             <label>Modified By</label>
-            <input type="text" className={styles.input} name='modifiedBy' value={formData.modifiedBy} disabled />
+            <input type="text" className={styles.inputField2} name='modifiedBy' value={formData.modifiedBy} disabled />
           </div>
 
           <div className={styles.formGroup}>
             <label>Modified Date</label>
-            <input type="text" className={styles.input} name='modifiedDate' value={formData.modifiedDate} disabled />
+            <input type="text" className={styles.inputField2} name='modifiedDate' value={formData.modifiedDate} disabled />
           </div></>}
 
-          <div className={styles.formGroup}>
+          {/* Active Status with Radio Buttons */}
+          <div className={styles.formGroupActive}>
             <label>Active?</label>
-            <div className={styles.inlineGroup}>
-              <label className={styles.radio}>
+            <div className={styles.activeOptions}>
+              <label>
                 <input type="radio" name="active" value="Yes" checked={formData.active === 'Yes'} onChange={handleChange} /> Yes
               </label>
-              <label className={styles.radio}>
+              <label>
                 <input type="radio" name="active" value="No" checked={formData.active === 'No'} onChange={handleChange} /> No
               </label>
             </div>
           </div>
-        </form>
+        </div>
 
         {/* Table */}
         <div className={styles.tableContainer}>

@@ -6,7 +6,7 @@ import { doLogOut } from "@/app/api/action";
 import { FaRegUserCircle } from "react-icons/fa";
 import Link from "next/link";
 
-const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
+const Header = ({hamClick, setHamClick, sessionData, clickedPath, userPic}) => {
 
     const [profileClick, setProfileClick] = useState(false);
 
@@ -71,7 +71,8 @@ const Header = ({hamClick, setHamClick, sessionData, clickedPath}) => {
                 <div>{sessionData.name}</div>
 
                 <div className={style.profileBtn} onClick={() => setProfileClick(pre=> !pre)}>
-                    <FaRegUserCircle className={style.profileIcon}/>
+                    {!userPic && <FaRegUserCircle className={style.profileIcon}/> }
+                    {userPic && <img src={userPic} alt='a'className={style.image} />}
                 </div>
             </div>
 

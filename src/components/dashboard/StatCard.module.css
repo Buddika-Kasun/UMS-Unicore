@@ -1,0 +1,23 @@
+.card {
+  background-color: #006BFF;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 150px;
+  text-align: center;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardValue {
+  font-size: 1.5rem;
+}
+
+.cardChange {
+  font-size: 0.875rem;
+  color: #ffffff;
+}

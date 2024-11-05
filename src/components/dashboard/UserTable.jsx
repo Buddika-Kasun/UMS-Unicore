@@ -18,9 +18,9 @@ const UserTable = ({users1}) => {
         }
     };
 
-    // useEffect(() => {
-    //     fetchUsers();
-    // }, []);
+    /* useEffect(() => {
+         fetchUsers();
+     }, []); */
 
     const onDelete = async(e, id) => {
         console.log(id);
@@ -63,7 +63,7 @@ const UserTable = ({users1}) => {
             </tr>
             </thead>
             <tbody>
-                {users.map((user, index) => (
+                {users && users.map((user, index) => (
                     <tr key={index}>
                         <td>{user.name}</td>
                         <td>{user.role}</td>

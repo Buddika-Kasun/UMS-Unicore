@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import styles from './pendingUsers.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
+//import styles from './pendingUsers.module.css';
 import Link from 'next/link';
 
 const PendingUsersComp = ({users,facultys}) => {
@@ -29,10 +30,14 @@ const PendingUsersComp = ({users,facultys}) => {
 
     return (
         <>
+        <div className={styles.header}>
         <h2 className={styles.title}>Pending for User Creation</h2>
+        </div>
+
         <div className={styles.container}>
-        {/* Parameters Section */}
-            <div className={styles.parametersSection}>
+
+        {/* Form Fields */}
+            <div className={styles.formBody}>
                 <div className={styles.formGroup}>
                 <label>Faculty Name</label>
                 <select
@@ -68,7 +73,6 @@ const PendingUsersComp = ({users,facultys}) => {
                     <option value="Staff">Staff</option>
                     <option value="Library Staff">Library Staff</option>
                     <option value="Administrators">Administrators</option>
-                    <option value="Test">Test</option>
                 </select>
                 </div>
             </div>

@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import styles from './SubLocation.module.css';
+import styles from '@/styles/formCompsStyles.module.css';
+//import styles from './SubLocation.module.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import SubLoading from '../loading/SubLoading';
@@ -233,40 +234,41 @@ const CreateSubLocation = (
     <>
       {isloading && <SubLoading />}
       <div className={styles.header}>
+        {/* Title */}
         <h2 className={styles.title}>
           {(method == "Update") && <button className={styles.backBtn} onClick={visit}><HiArrowLeft /></button>}
           {(method == "Update")? "Update" : "Create"} Sub Location
         </h2>
 
-        <div className={styles.docInfo}>
+        {/* Document Section */}
+        <div className={styles.docSection}>
           <div className={styles.formGroup}>
             <label>Doc ID</label>
-            <input type="text" className={styles.input} value={formData.docID} disabled  />
+            <input type="text" className={styles.inputField2} value={formData.docID} disabled  />
           </div>
           <div className={styles.formGroup}>
             <label>Doc Date</label>
-            <input type="text" className={styles.input} value={formData.docDate} disabled/>
+            <input type="text" className={styles.inputField2} value={formData.docDate} disabled/>
           </div>
         </div>
       </div>
 
       <div className={styles.container}>
 
-        {/* Button Group */}
-        <div className={styles.buttonRow}>
-          <div className={styles.buttonGroup}>
-            {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
-            {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
-            <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
-            <button className={styles.button} onClick={handleSave}>{(method == "Update")? "Update" : "Save"}</button>
-          </div>
+        {/* Button Row */}
+        <div className={styles.buttonGroup}>
+          {(method == "Create") && <button className={styles.button} onClick={visit}>List View</button>}
+          {(method == "Update") && <button className={styles.button} onClick={goNew}>New</button>}
+          <button className={styles.button} onClick={() => formReset(formData.docID)}>Clear all</button>
+          <button className={styles.button} onClick={handleSave}>{(method == "Update")? "Update" : "Save"}</button>
         </div>
 
-        <form className={styles.form}>
-          {/* Faculty */}
+        {/* Form Fields */}
+        <form className={styles.formBody2}>
+          
           <div className={styles.formGroup}>
             <label>Faculty</label>
-            <select className={styles.input} name='faculty' value={formData.faculty} onChange={handleChange} >
+            <select className={styles.inputField2} name='faculty' value={formData.faculty} onChange={handleChange} >
               <option value="" disabled>Select Faculty</option>
               <option value="All">All</option>
               {facultys.map((faculty, index) => (
@@ -275,10 +277,9 @@ const CreateSubLocation = (
             </select>
           </div>
 
-          {/* Location Name */}
           <div className={styles.formGroup}>
             <label>Location Name</label>
-            <select className={styles.input} name='locationName' value={formData.locationName} onChange={handleChange}>
+            <select className={styles.inputField2} name='locationName' value={formData.locationName} onChange={handleChange}>
               {filteredLocations.length > 0 ? (
                 <>
                   <option value="" disabled>Select Location</option>
@@ -296,58 +297,53 @@ const CreateSubLocation = (
             </select>
           </div>
 
-          {/* Sublocation Name */}
           <div className={styles.formGroup}>
             <label>Sublocation Name</label>
-            <input type="text" className={styles.input} name='subLocationName' value={formData.subLocationName} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter sublocation name' name='subLocationName' value={formData.subLocationName} onChange={handleChange} />
           </div>
 
-          {/* Sublocation Code */}
           <div className={styles.formGroup}>
             <label>Sublocation Code</label>
-            <input type="text" className={styles.input} name='subLocationCode' value={formData.subLocationCode} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter sublocation code' name='subLocationCode' value={formData.subLocationCode} onChange={handleChange} />
           </div>
 
           {/* Stock Location */}
-          <div className={styles.formGroup}>
+          <div className={styles.formGroupActive}>
             <label>Stock Location</label>
-            <div className={styles.inlineGroup}>
-              <label className={styles.radio}>
+            <div className={styles.activeOptions}>
+              <label>
                 <input type="radio" name="stockLoc" value="Yes" checked={formData.stockLoc === 'Yes'} onChange={handleChange} /> Yes
               </label>
-              <label className={styles.radio}>
+              <label>
                 <input type="radio" name="stockLoc" value="No" checked={formData.stockLoc === 'No'} onChange={handleChange} /> No
               </label>
             </div>
           </div>
 
-          {/* Hall Capacity */}
           {(formData.stockLoc === 'No') && <div className={styles.formGroup}>
             <label>Hall Capacity</label>
-            <input type="text" className={styles.input} name='hallCap' value={formData.hallCap} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter hall capacity' name='hallCap' value={formData.hallCap} onChange={handleChange} />
           </div>}
 
-          {/* Rack No */}
           {(formData.stockLoc === 'Yes') && <><div className={styles.formGroup}>
             <label>Rack No</label>
-            <input type="text" className={styles.input} name='rackNo' value={formData.rackNo} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter rack number' name='rackNo' value={formData.rackNo} onChange={handleChange} />
           </div>
 
-          {/* Bin No */}
           <div className={styles.formGroup}>
             <label>Bin No</label>
-            <input type="text" className={styles.input} name='binNo' value={formData.binNo} onChange={handleChange} />
+            <input type="text" className={styles.inputField2} placeholder='Enter bin number' name='binNo' value={formData.binNo} onChange={handleChange} />
           </div>
           </>}
 
-          {/* Active */}
-          <div className={styles.formGroup}>
+          {/* Active Status with Radio Buttons */}
+          <div className={styles.formGroupActive}>
             <label>Active?</label>
-            <div className={styles.inlineGroup}>
-              <label className={styles.radio}>
+            <div className={styles.activeOptions}>
+              <label>
                 <input type="radio" name="active" value="Yes" checked={formData.active === 'Yes'} onChange={handleChange} /> Yes
               </label>
-              <label className={styles.radio}>
+              <label>
                 <input type="radio" name="active" value="No" checked={formData.active === 'No'} onChange={handleChange} /> No
               </label>
             </div>

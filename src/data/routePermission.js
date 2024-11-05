@@ -18,63 +18,63 @@ const routeData = [
     },
     {
         path: "/gestor/InfraGestor/reservations",
-        permission: ["Staff"]
+        permission: ["Staff","System Admin"]
     },
     {
         path: "/gestor/InfraGestor/cancel-reservation",
-        permission: ["Staff"]
+        permission: ["Staff","System Admin"]
     },
     {
         path: "/gestor/InfraGestor/view-resource-utilization",
-        permission: ["Administrators"]
+        permission: ["Administrators","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/register-new-users",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/create-items",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/catalogs",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/view-catalogs",
-        permission: ["Library Staff", "Student"]
+        permission: ["Library Staff", "Student","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/reserve-items",
-        permission: ["Student", "Staff"]
+        permission: ["Student", "Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/remove-reservation",
-        permission: ["Library Staff", "Student", "Staff"]
+        permission: ["Library Staff", "Student", "Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/view-reservations",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/checkout-items",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/renew-items",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/checkin-items",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/view-stock-count",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/gestor/LibraryPro/view-user-engagement",
-        permission: ["Library Staff"]
+        permission: ["Library Staff","System Admin"]
     },
     {
         path: "/Nexus/masters",
@@ -82,31 +82,31 @@ const routeData = [
     },
     {
         path: "/Nexus/unicoreOpus/create-group",
-        permission: ["Staff"]
+        permission: ["Staff","System Admin"]
     },
     {
         path: "/Nexus/unicoreOpus/view-group",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreSpace/create-post",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreSpace/create-clubs-groups",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreAcademia/academia-folder",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreAcademia/academia",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/Nexus/unicoreForums/create-and-participate",
-        permission: ["User"]
+        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
     },
     {
         path: "/performanceInsight/masters",
@@ -114,31 +114,31 @@ const routeData = [
     },
     {
         path: "/performanceInsight/unicore-goals/set-goals",
-        permission: ["Administrators"]
+        permission: ["Administrators","System Admin"]
     },
     {
         path: "/performanceInsight/unicore-goals/monitor-goals",
-        permission: ["Administrators"]
+        permission: ["Administrators","System Admin"]
     },
     {
         path: "/performanceInsight/unicore-goals/update-achievements",
-        permission: ["Staff"]
+        permission: ["Staff","System Admin"]
     },
     {
         path: "/performanceInsight/unicore-career-path/schedule-trainings",
-        permission: ["Administrators"]
+        permission: ["Administrators","System Admin"]
     },
     {
         path: "/performanceInsight/unicore-career-path/view-high-performance-members",
-        permission: ["Administrators"]
+        permission: ["Administrators","System Admin"]
     },
     {
         path: "/performanceInsight/unicore-delight/send-feedback-forms",
-        permission: ["Staff"]
+        permission: ["Staff","System Admin"]
     },
     {
         path: "/performanceInsight/unicore-delight/analyze-student-feedbacks",
-        permission: ["Administrators"]
+        permission: ["Administrators","System Admin"]
     },
     {
         path: "/setup/createFaculty",
@@ -175,23 +175,35 @@ const routeData = [
     },
     {
         path: "/api/pages/users",
-        permission: ["Test"]
+        permission: ["Test","System Admin","Staff"]
     },
     {
         path: "/api/pages/gestor/master",
-        permission: ["System Admin"]
+        permission: ["System Admin","Test","Staff"]
     },
     {
         path: "/api/pages/setup/createCostCenter",
-        permission: [""]
+        permission: ["System Admin","Test","Staff"]
     },
     {
-        path: "/api/pages/setup/createCostCenter",
-        permission: [""]
+        path: "/api/pages/setup/createFaculty",
+        permission: ["System Admin","Test","Staff"]
     },
     {
         path: "/api/pages/setup/createList",
-        permission: [""]
+        permission: ["System Admin","Test","Staff"]
+    },
+    {
+        path: "/api/pages/gestor/InfraGestor/reservations",
+        permission: ["Staff","System Admin","Test"]
+    },
+    {
+        path: "/api/pages/gestor/InfraGestor/cancelRes",
+        permission: ["Staff","System Admin","Test"]
+    },
+    {
+        path: "/api/pages/gestor/InfraGestor/utilization",
+        permission: ["Staff","System Admin","Test"]
     }
 ];
 

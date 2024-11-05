@@ -2,6 +2,8 @@
 
 import { auth } from "@/app/api/auth/auth";
 import CommonLayout from "@/components/layout/commonLayout";
+import { dbConnect } from "@/lib/mongo";
+import { User } from "@/model/user-model";
 import { redirect } from "next/navigation";
 
 const Layout = async({children}) => {
@@ -17,8 +19,14 @@ const Layout = async({children}) => {
         redirect("/authPages?mode=login");
     }
 
+    const email = session.user.email;
+
+    await dbConnect();
+
+    const pic = await User.findOne({email: email}, {profilePicUrl: 1, _id:0});
+
     return (
-        <CommonLayout sessionData={session?.user} sessionExpiry={timeLeft}>
+        <CommonLayout sessionData={session?.user} sessionExpiry={timeLeft} userPic={pic}>
             {children}
         </CommonLayout>
     )

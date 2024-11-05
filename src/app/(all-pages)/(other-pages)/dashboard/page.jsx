@@ -1,7 +1,8 @@
 "use server"
 
-import UserTable from "@/components/userTableComp/UserTable";
-import styles from "./dashboard.module.css";
+import { auth } from "@/app/api/auth/auth";
+import Dashboard from "@/components/dashboard/Dashboard";
+import UserTable from "@/components/dashboard/UserTable";
 import { dbConnect } from "@/lib/mongo";
 import { User } from "@/model/user-model";
 
@@ -11,7 +12,7 @@ const dashboard = async() => {
 
   const user = await User.find({},{_id: 1, name: 1, role:1});
 
-  // console.log("user = ", user);
+  //console.log("user = ", user.role);
 
   // const users = [
   //   { id: 1, name: 'John Doe', role: 'Admin' },
@@ -19,11 +20,20 @@ const dashboard = async() => {
   //   { id: 3, name: 'Alice Brown', role: 'Student' },
   // ];
 
+  const session = await auth();
+
+  const role = session.user.role;
+
+  //console.log("role = ", role);
+
   return (
     <>
-    <div>dashboard</div>
+    {/* <div>dashboard</div>
 
-    <UserTable users1={user}/>
+    <UserTable users1={user}/> */}
+    {(role === 'Test' || role === 'System Admin') && <Dashboard user={user}/>}
+    {(role === 'Guest') && <div>Please verify your user role in the profile page</div>}
+    {!(role === 'Test' || role === 'System Admin') && <div>Your are verified {role}, Dashboard are under maintain...</div>}
 
     </>
   );

@@ -59,9 +59,9 @@ const SubLocationForm = async({ searchParams }) => {
     };
   }
 
-  const facultys = await Faculty.find({}, { facultyName: 1, facultyCode: 1, _id: 0 }).lean();
+  const facultys = await Faculty.find({Active: 'Yes'}, { facultyName: 1, facultyCode: 1, _id: 0 }).lean();
 
-  const locations = await Location.find({}, { locName: 1, faculty: 1, _id: 0 }).lean();
+  const locations = await Location.find({active: 'Yes'}, { locName: 1, faculty: 1, _id: 0 }).lean();
 
   const deps = await List.find({ listCode: 'DEP' }, { faculty: 1, details: 1, _id: 0 }).lean();
 

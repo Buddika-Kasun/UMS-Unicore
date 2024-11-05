@@ -8,6 +8,21 @@
     margin: auto;
 }
 
+.statsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.chartContainer {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
 .header {
 display: flex;
 justify-content: space-between;
@@ -44,7 +59,7 @@ gap: 10px;
 margin-bottom: 20px;
 }
 
-.button, .backBtn {
+.button, .backBtn, .rejectBtn {
 padding: 10px 20px;
 background-color: #007bff;
 color: white;
@@ -53,8 +68,17 @@ border-radius: 4px;
 cursor: pointer;
 }
 
-.button:hover, .backBtn:hover {
+.rejectBtn {
+background-color: #d9534f;
+color: white;
+}
+
+.button:hover, .backBtn:hover, .addBtn:hover {
 background-color: #0056b3;
+}
+
+.removeBtn:hover, .rejectBtn:hover {
+background-color: #c9302c;
 }
 
 .backBtn {
@@ -70,6 +94,18 @@ margin-right: 10px;
 .formBody {
 display: flex;
 flex-direction: column;
+}
+
+.formBody2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formBody3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
 }
 
 .formBody .formGroup {
@@ -88,17 +124,19 @@ margin-bottom: 8px;
 display: block;
 }
 
-.inputField {/*
-padding: 10px;
-border-radius: 4px;
-border: 1px solid #ccc;
-width: 50%;
-background-color: #fff; */
-
+.inputField {
 padding: 8px;
 border-radius: 4px;
 border: 1px solid #ccc;
 width: 50%;
+box-sizing: border-box;
+}
+
+.inputField2 {
+padding: 8px;
+border-radius: 4px;
+border: 1px solid #ccc;
+width: 100%;
 box-sizing: border-box;
 }
 
@@ -126,17 +164,153 @@ font-weight: normal;
 margin-right: 5px;
 }
 
+/* Table */
+.tableContainer {
+margin-top: 20px;
+overflow-x: auto;
+margin-bottom: 40px;
+}
+
+.table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+.table th,
+.table td,
+.pendingTable th,
+.pendingTable td {
+padding: 10px;
+border: 1px solid #ddd;
+text-align: center;
+}
+
+.table th,
+.pendingTable th {
+padding: 12px;
+background-color: #f1f1f1;
+}
+
+.tableList {
+width: calc(100% - 16px);
+border: none;
+outline: none;
+margin: 0 4px;
+padding: 4px 2px;
+}
+
+.table .noTD {
+border: none;
+padding: 10px 0;
+}
+
+.addBtn{
+    width: 100%;
+    margin: 5px 0;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+.resIdBtn{
+  padding: 10px 20px;
+  text-decoration: underline;
+  background-color: white;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+}
+
+.resIdBtn:hover{
+  color: #0056b3;
+}
+
+  .removeBtn{
+    width: 25px;
+    color: #fff;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+/* Table for pending requests */
+  .tableSection {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .pendingTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .pendingTable td a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .pendingTable td a:hover {
+    text-decoration: underline;
+  }
+
+  /*Charts*/
+  .chartsSection {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .chartsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .chart {
+    width: 63%;
+  }
+
+  .chart2 {
+    margin-top: 60px;
+    width: 100%;
+  }
+
+  .image {
+    width: 400px;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
 /* Responsive Styles */
 @media (max-width: 768px) {
+    .statsContainer {
+      flex-direction: column;
+    }
 
     .buttonGroup {
-        flex-direction: row;
+        flex-direction: row;/* 
         align-items: flex-start;
-        width: 50%;
+        width: 50%; */
     }
 
     .formBody {
         flex-direction: column;
+    }
+
+    .formBody2 {
+      grid-template-columns: 1fr;
+    }
+
+    .formBody3 {
+      grid-template-columns: 1fr;
     }
 
     .header{
@@ -145,6 +319,23 @@ margin-right: 5px;
 
     .inputField{
         width: 100%;
+    }
+
+    .table th,
+    .table td {
+      padding: 8px;
+    }
+
+    .pendingTable {
+        width: 100%;
+    }
+
+    .chartsContainer {
+      flex-direction: row;
+    }
+  
+    .chart {
+      width: 45%;
     }
 
 }

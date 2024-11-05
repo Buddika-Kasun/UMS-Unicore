@@ -9,7 +9,7 @@ const verificationPage = async({ searchParams }) => {
 
     const user = await User.find(
         { _id: id},
-        { 'verification.createDate': 1,'verification.type':1, faculty: 1, name: 1, type: 1, _id: 1 }
+        { 'verification.createDate': 1,'verification.type':1, 'verification.verifyImgUrl':1, faculty: 1, name: 1, type: 1, _id: 1 }
     ).lean();
 
     console.log(user)

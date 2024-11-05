@@ -23,22 +23,22 @@ const menuData = [
                     {
                         name: "Create Faculty",
                         path: "/setup/createFaculty",
-                        permission: ["Staff"]
+                        permission: ["System Admin"]
                     },
                     {
                         name: "Create Cost Center",
                         path: "/setup/createCostCenter",
-                        permission: ["Staff"]
+                        permission: ["System Admin"]
                     },
                     {
                         name: "Create Lists",
                         path: "/setup/createList",
-                        permission: ["Administrators"]
+                        permission: ["System Admin"]
                     },
                     {
                         name: "Pending Users",
                         path: "/setup/pendingUsers",
-                        permission: ["Administrators"]
+                        permission: ["System Admin"]
                     }
                 ]
             }
@@ -78,17 +78,17 @@ const menuData = [
                     {
                         name: "Reservations",
                         path: "/gestor/InfraGestor/reservations",
-                        permission: ["Staff"]
+                        permission: ["Staff","System Admin"]
                     },
                     {
                         name: "Cancel Reservation",
                         path: "/gestor/InfraGestor/cancel-reservation",
-                        permission: ["Staff"]
+                        permission: ["Staff","System Admin"]
                     },
                     {
                         name: "View Resource Utilization",
                         path: "/gestor/InfraGestor/view-resource-utilization",
-                        permission: ["Administrators"]
+                        permission: ["Administrators","System Admin"]
                     }
                 ]
             },
@@ -102,67 +102,67 @@ const menuData = [
                     {
                         name: "Register New Users",
                         path: "/gestor/LibraryPro/register-new-users",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "Create Items",
                         path: "/gestor/LibraryPro/create-items",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "Catalogs",
                         path: "/gestor/LibraryPro/catalogs",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "View Catalogs",
                         path: "/gestor/LibraryPro/view-catalogs",
-                        permission: ["Library Staff", "Student"]
+                        permission: ["Library Staff", "Student","System Admin"]
                     },
                     {
                         name: "Reserve Items",
                         path: "/gestor/LibraryPro/reserve-items",
-                        permission: ["Student", "Staff"]
+                        permission: ["Student", "Staff","System Admin"]
                     },
                     {
                         name: "Remove Reservation",
                         path: "/gestor/LibraryPro/remove-reservation",
-                        permission: ["Library Staff", "Student", "Staff"]
+                        permission: ["Library Staff", "Student", "Staff","System Admin"]
                     },
                     {
                         name: "View Reservations",
                         path: "/gestor/LibraryPro/view-reservations",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "CheckOut Items",
                         path: "/gestor/LibraryPro/checkout-items",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "Renew Items",
                         path: "/gestor/LibraryPro/renew-items",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "CheckIn Items",
                         path: "/gestor/LibraryPro/checkin-items",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "View Overdue Items",
                         path: "/gestor/LibraryPro/view-overdue-items",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "View Stock Count",
                         path: "/gestor/LibraryPro/view-stock-count",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     },
                     {
                         name: "View User Engagement",
                         path: "/gestor/LibraryPro/view-user-engagement",
-                        permission: ["Library Staff"]
+                        permission: ["Library Staff","System Admin"]
                     }
                 ]
             }
@@ -191,12 +191,12 @@ const menuData = [
                     {
                         name: "Create Group",
                         path: "/Nexus/unicoreOpus/create-group",
-                        permission: ["Staff"]
+                        permission: ["Staff","System Admin"]
                     },
                     {
                         name: "View Group",
                         path: "/Nexus/unicoreOpus/view-group",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -210,12 +210,12 @@ const menuData = [
                     {
                         name: "Create Post",
                         path: "/Nexus/unicoreSpace/create-post",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     },
                     {
                         name: "Create Clubs/Groups",
                         path: "/Nexus/unicoreSpace/create-clubs-groups",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -229,12 +229,12 @@ const menuData = [
                     {
                         name: "Academia Folder",
                         path: "/Nexus/unicoreAcademia/academia-folder",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     },
                     {
                         name: "Academia",
                         path: "/Nexus/unicoreAcademia/academia",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             },
@@ -248,7 +248,7 @@ const menuData = [
                     {
                         name: "Create and Participate",
                         path: "/Nexus/unicoreForums/create-and-participate",
-                        permission: ["User"]
+                        permission: ["System Admin", "Staff", "Library Staff", "Student", "Administrators"]
                     }
                 ]
             }
@@ -277,17 +277,17 @@ const menuData = [
                     {
                         name: "Set Goals",
                         path: "/performanceInsight/unicore-goals/set-goals",
-                        permission: ["Administrators"]
+                        permission: ["Administrators","System Admin"]
                     },
                     {
                         name: "Monitor Goals",
                         path: "/performanceInsight/unicore-goals/monitor-goals",
-                        permission: ["Administrators"]
+                        permission: ["Administrators","System Admin"]
                     },
                     {
                         name: "Update Achievements",
                         path: "/performanceInsight/unicore-goals/update-achievements",
-                        permission: ["Staff"]
+                        permission: ["Staff","System Admin"]
                     }
                 ]
             },
@@ -301,12 +301,12 @@ const menuData = [
                     {
                         name: "Schedule Trainings",
                         path: "/performanceInsight/unicore-career-path/schedule-trainings",
-                        permission: ["Administrators"]
+                        permission: ["Administrators","System Admin"]
                     },
                     {
                         name: "View High Performance Members",
                         path: "/performanceInsight/unicore-career-path/view-high-performance-members",
-                        permission: ["Administrators"]
+                        permission: ["Administrators","System Admin"]
                     }
                 ]
             },
@@ -320,12 +320,12 @@ const menuData = [
                     {
                         name: "Send Feedback Forms",
                         path: "/performanceInsight/unicore-delight/send-feedback-forms",
-                        permission: ["Staff"]
+                        permission: ["Staff","System Admin"]
                     },
                     {
                         name: "Analyze Student Feedbacks",
                         path: "/performanceInsight/unicore-delight/analyze-student-feedbacks",
-                        permission: ["Administrators"]
+                        permission: ["Administrators","System Admin"]
                     }
                 ]
             }

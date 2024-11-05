@@ -64,7 +64,7 @@ const createList = async({ searchParams }) => {
     };
   }
 
-  const facultys = await Faculty.find({}, { facultyName: 1, facultyCode: 1, _id: 0 }).lean();
+  const facultys = await Faculty.find({Active: 'Yes'}, { facultyName: 1, facultyCode: 1, _id: 0 }).lean();
 
   return (
     <ListFormComp data={formData} method={docID ? 'Update':'Create'} user={userName} facultys={facultys}/>
