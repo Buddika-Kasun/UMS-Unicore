@@ -29,9 +29,7 @@ const LocationForm = ({reqUser}) => {
       _id:reqUser._id,
       role:role,
       type:role,
-      verification: {
-        state: "approved",
-      }
+      verification: { state: "approved" }
     }
 
     try{
@@ -112,7 +110,9 @@ const LocationForm = ({reqUser}) => {
             <input type="text" className={styles.inputField2} value={reqUser.name} disabled />
           </div>
 
-          <div></div>
+          <div>
+            <img src={reqUser.verification.verifyImgUrl} alt="Preview Image" className={styles.image} />
+          </div>
 
           <div className={styles.buttonGroup}>
             <button className={styles.rejectBtn}>Reject</button>
