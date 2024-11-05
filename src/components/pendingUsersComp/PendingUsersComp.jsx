@@ -35,7 +35,7 @@ const PendingUsersComp = ({users,facultys}) => {
         </div>
 
         <div className={styles.container}>
-        
+
         {/* Form Fields */}
             <div className={styles.formBody}>
                 <div className={styles.formGroup}>
