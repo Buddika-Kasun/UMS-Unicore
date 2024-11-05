@@ -153,11 +153,14 @@ const Profile = ({ user: initialUser, }) => {
           <div className={style.dpContainer}>
             <div className={style.con}>
             <label className={style.dp}>
-              {!preview && "Profile Picture"}
+              {!preview && "Click to add"}
               {!preview && <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>}
               {preview && <img src={preview} alt="Profile Preview" className={style.previewImage} />}
             </label>
-            <div className={style.edit}><MdEdit/></div>
+            {preview && <label className={style.edit}>
+                <MdEdit/>
+                <input type="file" accept="image/*" onChange={handleFileChange} className={style.hide}/>
+              </label>}
             </div>
             <div className={style.nameContainer}>
               <div className={style.nameMain}>{user.firstName} {user.lastName}</div>
@@ -263,11 +266,17 @@ const Profile = ({ user: initialUser, }) => {
                     <div className={style.uploadBtn} onClick={handleUpload}>Upload</div>
                   </div>
                 </div>
+                <div className={style.conVF}>
                 <label className={style.vfRight}>
-                  {!previewVF && 'Add image'}
+                  {!previewVF && 'Click to add'}
                   {!previewVF && <input type="file" accept="image/*" onChange={handleFileChangeVF} className={style.hide}/>}
                   {previewVF && <img src={previewVF} alt="Preview Image" className={style.previewImageVF} />}
                 </label>
+                {previewVF && <label className={style.editVF}>
+                    <MdEdit/>
+                    <input type="file" accept="image/*" onChange={handleFileChangeVF} className={style.hide}/>
+                  </label>}
+                </div>
                 {/* <div className={style.vfRight}>Add</div> */}
               </div>
             </form>
