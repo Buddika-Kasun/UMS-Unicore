@@ -175,31 +175,35 @@ const routeData = [
     },
     {
         path: "/api/pages/users",
-        permission: ["Test","System Admin"]
+        permission: ["Test","System Admin","Staff"]
     },
     {
         path: "/api/pages/gestor/master",
-        permission: ["System Admin"]
+        permission: ["System Admin","Test","Staff"]
     },
     {
         path: "/api/pages/setup/createCostCenter",
-        permission: ["System Admin"]
+        permission: ["System Admin","Test","Staff"]
     },
     {
-        path: "/api/pages/setup/createCostCenter",
-        permission: ["System Admin"]
+        path: "/api/pages/setup/createFaculty",
+        permission: ["System Admin","Test","Staff"]
     },
     {
         path: "/api/pages/setup/createList",
-        permission: ["System Admin"]
+        permission: ["System Admin","Test","Staff"]
+    },
+    {
+        path: "/api/pages/gestor/InfraGestor/reservations",
+        permission: ["Staff","System Admin","Test"]
     },
     {
         path: "/api/pages/gestor/InfraGestor/cancelRes",
-        permission: ["Staff","System Admin"]
+        permission: ["Staff","System Admin","Test"]
     },
     {
         path: "/api/pages/gestor/InfraGestor/utilization",
-        permission: ["Staff","System Admin"]
+        permission: ["Staff","System Admin","Test"]
     }
 ];
 

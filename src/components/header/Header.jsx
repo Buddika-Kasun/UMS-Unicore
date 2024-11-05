@@ -71,8 +71,8 @@ const Header = ({hamClick, setHamClick, sessionData, clickedPath, userPic}) => {
                 <div>{sessionData.name}</div>
 
                 <div className={style.profileBtn} onClick={() => setProfileClick(pre=> !pre)}>
-                    {/* <FaRegUserCircle className={style.profileIcon}/> */}
-                    <img src={userPic} alt='a'className={style.image} />
+                    {!userPic && <FaRegUserCircle className={style.profileIcon}/> }
+                    {userPic && <img src={userPic} alt='a'className={style.image} />}
                 </div>
             </div>
 
