@@ -1,5 +1,6 @@
 "use server"
 
+import { auth } from "@/app/api/auth/auth";
 import Dashboard from "@/components/dashboard/Dashboard";
 import UserTable from "@/components/dashboard/UserTable";
 import { dbConnect } from "@/lib/mongo";
@@ -11,7 +12,7 @@ const dashboard = async() => {
 
   const user = await User.find({},{_id: 1, name: 1, role:1});
 
-  // console.log("user = ", user);
+  //console.log("user = ", user.role);
 
   // const users = [
   //   { id: 1, name: 'John Doe', role: 'Admin' },
@@ -19,12 +20,19 @@ const dashboard = async() => {
   //   { id: 3, name: 'Alice Brown', role: 'Student' },
   // ];
 
+  const session = await auth();
+
+  const role = session.user.role;
+
+  //console.log("role = ", role);
+
   return (
     <>
     {/* <div>dashboard</div>
 
     <UserTable users1={user}/> */}
-    <Dashboard user={user}/>
+    {(role === 'Test' || role === 'System Admin') && <Dashboard user={user}/>}
+    <div> No Dashboard yet</div>
 
     </>
   );
