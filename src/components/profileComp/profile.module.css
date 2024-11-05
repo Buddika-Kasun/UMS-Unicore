@@ -73,7 +73,8 @@
 }
 
 .dp {
-    max-width: 40%;
+    width: 150px;
+    height: 150px;
     aspect-ratio: 1/1;
     border-radius: 100%;
     display: flex;
@@ -93,29 +94,45 @@
     justify-content: center;
 }
 
-.edit {
+.conVF {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.edit, .editVF {
     width: 15px;
     aspect-ratio: 1/1;
     position: absolute;
-    bottom: 10px;
+    bottom: -5px;
     /* right: 15px; */
     background-color: black;
     color: white;
     font-size: 15px;
     align-items: center;
     justify-content: center;
-    border: none;
+    /* border: none; */
     border-radius: 100%;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 4px;
+    border: 2px solid white;
+}
+
+.editVF {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
 }
 
 .previewImage {
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
     aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .nameContainer div {
@@ -262,23 +279,27 @@
 }
 
 .vfRight {
-    width: 30%;
+    width: 250px;
     aspect-ratio: 2/1;
     border: 1px solid rgba(128, 128, 128, 0.3);
     background-color: rgba(128, 128, 128, 0.05);
     color: rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     padding: 0;
+    overflow: hidden;
+    position: relative;
 }
 
 .previewImageVF {
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
     aspect-ratio: 2/1;
+    object-fit: cover;
 }
 
 .uploadBtn {
