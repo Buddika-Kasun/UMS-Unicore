@@ -73,7 +73,6 @@ const PendingUsersComp = ({users,facultys}) => {
                     <option value="Staff">Staff</option>
                     <option value="Library Staff">Library Staff</option>
                     <option value="Administrators">Administrators</option>
-                    <option value="Test">Test</option>
                 </select>
                 </div>
             </div>

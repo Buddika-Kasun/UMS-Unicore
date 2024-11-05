@@ -251,7 +251,6 @@ const Profile = ({ user: initialUser, }) => {
                         <option value="Staff">Staff</option>
                         <option value="Library Staff">Library Staff</option>
                         <option value="Administrators">Administrators</option>
-                        <option value="Test">Test</option>
                     </select>
                   </div>
                   <div className={style.formGroup4}>
